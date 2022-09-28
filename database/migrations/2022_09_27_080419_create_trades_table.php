@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('interval');
             $table->date('date');
             $table->enum('type', ['fixed', 'in', 'out']);
-            $table->integer('percentUrssaf');
+            $table->integer('percent_urssaf');
             $table->text('label');
             $table->timestamps();
         });

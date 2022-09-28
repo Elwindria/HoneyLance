@@ -7,10 +7,10 @@
     <title>Document</title>
 </head>
 <body>
+    <livewire:toasts />
     <livewire:scripts />
     <livewire:styles />
-    <livewire:toasts />
-
+    
     <livewire:tags>
 </body>
 </html>

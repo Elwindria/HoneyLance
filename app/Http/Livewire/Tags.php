@@ -8,12 +8,13 @@ use Usernotnull\Toast\Concerns\WireToast;
 
 class Tags extends Component
 {
+    use WireToast;
     public $nameTag, $tag_id;
     public $isOpen = 0;
 
     public function render()
     {
-        $this->posts = Tag::all();
+        $this->allTag = Tag::all();
         return view('livewire.tags');
     }
 
@@ -45,8 +46,11 @@ class Tags extends Component
         Tag::updateOrCreate(['id' => $this->tag_id], $dataValid);
 
         toast()
-        ->success('Ajout d\' un nouveau post')
+        ->success('Ajout d\' un nouveau tag')
         ->push();
+
+        $this->closeModal();
+        $this->resetInputFields();
     }
 
     public function cancel()
