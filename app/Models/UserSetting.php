@@ -5,10 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class urssafSettings extends Model
+class UserSetting extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'percentage', 'description'
+        'salary', 'fav_percent', 'date_start'
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 }

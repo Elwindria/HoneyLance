@@ -16,11 +16,11 @@
         <h1>Profil utilisateur</h1>
         <div class="mt-16">
             <div>
-                <label for="prefUrssaf">Poucentage Urssaf préféré</label>
-                <input type="text" id="prefUrssaf" wire:model="prefUrssaf">
-                @error('prefUrssaf') <span class="text-danger">{{ $message }}</span>@enderror
+                <label for="fav_urssaf">Poucentage Urssaf préféré</label>
+                <input type="text" id="fav_urssaf" wire:model="fav_urssaf">
+                @error('fav_urssaf') <span class="text-danger">{{ $message }}</span>@enderror
             </div>
-            <button wire:click="prefUrssaf" class="btn btn-primary btn-sm">valider</button>
+            <button wire:click="fav_urssaf" class="btn btn-primary btn-sm">valider</button>
         </div>
     </div>
 </body>

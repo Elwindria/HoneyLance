@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class UserSettings extends Component
 {
-    public $prefUrssaf;
+    public $fav_percent;
 
     public function render()
     {
@@ -15,12 +15,10 @@ class UserSettings extends Component
 
     public function prefUrssaf()
     {
-        $this->validate([
-            'prefUrssaf' => 'required'
+        $validate = $this->validate([
+            'fav_percent' => 'required'
         ]);
    
-        UserSettings::updateOrCreate(['id' => $this->post_id], [
-            'prefUrssaf' => $this->prefUrssaf,
-        ]);
+        UserSettings::updateOrCreate(['id' => auth()->user()->id], $validate);
     }
 }

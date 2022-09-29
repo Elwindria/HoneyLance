@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('user_settings', function (Blueprint $table) {
             $table->id();
-            $table->integer('salary');
-            $table->float('fav_percent', 3, 2);
-            $table->date('date_start');
-            $table->foreignId('urssaf_setting_id');
+            $table->integer('salary')->nullable();
+            $table->float('fav_percent', 3, 2)->nullable();
+            $table->date('date_start')->nullable();
+            $table->foreignId('urssaf_setting_id')->nullable();
             $table->timestamps();
         });
     }
