@@ -8,5 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class settings extends Model
 {
     use HasFactory;
-    
+    protected $fillable = [
+        'salary', 'fav_percent', 'date_start'
+    ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 }
