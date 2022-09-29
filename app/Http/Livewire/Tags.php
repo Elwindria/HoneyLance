@@ -9,7 +9,7 @@ use Usernotnull\Toast\Concerns\WireToast;
 class Tags extends Component
 {
     use WireToast;
-    public $nameTag, $tag_id;
+    public $name, $tag_id;
     public $isOpen = 0;
 
     public function render()
@@ -29,7 +29,7 @@ class Tags extends Component
     }
 
     private function resetInputFields(){
-        $this->nameTag = '';
+        $this->name = '';
     }
 
     public function new()
@@ -40,7 +40,7 @@ class Tags extends Component
     public function store()
     {
         $dataValid = $this->validate([
-            'nameTag' =>'required'
+            'name' =>'required'
         ]);
 
         Tag::updateOrCreate(['id' => $this->tag_id], $dataValid);

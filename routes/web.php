@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Index;
+use App\Http\Livewire\UserSettings;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [Index::class, 'render'])->name('index');
+Route::get('/user-settings', [UserSettings::class, 'render'])->name('userSettings');
 
 Route::middleware([
     'auth:sanctum',

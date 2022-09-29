@@ -9,6 +9,6 @@ class Tag extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nameTag'
+        'name'
     ];
 }

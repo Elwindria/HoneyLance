@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('urssaf_settings', function (Blueprint $table) {
             $table->id();
-            $table->integer('percentage');
+            $table->float('percentage', 3, 2);
             $table->text('description');
             $table->timestamps();
         });
