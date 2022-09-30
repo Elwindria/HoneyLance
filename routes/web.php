@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [Index::class, 'render'])->name('index');
-Route::get('/user-settings', [UserSettings::class, 'render'])->name('userSettings');
+Route::get('/', Index::class)->name('index');
+
 Route::get('/redirect', [RedirectController::class, 'index'])->name('redirect');
 
 Route::middleware([
@@ -28,4 +28,5 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::get('/user-settings', UserSettings::class)->name('user-settings');
 });

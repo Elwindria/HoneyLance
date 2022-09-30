@@ -15,22 +15,17 @@
 
         <!-- Styles -->
         @livewireStyles
+        @toastScripts
     </head>
     <body class="font-sans antialiased">
-        <x-jet-banner />
-
-        <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
-
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
-
+        <livewire:toasts />
+        <div class="bg-gray-100">
+            <div class="relative flex items-top justify-center bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                    <a href="{{ route('user-settings') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Paramètres utilisateur</a>
+                    <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>           
+                </div>
+            </div>
             <!-- Page Content -->
             <main>
                 {{ $slot }}
