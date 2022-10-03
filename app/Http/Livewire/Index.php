@@ -12,10 +12,4 @@ class Index extends Component
     {
         return view('livewire.index');
     }
-
-    public function isOpen()
-    {
-        $this->isOpen = true;
-        // dd('hello world');
-    }
 }

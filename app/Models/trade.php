@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class trade extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'cost', 'interval', 'date', 'type', 'percent_urssaf', 'label'
+    ];
 }
