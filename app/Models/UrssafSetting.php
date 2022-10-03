@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Database\Factories\Administration\UrssafSettingFactory;
+use Database\Factories\UrssafSettingFactory;
 
 class UrssafSetting extends Model
 {
