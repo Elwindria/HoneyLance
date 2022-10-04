@@ -7,6 +7,10 @@ use App\Models\UserSetting;
 
 class RedirectController extends Controller
 {
+
+    //Redirect = Créer toutes les tables utiles (userSettings par exemple) lors de la création d'un new User pour éviter les error 404 après.
+    //Redirect est invoquer par app/providers/routeServiceProvider.php (une fois que les user sont co)
+
     public function index()
     {
         switch (auth()->user()->grade) {

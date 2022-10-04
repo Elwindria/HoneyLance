@@ -1,4 +1,4 @@
-<div class="flex flex-col justify-center w-4/12">
+<div class="flex flex-col gap-6 w-4/12 m-auto mt-10">
     <div class="flex flex-col justify-center">
         <label for="fav_percent">Pourcentage Urssaf par défaut</label>
         <input type="number" min='0' max='100' step='0.01' id="fav_percent" wire:model.debounce.500ms='fav_percent' value="{{ ('fav_percent') }}">
