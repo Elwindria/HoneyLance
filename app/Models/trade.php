@@ -9,6 +9,6 @@ class trade extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'cost', 'interval', 'date', 'type', 'percent_urssaf', 'label'
+        'cost', 'interval', 'date', 'type', 'urssaf_percent', 'name', 'user_id'
     ];
 }

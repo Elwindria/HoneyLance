@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('trades', function (Blueprint $table) {
             $table->id();
             $table->integer('cost');
-            $table->integer('interval');
+            $table->integer('interval')->nullable();
             $table->date('date');
             $table->enum('type', ['fixed', 'in', 'out']);
-            $table->float('percent_urssaf', 5,2);
-            $table->text('label');
+            $table->float('urssaf_percent', 5,2)->nullable();
+            $table->text('name');
             $table->foreignId('user_id');
             $table->timestamps();
         });

@@ -3,20 +3,31 @@
 namespace App\Http\Livewire;
 
 use App\Models\UserSetting;
+use App\Models\UrssafSetting;
 use Livewire\Component;
 use Usernotnull\Toast\Concerns\WireToast;
 
 class UserSettings extends Component
 {
     use WireToast;
-    public $fav_percent, $user_settings, $salary, $date_start;
+    public $fav_percent, $user_setting, $salary, $date_start, $urssaf_settings_percent, $urssaf_settings_description, $urssaf_settings, $message_user_setting;
 
     public function mount()
     {
-        $user_settings = UserSetting::findOrFail(auth()->user()->id);
-        $this->fav_percent = $user_settings->fav_percent;
-        $this->salary = $user_settings->salary;
-        $this->date_start = $user_settings->date_start;
+        $user_setting = UserSetting::find(auth()->user()->user_setting_id);
+        
+        if($user_setting !== null)
+        {
+            $this->fav_percent = $user_setting->fav_percent;
+            $this->salary = $user_setting->salary;
+            $this->date_start = $user_setting->date_start;
+
+            $this->message_user_setting = null;
+            //Diff all() et get() = get() tu peux ajouter des options à ta request SQL, alors que all() tu fais un select * puis ton serveur trie, mais tu n'utilises donc pas sql. Pas ouf niveau opti
+            $this->urssaf_settings = UrssafSetting::orderBy('percentage')->get();
+        } else {
+            $this->message_user_setting = 'Une erreur est survenue. Nous n\'avons pas trouver vos paramètres par défaut';
+        }
     }
 
     public function render()
@@ -30,7 +41,7 @@ class UserSettings extends Component
             'fav_percent' => ['required', 'numeric', 'max:100', 'Min:0']
         ]);
 
-        UserSetting::updateOrCreate(['id' => auth()->user()->id], $dataValide);
+        UserSetting::updateOrCreate(['id' => auth()->user()->user_setting_id], $dataValide);
 
         toast()
         ->success("Le pourcentage Urssaf à utiliser par défaut à été modifié")
@@ -43,7 +54,7 @@ class UserSettings extends Component
             'salary' => ['required', 'numeric', 'Min:0']
         ]);
 
-        UserSetting::updateOrCreate(['id' => auth()->user()->id], $dataValide);
+        UserSetting::updateOrCreate(['id' => auth()->user()->user_setting_id], $dataValide);
 
         toast()
         ->success("Salaire modifié")
@@ -56,7 +67,7 @@ class UserSettings extends Component
             'date_start' => ['required', 'date']
         ]);
 
-        UserSetting::updateOrCreate(['id' => auth()->user()->id], $dataValide);
+        UserSetting::updateOrCreate(['id' => auth()->user()->user_setting_id], $dataValide);
 
         toast()
         ->success("Date de début d'activité changée")

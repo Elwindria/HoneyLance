@@ -3,15 +3,71 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Models\UserSetting;
+use App\Models\UrssafSetting;
+use App\Models\Trade;
 use Usernotnull\Toast\Concerns\WireToast;
 
 class Trades extends Component
 {
     use WireToast;
-    
+    public $type, $type_trade, $name, $cost, $interval, $date, $urssaf_percent, $fav_percent, $urssaf_settings, $user_setting, $user_id;
+
+    public function mount()
+    {
+        $user_setting = UserSetting::find(auth()->user()->user_setting_id);
+        $this->fav_percent = $user_setting->fav_percent;
+        $this->urssaf_settings = UrssafSetting::orderBy('percentage')->get();
+    }
 
     public function render()
     {
         return view('livewire.trade')->layout('layouts.app');
+    }
+
+    private function resetImputFields()
+    {
+        $this->name = '';
+        $this->cost = '';
+        $this->date = '';
+        $this->urssaf_percent = '';
+        $this->interval = '';
+    }
+
+    public function type($type)
+    {
+        $this->type_trade = $type;
+    }
+
+    public function newTrade()
+    {
+        $dataValide = $this->validate([
+            'cost' => ['required', 'numeric', 'Min:0'],
+            'name' => ['required', 'string'],
+            'date' => ['required', 'date'],
+        ]);
+
+        $merged = array_merge($dataValide, ['user_id' => auth()->user()->id], ['type' => $this->type_trade]);
+
+        if($this->type_trade == 'in'){
+            $dataValide = $this->validate([
+                'urssaf_percent' => ['required', 'numeric', 'Min:0', 'Max:100'],
+            ]);
+            $merged = array_merge($merged, $dataValide);
+
+        }elseif($this->type_trade == 'fixed'){
+            $dataValide = $this->validate([
+                'interval' => ['required', 'numeric', 'Min:0'],
+            ]);
+            $merged = array_merge($merged, $dataValide);
+        }
+
+        Trade::create($merged);
+
+        $this->resetImputFields();
+
+        toast()
+        ->success("Nouvelle transaction ajoutée avec succès.")
+        ->push();
     }
 }
