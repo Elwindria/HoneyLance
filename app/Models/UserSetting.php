@@ -9,7 +9,7 @@ class UserSetting extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'salary', 'fav_percent', 'date_start'
+        'salary', 'urssaf_setting_id', 'date_start'
     ];
 
     public function user()

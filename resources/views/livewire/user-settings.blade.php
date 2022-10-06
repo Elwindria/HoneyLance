@@ -1,14 +1,14 @@
 <div class="flex flex-col gap-6 w-4/12 m-auto mt-10">
     @if($this->message_user_setting === null)
         <div class="flex flex-col justify-center">
-            <label for="fav_percent">Pourcentage Urssaf par défaut</label>
-            <select name="fav_percent" id="fav_percent" wire:model.debounce.500ms='fav_percent'>
+            <label for="urssaf_setting_id">Pourcentage Urssaf par défaut</label>
+            <select name="urssaf_setting_id" id="urssaf_setting_id" wire:model.debounce.500ms='urssaf_setting_id'>
                 <option value="">--SVP Choissisez une option--</option>
                 @foreach($this->urssaf_settings as $urssaf_setting)
-                    <option value="{{ $urssaf_setting->percentage }}">{{ $urssaf_setting->percentage }}% - {{ $urssaf_setting->description }}</option>
+                    <option value="{{ $urssaf_setting->id }}">{{ $urssaf_setting->percentage }}% - {{ $urssaf_setting->description }}</option>
                 @endforeach
             </select>
-            @error('fav_percent') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
+            @error('urssaf_setting_id') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
         </div>
         <div class="flex flex-col justify-center">
             <label for="salary">Salaire</label>

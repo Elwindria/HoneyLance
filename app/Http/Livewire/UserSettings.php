@@ -10,7 +10,7 @@ use Usernotnull\Toast\Concerns\WireToast;
 class UserSettings extends Component
 {
     use WireToast;
-    public $fav_percent, $user_setting, $salary, $date_start, $urssaf_settings_percent, $urssaf_settings_description, $urssaf_settings, $message_user_setting;
+    public $urssaf_setting_id, $user_setting, $salary, $date_start, $urssaf_settings_percent, $urssaf_settings_description, $urssaf_settings, $message_user_setting;
 
     public function mount()
     {
@@ -18,7 +18,7 @@ class UserSettings extends Component
         
         if($user_setting !== null)
         {
-            $this->fav_percent = $user_setting->fav_percent;
+            $this->urssaf_setting_id = $user_setting->urssaf_setting_id;
             $this->salary = $user_setting->salary;
             $this->date_start = $user_setting->date_start;
 
@@ -35,10 +35,10 @@ class UserSettings extends Component
         return view('livewire.user-settings')->layout('layouts.app');
     }
 
-    public function updatedFavPercent()
+    public function updatedUrssafSettingId()
     {
         $dataValide = $this->validate([
-            'fav_percent' => ['required', 'numeric', 'max:100', 'Min:0']
+            'urssaf_setting_id' => ['required']
         ]);
 
         UserSetting::updateOrCreate(['id' => auth()->user()->user_setting_id], $dataValide);

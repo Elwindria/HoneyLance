@@ -11,18 +11,18 @@ use Usernotnull\Toast\Concerns\WireToast;
 class Trades extends Component
 {
     use WireToast;
-    public $type, $type_trade, $name, $cost, $interval, $date, $urssaf_percent, $fav_percent, $urssaf_settings, $user_setting, $user_id;
+    public $type, $type_trade, $name, $cost, $interval, $date, $urssaf_percent, $fav_percent, $urssaf_setting, $user_setting, $user_id;
 
     public function mount()
     {
         $user_setting = UserSetting::find(auth()->user()->user_setting_id);
-        $this->fav_percent = $user_setting->fav_percent;
-        $this->urssaf_settings = UrssafSetting::orderBy('percentage')->get();
+        $this->urssaf_percent = $user_setting->urssaf_setting_id;
     }
 
     public function render()
     {
-        return view('livewire.trade')->layout('layouts.app');
+        $urssaf_settings = UrssafSetting::orderBy('percentage')->get();
+        return view('livewire.trade', compact('urssaf_settings'))->layout('layouts.app');
     }
 
     private function resetImputFields()
@@ -51,8 +51,12 @@ class Trades extends Component
 
         if($this->type_trade == 'in'){
             $dataValide = $this->validate([
-                'urssaf_percent' => ['required', 'numeric', 'Min:0', 'Max:100'],
+                'urssaf_percent' => ['required']
             ]);
+
+            $percentage = UrssafSetting::find($dataValide['urssaf_percent'])->percentage;
+
+            $dataValide['urssaf_percent'] = $percentage;
             $merged = array_merge($merged, $dataValide);
 
         }elseif($this->type_trade == 'fixed'){

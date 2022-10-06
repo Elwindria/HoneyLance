@@ -28,13 +28,8 @@
                 <label for="urssaf_percent">Urssaf</label>
                 <select name="urssaf_percent" id="urssaf_percent" wire:model='urssaf_percent'>
                     <option>-- Choissisez une option SVP --</option>
-                    @foreach($this->urssaf_settings as $urssaf_setting)
-                        @if($urssaf_setting->percentage == $this->fav_percent){
-                            <option value="{{ $urssaf_setting->percentage }}" selected>{{ $urssaf_setting->percentage }}% - {{ $urssaf_setting->description }}</option>
-                        }@else{
-                            <option value="{{ $urssaf_setting->percentage }}">{{ $urssaf_setting->percentage }}% - {{ $urssaf_setting->description }}</option>
-                        }
-                        @endif
+                    @foreach( $urssaf_settings as $urssaf_setting)
+                            <option value="{{ $urssaf_setting->id }}">{{ $urssaf_setting->percentage }}% - {{ $urssaf_setting->description }}</option>
                     @endforeach
                 </select>
                 @error('urssaf_percent') <span class="text-sm text-red-600">{{ $message }}</span>@enderror

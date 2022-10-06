@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('user_settings', function (Blueprint $table) {
             $table->id();
             $table->integer('salary')->nullable();
-            $table->float('fav_percent', 5, 2)->nullable();
             $table->date('date_start')->nullable();
             $table->foreignId('urssaf_setting_id')->nullable();
             $table->timestamps();
