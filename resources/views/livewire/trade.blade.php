@@ -1,6 +1,6 @@
 <div class='flex flex-col gap-6 w-4/12 m-auto mt-10'>
     <div class="hidden sm:block">
-          <div class="flex space-x-3">
+          <div class="flex justify-center gap-10">
             <!-- Current: "bg-indigo-100 text-indigo-700", Default: "text-gray-500 hover:text-gray-700" -->
             <button wire:click="type('in')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Entrée</button>
             <button wire:click="type('out')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Sortie</button>

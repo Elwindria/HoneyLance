@@ -22,6 +22,7 @@ class Trades extends Component
     public function render()
     {
         $urssaf_settings = UrssafSetting::orderBy('percentage')->get();
+        //compact permet de faire passer des variable (ici : urssaf_settings) dans la vue. Vaut mieux faire ça car dans mount(), refresh à chaque changement... Pas ouf niveau opti 
         return view('livewire.trade', compact('urssaf_settings'))->layout('layouts.app');
     }
 
