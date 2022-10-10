@@ -13,6 +13,11 @@ class Tag extends Model
         'name_tag'
     ];
 
+    public function trades()
+    {
+        return $this->belongsToMany(Trade::class);
+    }
+
     /**
      * Create a new factory instance for the model.
      *
@@ -22,5 +27,10 @@ class Tag extends Model
     protected static function newFactory()
     {
         return TagFactory::new();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

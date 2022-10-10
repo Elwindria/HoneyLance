@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\UserSetting;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Tag;
 
-class TagSeeder extends Seeder
+class UserSettingSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,8 +15,8 @@ class TagSeeder extends Seeder
      */
     public function run()
     {
-        Tag::newFactory()
-                ->count(30)
-                ->create();
+        UserSetting::newFactory()
+        ->count(10)
+        ->create();
     }
 }

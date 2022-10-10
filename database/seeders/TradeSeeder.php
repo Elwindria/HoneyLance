@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Tag;
+use App\Models\Trade;
 
-class TagSeeder extends Seeder
+class TradeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,8 +15,8 @@ class TagSeeder extends Seeder
      */
     public function run()
     {
-        Tag::newFactory()
-                ->count(30)
-                ->create();
+        Trade::newFactory()
+        ->count(30)
+        ->create();
     }
 }

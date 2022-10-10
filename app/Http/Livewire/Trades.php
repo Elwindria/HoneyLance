@@ -12,6 +12,7 @@ class Trades extends Component
 {
     use WireToast;
     public $type, $type_trade, $name, $cost, $interval, $date, $urssaf_percent, $fav_percent, $urssaf_setting, $user_setting, $user_id;
+    public $selected_tags = [];
 
     public function mount()
     {
@@ -42,6 +43,8 @@ class Trades extends Component
 
     public function newTrade()
     {
+        dd($this->selected_tags);
+
         $dataValide = $this->validate([
             'cost' => ['required', 'numeric', 'Min:0'],
             'name' => ['required', 'string'],
@@ -55,6 +58,7 @@ class Trades extends Component
                 'urssaf_percent' => ['required']
             ]);
 
+            // on récupère l'id dans form. Donc faut chercher dans UrsssafSetting le percentage lié à cet id
             $percentage = UrssafSetting::find($dataValide['urssaf_percent'])->percentage;
 
             $dataValide['urssaf_percent'] = $percentage;

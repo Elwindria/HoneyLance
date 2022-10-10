@@ -41,6 +41,14 @@
                 @error('interval') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
             </div>
         @endif
+        <div class="flex justify-center">
+            <div>
+                @foreach(auth()->user()->tags as $tag)
+                <input type=checkbox name="name" wire:model='selected_tags' value="{{ $tag->name_tag }}">
+                <label for="name">{{ $tag->name_tag }}</label>
+                @endforeach
+            </div>
+        </div>
         <div class="flex flex-col justify-center">
             <button wire:click='newTrade()' class="bg-indigo-100 text-indigo-700 rounded-md">Valider</button>
         </div>

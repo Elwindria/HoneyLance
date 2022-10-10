@@ -9,13 +9,14 @@ use Usernotnull\Toast\Concerns\WireToast;
 class Tags extends Component
 {
     use WireToast;
-    public $name, $tag_id;
+    public $name_tag, $tag_id;
     public $isOpen = 0;
+    public $selected_tags = [];
 
     public function render()
     {
-        $this->allTag = Tag::all();
-        return view('livewire.tags');
+        $all_tag = Tag::get();
+        return view('livewire.tags', compact('all_tag'));
     }
 
     public function openModal()
@@ -29,7 +30,7 @@ class Tags extends Component
     }
 
     private function resetInputFields(){
-        $this->name = '';
+        $this->name_tag = '';
     }
 
     public function new()
@@ -40,14 +41,10 @@ class Tags extends Component
     public function store()
     {
         $dataValid = $this->validate([
-            'name' =>'required'
+            'name_tag' =>'required'
         ]);
 
-        Tag::updateOrCreate(['id' => $this->tag_id], $dataValid);
-
-        toast()
-        ->success('Ajout d\' un nouveau tag')
-        ->push();
+        Tag::updateOrCreate(['name_tag' => $this->name_tag], $dataValid);
 
         $this->closeModal();
         $this->resetInputFields();

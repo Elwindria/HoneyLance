@@ -16,7 +16,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UrssafSettingSeeder::class,
+            UserSettingSeeder::class,
+            UserSeeder::class,
+            TradeSeeder::class,
             TagSeeder::class,
+            TagTradeSeeder::class,
         ]);
     }
 }

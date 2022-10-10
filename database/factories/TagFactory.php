@@ -26,6 +26,7 @@ class TagFactory extends Factory
     {
         return [
             'name_tag' => fake()->word(),
+            'user_id' => fake()->randomDigitNotNull(),
         ];
     }
 }

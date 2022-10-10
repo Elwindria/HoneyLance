@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tags', function (Blueprint $table) {
-            $table->id();
-            $table->string('name_tag');
-            $table->foreignId('user_id');
+        Schema::create('tag_trade', function (Blueprint $table) {
+            $table->foreignId('tag_id');
+            $table->foreignId('trade_id');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tags');
+        Schema::dropIfExists('tag_trade');
     }
 };
