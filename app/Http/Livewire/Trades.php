@@ -43,7 +43,6 @@ class Trades extends Component
 
     public function newTrade()
     {
-        dd($this->selected_tags);
 
         $dataValide = $this->validate([
             'cost' => ['required', 'numeric', 'Min:0'],
@@ -71,7 +70,10 @@ class Trades extends Component
             $merged = array_merge($merged, $dataValide);
         }
 
-        Trade::create($merged);
+        //Créer un new trade 
+        $create_trade = Trade::create($merged);
+        //Créer le lien entre trades et tags (table pivot)
+        $create_trade->tags()->attach($this->selected_tags);
 
         $this->resetImputFields();
 

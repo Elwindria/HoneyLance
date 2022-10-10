@@ -70,9 +70,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Tag::class);
     }
-
-    protected static function newFactory()
-    {
-        return UserFactory::new();
-    }
 }

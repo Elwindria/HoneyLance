@@ -6,7 +6,9 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Tag;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -20,7 +22,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'admin',
             'email' => 'admin@admin.com',
-            'password' => '1234@abcd',
+            'password' => Hash::make('1234@abcd'),
             'grade' => 'user',
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
@@ -29,8 +31,9 @@ class UserSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        User::newFactory()
-                ->count(9)
-                ->create();
+        User::factory()
+            ->count(9)
+            ->hasTags(3)
+            ->create();
     }
 }

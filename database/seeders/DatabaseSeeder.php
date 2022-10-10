@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             TradeSeeder::class,
             TagSeeder::class,
-            TagTradeSeeder::class,
+            // TagTradeSeeder::class,
         ]);
     }
 }

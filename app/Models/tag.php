@@ -10,23 +10,12 @@ class Tag extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name_tag'
+        'name_tag', 'user_id',
     ];
 
     public function trades()
     {
         return $this->belongsToMany(Trade::class);
-    }
-
-    /**
-     * Create a new factory instance for the model.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-
-    protected static function newFactory()
-    {
-        return TagFactory::new();
     }
 
     public function user()

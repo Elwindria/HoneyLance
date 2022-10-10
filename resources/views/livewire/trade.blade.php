@@ -44,9 +44,10 @@
         <div class="flex justify-center">
             <div>
                 @foreach(auth()->user()->tags as $tag)
-                <input type=checkbox name="name" wire:model='selected_tags' value="{{ $tag->name_tag }}">
+                <input type=checkbox name="name" wire:model='selected_tags' value="{{ $tag->id }}">
                 <label for="name">{{ $tag->name_tag }}</label>
                 @endforeach
+                <a href="{{ route('tags') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Gérer les tags</a>
             </div>
         </div>
         <div class="flex flex-col justify-center">
