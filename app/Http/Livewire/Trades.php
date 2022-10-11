@@ -7,6 +7,7 @@ use App\Models\UserSetting;
 use App\Models\UrssafSetting;
 use App\Models\Trade;
 use Usernotnull\Toast\Concerns\WireToast;
+use Illuminate\Http\Request;
 
 class Trades extends Component
 {
@@ -16,6 +17,13 @@ class Trades extends Component
 
     public function mount()
     {
+        $this->name = session('name');
+        $this->cost = session('cost');
+        $this->date = session('date');
+        $this->interval = session('interval');
+        $this->type_trade = session('type');
+        $this->selected_tags = session('selected_tags');
+
         $user_setting = UserSetting::find(auth()->user()->user_setting_id);
         $this->urssaf_percent = $user_setting->urssaf_setting_id;
     }
@@ -23,7 +31,7 @@ class Trades extends Component
     public function render()
     {
         $urssaf_settings = UrssafSetting::orderBy('percentage')->get();
-        //compact permet de faire passer des variable (ici : urssaf_settings) dans la vue. Vaut mieux faire ça car dans mount(), refresh à chaque changement... Pas ouf niveau opti 
+        //compact permet de faire passer des variable (ici : urssaf_settings) dans la vue. Vaut mieux faire ça car dans mount(), refresh à chaque changement... Pas ouf niveau opti
         return view('livewire.trade', compact('urssaf_settings'))->layout('layouts.app');
     }
 
@@ -33,11 +41,13 @@ class Trades extends Component
         $this->cost = '';
         $this->date = '';
         $this->interval = '';
+        $this->selected_tags = '';
     }
 
-    public function type($type)
+    public function switchType($type)
     {
         $this->type_trade = $type;
+        session(['type' => $this->type_trade]);
     }
 
     public function newTrade()
@@ -69,22 +79,21 @@ class Trades extends Component
             $merged = array_merge($merged, $dataValide);
         }
 
-        //Créer un new trade 
+        //Créer un new trade
         $create_trade = Trade::create($merged);
         //Créer le lien entre trades et tags (table pivot)
         $create_trade->tags()->attach($this->selected_tags);
 
         $this->resetImputFields();
+        session()->forget(['name', 'cost', 'interval', 'date', 'type', 'selected_tags']);
 
         toast()
         ->success("Nouvelle transaction ajoutée avec succès.")
         ->push();
     }
 
-    //Updated for Session START :
-
-    public function updatedName()
+    public function updating($name, $value)
     {
-        session(['key' => 'value']);
+        session([$name => $value]);
     }
 }

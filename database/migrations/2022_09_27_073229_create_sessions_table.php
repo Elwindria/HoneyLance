@@ -20,12 +20,6 @@ return new class extends Migration
             $table->text('user_agent')->nullable();
             $table->longText('payload');
             $table->integer('last_activity')->index();
-            $table->string('trade_name')->nullable();
-            $table->integer('trade_cost')->nullable();
-            $table->integer('trade_interval')->nullable();
-            $table->date('trade_date')->nullable();
-            $table->enum('trade_type', ['fixed', 'in', 'out'])->nullable();
-            $table->float('trade_urssaf_percent', 5,2)->nullable();
         });
     }
 
