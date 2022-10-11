@@ -32,7 +32,6 @@ class Trades extends Component
         $this->name = '';
         $this->cost = '';
         $this->date = '';
-        $this->urssaf_percent = '';
         $this->interval = '';
     }
 
@@ -80,5 +79,12 @@ class Trades extends Component
         toast()
         ->success("Nouvelle transaction ajoutée avec succès.")
         ->push();
+    }
+
+    //Updated for Session START :
+
+    public function updatedName()
+    {
+        session(['key' => 'value']);
     }
 }

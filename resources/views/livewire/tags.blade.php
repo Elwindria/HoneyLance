@@ -1,4 +1,4 @@
-<div>
+<div class='flex flex-col gap-6 w-4/12 m-auto mt-10'>
     @if($isOpen)
         <div>
             <label for="name_tag">Nom</label>

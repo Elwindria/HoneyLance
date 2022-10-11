@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('date');
             $table->enum('type', ['fixed', 'in', 'out']);
             $table->float('urssaf_percent', 5,2)->nullable();
-            $table->text('name');
+            $table->string('name');
             $table->foreignId('user_id');
             $table->timestamps();
         });

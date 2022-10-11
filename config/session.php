@@ -59,7 +59,7 @@ return [
     |
     */
 
-    'files' => storage_path('framework/sessions'),
+    'database' => storage_path('framework/sessions'),
 
     /*
     |--------------------------------------------------------------------------
