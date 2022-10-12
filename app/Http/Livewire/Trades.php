@@ -112,6 +112,8 @@ class Trades extends Component
             ->success("Nouvelle transaction ajoutée avec succès.")
             ->push();
         } else {
+
+            //On n'est plus en mode edit, on retourne au résumé de tous les trades
             $this->edit = false;
             $this->type_trade = null;
 
@@ -137,8 +139,12 @@ class Trades extends Component
         $this->edit = true;
         $this->trade_id = $trade_id;
 
+        //Trouve le trade sélectionné (grâce à son id) puis tous ses tags
         $trade = Trade::find($trade_id);
         $tags = $trade->tags;
+
+        //trouve l'id du urssaf_percent du trade
+        $urssaf_percent = UrssafSetting::where('percentage', $trade->urssaf_percent)->get();
 
         //si il y a au moins un tag alors array des id de ces tags, sinon vide
         if($tags->isNotEmpty()){
@@ -149,6 +155,13 @@ class Trades extends Component
             $selected_tags = "";
         }
 
+        //si il y a un urssaf_percent (un trad in) alors cherche l'id, sinon vide
+        if($urssaf_percent->isNotEmpty()){
+            $urssaf_percent_id = $urssaf_percent[0]->id;
+        } else {
+            $urssaf_percent_id = '';
+        }
+
         //Ajout des valeurs des inputs pour edit
         $this->type_trade = $trade->type;
         $this->name = $trade->name;
@@ -156,7 +169,7 @@ class Trades extends Component
         $this->date = $trade->date;
         $this->interval = $trade->interval;
         $this->selected_tags = $selected_tags;
-        $this->urssaf_percent = $trade->urssaf_percent;
+        $this->urssaf_percent = $urssaf_percent_id;
     }
 
     public function delete()
