@@ -29,6 +29,6 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {return view('dashboard');})->name('dashboard');
     Route::get('/user-settings', UserSettings::class)->name('user-settings');
-    Route::get('/trades', Trades::class)->name('trades');
+    Route::get('/trades/{display}', Trades::class)->name('trades');
     Route::get('/tags', Tags::class)->name('tags');
 });

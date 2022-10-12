@@ -1,12 +1,32 @@
 <div class='flex flex-col gap-6 w-4/12 m-auto mt-10'>
-    <div class="hidden sm:block">
-          <div class="flex justify-center gap-10">
-            <!-- Current: "bg-indigo-100 text-indigo-700", Default: "text-gray-500 hover:text-gray-700" -->
-            <button wire:click="switchType('in')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Entrée</button>
-            <button wire:click="switchType('out')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Sortie</button>
-            <button wire:click="switchType('fixed')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Frais Fixe</button>
-          </div>
-    </div>
+    @if($this->display === 'new')
+        <div class="hidden sm:block">
+            <div class="flex justify-center gap-10">
+                <!-- Current: "bg-indigo-100 text-indigo-700", Default: "text-gray-500 hover:text-gray-700" -->
+                <button wire:click="switchType('in')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Entrée</button>
+                <button wire:click="switchType('out')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Sortie</button>
+                <button wire:click="switchType('fixed')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Frais Fixe</button>
+            </div>
+        </div>
+    @elseif($this->display === 'summary')
+        <div class="flex justify-center gap-10">
+            <button wire:click="switchSummaryType('all')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Tout</button>
+            <button wire:click="switchSummaryType('in')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Entrée</button>
+            <button wire:click="switchSummaryType('out')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Sortie</button>
+            <button wire:click="switchSummaryType('fixed')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Frais Fixe</button>
+        </div>
+        @if($this->edit === false)
+            <div class="flex flex-col justify-center">
+                @foreach($this->trades as $trade)
+                    <div wire:click="edit({{ $trade->id }})">
+                        <p>{{ $trade->name }}</p>
+                        <p>{{ $trade->date }}</p>
+                        <p>{{ $trade->cost }}</p>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+    @endif
     @if($this->type_trade !== null)
         <div class="flex flex-col justify-center">
             <label for="name">Nom</label>
@@ -50,8 +70,12 @@
                 <a href="{{ route('tags') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Gérer les tags</a>
             </div>
         </div>
-        <div class="flex flex-col justify-center">
-            <button wire:click='newTrade()' class="bg-indigo-100 text-indigo-700 rounded-md">Valider</button>
+        <div class="flex flex-col justify-center gap-2">
+            <button wire:click='store()' class="bg-indigo-100 text-indigo-700 rounded-md">Valider</button>
+            <button wire:click='resetAllInput()' class="bg-indigo-100 text-indigo-700 rounded-md">Tout effacer</button>
+            @if($this->display === 'summary')
+                <button wire:click='delete()' class="bg-indigo-100 text-indigo-700 rounded-md">Supprimer</button>
+            @endif
         </div>
     @endif
 </div>

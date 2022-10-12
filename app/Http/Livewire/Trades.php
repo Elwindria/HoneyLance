@@ -12,25 +12,34 @@ use Illuminate\Http\Request;
 class Trades extends Component
 {
     use WireToast;
-    public $type, $type_trade, $name, $cost, $interval, $date, $urssaf_percent, $fav_percent, $urssaf_setting, $user_setting, $user_id;
+    public $type, $type_trade, $name, $cost, $interval, $date, $urssaf_percent, $fav_percent, $urssaf_setting, $user_setting, $user_id, $display, $trades, $summaryType, $trade_id;
     public $selected_tags = [];
+    public $edit = false;
 
-    public function mount()
+    public function mount($display)
     {
-        $this->name = session('name');
-        $this->cost = session('cost');
-        $this->date = session('date');
-        $this->interval = session('interval');
-        $this->type_trade = session('type');
-        $this->selected_tags = session('selected_tags');
+        if($display === 'new'){
+            $this->name = session('name');
+            $this->cost = session('cost');
+            $this->date = session('date');
+            $this->interval = session('interval');
+            $this->selected_tags = session('selected_tags');
+            $this->type_trade = session('type');
 
-        $user_setting = UserSetting::find(auth()->user()->user_setting_id);
-        $this->urssaf_percent = $user_setting->urssaf_setting_id;
+            $user_setting = UserSetting::find(auth()->user()->user_setting_id);
+            $this->urssaf_percent = $user_setting->urssaf_setting_id;
+
+            $this->display = $display;
+        } elseif($display === 'summary'){
+            $this->display = $display;
+        }
     }
 
     public function render()
-    {
+    {        
+        $this->trades = Trade::where('user_id', auth()->user()->id)->get();
         $urssaf_settings = UrssafSetting::orderBy('percentage')->get();
+
         //compact permet de faire passer des variable (ici : urssaf_settings) dans la vue. Vaut mieux faire ça car dans mount(), refresh à chaque changement... Pas ouf niveau opti
         return view('livewire.trade', compact('urssaf_settings'))->layout('layouts.app');
     }
@@ -41,7 +50,7 @@ class Trades extends Component
         $this->cost = '';
         $this->date = '';
         $this->interval = '';
-        $this->selected_tags = '';
+        $this->selected_tags = null;
     }
 
     public function switchType($type)
@@ -50,7 +59,18 @@ class Trades extends Component
         session(['type' => $this->type_trade]);
     }
 
-    public function newTrade()
+    public function switchSummaryType($type)
+    {
+        $this->type_trade = null;
+
+        if($type === 'all'){
+            $this->trades = Trade::where('user_id', auth()->user()->id)->get();
+        }else{
+            $this->trades = Trade::where('user_id', auth()->user()->id)->where('type', $type)->get();
+        }
+    }
+
+    public function store()
     {
 
         $dataValide = $this->validate([
@@ -80,20 +100,63 @@ class Trades extends Component
         }
 
         //Créer un new trade
-        $create_trade = Trade::create($merged);
+        $create_trade = Trade::updateOrCreate(['id' => $this->trade_id],$merged);
         //Créer le lien entre trades et tags (table pivot)
         $create_trade->tags()->attach($this->selected_tags);
 
         $this->resetImputFields();
         session()->forget(['name', 'cost', 'interval', 'date', 'type', 'selected_tags']);
 
-        toast()
-        ->success("Nouvelle transaction ajoutée avec succès.")
-        ->push();
+        if($this->display === 'new'){
+            toast()
+            ->success("Nouvelle transaction ajoutée avec succès.")
+            ->push();
+        } else {
+            $this->edit = false;
+            $this->type_trade = null;
+
+            toast()
+            ->success("Transaction modifiée avec succès.")
+            ->push();
+        }
+
     }
 
-    public function updating($name, $value)
+    public function resetAllInput()
+    {
+        $this->resetImputFields();
+        session()->forget(['name', 'cost', 'interval', 'date', 'selected_tags']);
+    }
+
+    public function updated($name, $value)
     {
         session([$name => $value]);
+    }
+
+    public function edit($trade_id)
+    {
+        $this->edit = true;
+        $this->trade_id = $trade_id;
+
+        $trade = Trade::find($trade_id);
+
+        $this->type_trade = $trade->type;
+        $this->name = $trade->name;
+        $this->cost = $trade->cost;
+        $this->date = $trade->date;
+        $this->interval = $trade->interval;
+        $this->selected_tags = $trade->selected_tags;
+        $this->urssaf_percent = $trade->urssaf_percent;
+    }
+
+    public function delete()
+    {
+        Trade::find($this->trade_id)->delete();
+
+        $this->edit = false;
+        $this->type_trade = null;
+
+        $this->resetImputFields();
+        session()->forget(['name', 'cost', 'interval', 'date', 'type', 'selected_tags']);
     }
 }
