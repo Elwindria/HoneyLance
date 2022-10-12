@@ -13,7 +13,7 @@ class Trades extends Component
 {
     use WireToast;
     public $type, $type_trade, $name, $cost, $interval, $date, $urssaf_percent, $fav_percent, $urssaf_setting, $user_setting, $user_id, $display, $trades, $summaryType, $trade_id;
-    public $selected_tags = [];
+    public $selected_tags = null;
     public $edit = false;
 
     public function mount($display)
@@ -50,7 +50,7 @@ class Trades extends Component
         $this->cost = '';
         $this->date = '';
         $this->interval = '';
-        $this->selected_tags = null;
+        $this->selected_tags = '';
     }
 
     public function switchType($type)
@@ -119,7 +119,6 @@ class Trades extends Component
             ->success("Transaction modifiée avec succès.")
             ->push();
         }
-
     }
 
     public function resetAllInput()
@@ -139,13 +138,24 @@ class Trades extends Component
         $this->trade_id = $trade_id;
 
         $trade = Trade::find($trade_id);
+        $tags = $trade->tags;
 
+        //si il y a au moins un tag alors array des id de ces tags, sinon vide
+        if($tags->isNotEmpty()){
+            foreach ($trade->tags as $tag) {
+                $selected_tags[] = $tag->id;
+            }
+        }else{
+            $selected_tags = "";
+        }
+
+        //Ajout des valeurs des inputs pour edit
         $this->type_trade = $trade->type;
         $this->name = $trade->name;
         $this->cost = $trade->cost;
         $this->date = $trade->date;
         $this->interval = $trade->interval;
-        $this->selected_tags = $trade->selected_tags;
+        $this->selected_tags = $selected_tags;
         $this->urssaf_percent = $trade->urssaf_percent;
     }
 
@@ -158,5 +168,9 @@ class Trades extends Component
 
         $this->resetImputFields();
         session()->forget(['name', 'cost', 'interval', 'date', 'type', 'selected_tags']);
+    }
+
+    public function session(){
+        dd(session('selected_tags'));
     }
 }

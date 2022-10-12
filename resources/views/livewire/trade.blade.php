@@ -76,6 +76,7 @@
             @if($this->display === 'summary')
                 <button wire:click='delete()' class="bg-indigo-100 text-indigo-700 rounded-md">Supprimer</button>
             @endif
+            <button wire:click='session()' class="bg-indigo-100 text-indigo-700 rounded-md">voir session selected tags</button>
         </div>
     @endif
 </div>
