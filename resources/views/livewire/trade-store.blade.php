@@ -1,32 +1,12 @@
 <div class='flex flex-col gap-6 w-4/12 m-auto mt-10'>
-    @if($this->display === 'new')
-        <div class="hidden sm:block">
-            <div class="flex justify-center gap-10">
-                <!-- Current: "bg-indigo-100 text-indigo-700", Default: "text-gray-500 hover:text-gray-700" -->
-                <button wire:click="switchType('in')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Entrée</button>
-                <button wire:click="switchType('out')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Sortie</button>
-                <button wire:click="switchType('fixed')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Frais Fixe</button>
-            </div>
-        </div>
-    @elseif($this->display === 'summary')
+    <div class="hidden sm:block">
         <div class="flex justify-center gap-10">
-            <button wire:click="switchSummaryType('all')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Tout</button>
-            <button wire:click="switchSummaryType('in')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Entrée</button>
-            <button wire:click="switchSummaryType('out')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Sortie</button>
-            <button wire:click="switchSummaryType('fixed')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Frais Fixe</button>
+            <!-- Current: "bg-indigo-100 text-indigo-700", Default: "text-gray-500 hover:text-gray-700" -->
+            <button wire:click="switchType('in')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Entrée</button>
+            <button wire:click="switchType('out')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Sortie</button>
+            <button wire:click="switchType('fixed')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">Frais Fixe</button>
         </div>
-        @if($this->edit === false)
-            <div class="flex flex-col justify-center">
-                @foreach($this->trades as $trade)
-                    <div wire:click="edit({{ $trade->id }})">
-                        <p>{{ $trade->name }}</p>
-                        <p>{{ $trade->date }}</p>
-                        <p>{{ $trade->cost }}</p>
-                    </div>
-                @endforeach
-            </div>
-        @endif
-    @endif
+    </div>
     @if($this->type_trade !== null)
         <div class="flex flex-col justify-center">
             <label for="name">Nom</label>
@@ -47,7 +27,11 @@
             <div class="flex flex-col justify-center">
                 <label for="urssaf_percent">Urssaf</label>
                 <select name="urssaf_percent" id="urssaf_percent" wire:model='urssaf_percent'>
-                    <option>-- Choissisez une option SVP --</option>
+                    @if($this->urssaf_percent === null)
+                        <option>Votre taux Urssaf par défaut n'existe plus et dois être mis à jours dans vos paramètres d'utilisateur ou choisisez un autre dans cette liste.</option>
+                    @else
+                        <option>-- Choissisez une option SVP --</option>
+                    @endif
                     @foreach( $urssaf_settings as $urssaf_setting)
                             <option value="{{ $urssaf_setting->id }}">{{ $urssaf_setting->percentage }}% - {{ $urssaf_setting->description }}</option>
                     @endforeach
@@ -73,7 +57,7 @@
         <div class="flex flex-col justify-center gap-2">
             <button wire:click='store()' class="bg-indigo-100 text-indigo-700 rounded-md">Valider</button>
             <button wire:click='resetAllInput()' class="bg-indigo-100 text-indigo-700 rounded-md">Tout effacer</button>
-            @if($this->display === 'summary')
+            @if($this->trade_id !== 'none')
                 <button wire:click='delete()' class="bg-indigo-100 text-indigo-700 rounded-md">Supprimer</button>
             @endif
             <button wire:click='session()' class="bg-indigo-100 text-indigo-700 rounded-md">voir session selected tags</button>

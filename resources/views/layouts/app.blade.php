@@ -24,8 +24,8 @@
             <div class="relative flex items-top justify-center bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     <a href="{{ route('user-settings') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Paramètres utilisateur</a>
-                    <a href="{{ route('trades', ['display' => 'summary']) }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Résumé</a>
-                    <a href="{{ route('trades', ['display' => 'new']) }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Nouvelle transaction</a>
+                    <a href="{{ route('trades-list') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Résumé</a>
+                    <a href="{{ route('trade-store', ['trade_id' => 'none']) }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Nouvelle transaction</a>
                     <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>           
                 </div>
             </div>

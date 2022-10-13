@@ -3,7 +3,8 @@
 use App\Http\Controllers\RedirectController;
 use App\Http\Livewire\Index;
 use App\Http\Livewire\UserSettings;
-use App\Http\Livewire\Trades;
+use App\Http\Livewire\TradeStore;
+use App\Http\Livewire\TradeList;
 use App\Http\Livewire\Tags;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,7 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {return view('dashboard');})->name('dashboard');
     Route::get('/user-settings', UserSettings::class)->name('user-settings');
-    Route::get('/trades/{display}', Trades::class)->name('trades');
+    Route::get('/trade/store/{trade_id}', TradeStore::class)->name('trade-store');
+    Route::get('/trades/list', TradeList::class)->name('trades-list');
     Route::get('/tags', Tags::class)->name('tags');
 });
