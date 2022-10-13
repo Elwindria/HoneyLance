@@ -28,12 +28,16 @@
                 <label for="urssaf_percent">Urssaf</label>
                 <select name="urssaf_percent" id="urssaf_percent" wire:model='urssaf_percent'>
                     @if($this->urssaf_percent === null)
-                        <option>Votre taux Urssaf par défaut n'existe plus et dois être mis à jours dans vos paramètres d'utilisateur ou choisisez un autre dans cette liste.</option>
+                        <option>Votre taux Urssaf par défaut n'existe pas. Vous pouvez en choisir un dans vos paramètres d'utilisateur.</option>
+                    @elseif($this->urssaf_percent === 'old')
+                        <option>Votre taux Urssaf par défaut n'existe plus et doit être mis à jour.</option>
+                    @elseif($this->urssaf_percent === 'old_edit')
+                        <option value="{{ $this->old_urssaf_percent }}">{{ $this->old_urssaf_percent }}% - /!\ Attention /!\ Ancien taux Urssaf</option>
                     @else
                         <option>-- Choissisez une option SVP --</option>
                     @endif
                     @foreach( $urssaf_settings as $urssaf_setting)
-                            <option value="{{ $urssaf_setting->id }}">{{ $urssaf_setting->percentage }}% - {{ $urssaf_setting->description }}</option>
+                            <option value="{{ $urssaf_setting->percentage }}">{{ $urssaf_setting->percentage }}% - {{ $urssaf_setting->description }}</option>
                     @endforeach
                 </select>
                 @error('urssaf_percent') <span class="text-sm text-red-600">{{ $message }}</span>@enderror

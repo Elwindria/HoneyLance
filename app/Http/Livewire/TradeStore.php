@@ -18,8 +18,31 @@ class TradeStore extends Component
 
     public function mount($trade_id)
     {
-        //Si l'utilisateur veut créer un nouveau trade, on affiche la vue avec les sessions et juste le formulaire, sinon on affiche formulaire en mode Edit
-        if($trade_id === 'none'){
+        //Si l'utilisateur veut créer un nouveau trade, on affiche la vue avec le formulaire + sessions, sinon on affiche formulaire en mode Edit
+        if($trade_id === 'new'){
+
+            //Si il existe une session UrssafPercent alors on l'affiche, sinon on choisit le %Urssaf par défaut de l'utilisateur
+            if(session()->exists('urssaf_percent')){
+                $this->urssaf_percent = session('urssaf_percent');
+            } else {
+                $user_setting = UserSetting::find(auth()->user()->user_setting_id);
+            
+                //Si l'utilisateur n'a pas renseigner un percentUrssaf, alors message spéciale
+                if($user_setting->urssaf_setting_id === null){
+                    $this->urssaf_percent = null;
+                } else {
+                    //Sinon cherche si sont percentUrssaf existe encore, sinon msg spéciale
+                    $urssaf_setting = UrssafSetting::find($user_setting->urssaf_setting_id);
+    
+                    if($urssaf_setting !== null){
+                        $this->urssaf_percent = $urssaf_setting->percentage;
+                    } else {
+                        $this->urssaf_percent = 'old';
+                    }
+                }
+            }
+
+            //Affiche si il existe des sessions de l'utilisateur
             $this->name = session('name');
             $this->cost = session('cost');
             $this->date = session('date');
@@ -27,18 +50,23 @@ class TradeStore extends Component
             $this->selected_tags = session('selected_tags');
             $this->type_trade = session('type');
 
-            $user_setting = UserSetting::find(auth()->user()->user_setting_id);
-            
-            if($user_setting === null){
-                $this->urssaf_percent = null;
+            $this->trade_id = $trade_id;
+
+        } elseif($trade_id !== 'new'){
+            $this->trade_id = $trade_id;
+
+            $trade = Trade::find($trade_id);
+            $urssaf_setting_percentage = UrssafSetting::where('percentage', $trade->urssaf_percent)->get();
+
+            //si le %urssaf n'existe plus dans la db (car trop vieux), alors on crée <option> avec l'ancienne valeur
+            if($urssaf_setting_percentage->isEmpty()){
+                $this->urssaf_percent = 'old_edit';
+                $this->old_urssaf_percent = $trade->urssaf_percent;
             } else {
-                $this->urssaf_percent = $user_setting->urssaf_setting_id;
+                $this->urssaf_percent = $trade->urssaf_percent;
             }
 
-            $this->trade_id = $trade_id;
-        } elseif($trade_id !== 'none'){
-            $this->trade_id = $trade_id;
-            $this->edit();
+            $this->edit($trade);
         }
     }
 
@@ -89,13 +117,9 @@ class TradeStore extends Component
 
         if($this->type_trade == 'in'){
             $dataValide = $this->validate([
-                'urssaf_percent' => ['required']
+                'urssaf_percent' => ['required', 'numeric']
             ]);
 
-            // on récupère l'id dans form. Donc faut chercher dans UrsssafSetting le percentage lié à cet id
-            $percentage = UrssafSetting::find($dataValide['urssaf_percent'])->percentage;
-
-            $dataValide['urssaf_percent'] = $percentage;
             $merged = array_merge($merged, $dataValide);
 
         }elseif($this->type_trade == 'fixed'){
@@ -114,7 +138,7 @@ class TradeStore extends Component
         session()->forget(['name', 'cost', 'interval', 'date', 'type']);
         session(['selected_tags' => []]);
 
-        if($this->trade_id === 'none'){
+        if($this->trade_id === 'new'){
             toast()
             ->success("Nouvelle transaction ajoutée avec succès.")
             ->push();
@@ -139,21 +163,19 @@ class TradeStore extends Component
 
     public function updated($name, $value)
     {
-        if($this->trade_id === 'none'){
+        if($this->trade_id === 'new'){
             session([$name => $value]);
         }
     }
 
-    public function edit()
+    public function edit($trade)
     {
         $this->edit = true;
 
-        //Trouve le trade sélectionné (grâce à son id) puis tous ses tags
-        $trade = Trade::find($this->trade_id);
         $tags = $trade->tags;
 
-        //trouve l'id du urssaf_percent du trade
-        $urssaf_percent = UrssafSetting::where('percentage', $trade->urssaf_percent)->first();
+        // //trouve l'id du urssaf_percent du trade
+        // $urssaf_percent = UrssafSetting::where('percentage', $trade->urssaf_percent)->first();
 
         //si il y a au moins un tag alors array des id de ces tags, sinon vide
         if($tags->isNotEmpty()){
@@ -164,13 +186,6 @@ class TradeStore extends Component
             $selected_tags = [];
         }
 
-        //si il y a un urssaf_percent (un trad in) alors cherche l'id, sinon vide
-        if($urssaf_percent !== null){
-            $urssaf_percent_id = $urssaf_percent->id;
-        } else {
-            $urssaf_percent_id = '';
-        }
-
         //Ajout des valeurs des inputs pour edit
         $this->type_trade = $trade->type;
         $this->name = $trade->name;
@@ -178,7 +193,6 @@ class TradeStore extends Component
         $this->date = $trade->date;
         $this->interval = $trade->interval;
         $this->selected_tags = $selected_tags;
-        $this->urssaf_percent = $urssaf_percent_id;
     }
 
     public function delete()
