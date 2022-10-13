@@ -30,7 +30,7 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {return view('dashboard');})->name('dashboard');
     Route::get('/user-settings', UserSettings::class)->name('user-settings');
-    Route::get('/trade/store/{trade_id}', TradeStore::class)->name('trade-store');
-    Route::get('/trades/list', TradesList::class)->name('trades-list');
+    Route::get('/trade/{trade_id}', TradeStore::class)->name('trade-store');
+    Route::get('/trades', TradesList::class)->name('trades-list');
     Route::get('/tags', Tags::class)->name('tags');
 });

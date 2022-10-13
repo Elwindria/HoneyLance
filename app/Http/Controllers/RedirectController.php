@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\UserSetting;
+use Illuminate\Support\Str;
 
 class RedirectController extends Controller
 {
@@ -27,7 +28,12 @@ class RedirectController extends Controller
 
     private function redirectUser()
     {
-        $this->createUserSettings();
+
+        //On regarde si c'est un new user ou juste un log in
+        if (auth()->user()->user_setting_id === null) {
+            $this->createUserSettings();
+        }
+
         return redirect()->route('index');
     }
 

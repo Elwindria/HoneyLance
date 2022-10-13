@@ -15,7 +15,7 @@ class UrssafSettingSeeder extends Seeder
      */
     public function run()
     {
-        UrssafSetting::newFactory()
+        UrssafSetting::factory()
                 ->count(4)
                 ->create();
     }

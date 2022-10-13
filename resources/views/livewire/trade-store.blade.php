@@ -59,12 +59,12 @@
             </div>
         </div>
         <div class="flex flex-col justify-center gap-2">
-            <button wire:click='store()' class="bg-indigo-100 text-indigo-700 rounded-md">Valider</button>
-            <button wire:click='resetAllInput()' class="bg-indigo-100 text-indigo-700 rounded-md">Tout effacer</button>
-            @if($this->trade_id !== 'none')
+            @if($this->trade_id !== 'new')
                 <button wire:click='delete()' class="bg-indigo-100 text-indigo-700 rounded-md">Supprimer</button>
+            @else
+                <button wire:click='resetInputFields()' class="bg-indigo-100 text-indigo-700 rounded-md">Tout effacer</button>
             @endif
-            <button wire:click='session()' class="bg-indigo-100 text-indigo-700 rounded-md">voir session selected tags</button>
+                <button wire:click='store()' class="bg-indigo-100 text-indigo-700 rounded-md">Valider</button>
         </div>
     @endif
 </div>

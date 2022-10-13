@@ -14,7 +14,6 @@ class TradeStore extends Component
     use WireToast;
     public $type, $type_trade, $name, $cost, $interval, $date, $urssaf_percent, $fav_percent, $urssaf_setting, $user_setting, $user_id, $trades, $summaryType, $trade_id;
     public $selected_tags = [];
-    public $edit = false;
     public $old_urssaf_percent = false;
 
     public function mount($trade_id)
@@ -22,25 +21,24 @@ class TradeStore extends Component
         //Si l'utilisateur veut créer un nouveau trade, on affiche la vue avec le formulaire + sessions, sinon on affiche formulaire en mode Edit
         if($trade_id === 'new'){
 
-            //Si il existe une session UrssafPercent alors on l'affiche, sinon on choisit le %Urssaf par défaut de l'utilisateur
-            if(session()->exists('urssaf_percent')){
-                $this->urssaf_percent = session('urssaf_percent');
+            $user_setting = UserSetting::find(auth()->user()->user_setting_id);
+        
+            //Si l'utilisateur n'a pas renseigner un percentUrssaf, alors message spéciale
+            if($user_setting->urssaf_setting_id === null){
+                $this->urssaf_percent = null;
             } else {
-                $user_setting = UserSetting::find(auth()->user()->user_setting_id);
-            
-                //Si l'utilisateur n'a pas renseigner un percentUrssaf, alors message spéciale
-                if($user_setting->urssaf_setting_id === null){
-                    $this->urssaf_percent = null;
+                //Sinon cherche si sont percentUrssaf existe encore, sinon msg spéciale
+                $urssaf_setting = UrssafSetting::find($user_setting->urssaf_setting_id);
+
+                if($urssaf_setting !== null){
+                    $this->urssaf_percent = $urssaf_setting->percentage;
                 } else {
-                    //Sinon cherche si sont percentUrssaf existe encore, sinon msg spéciale
-                    $urssaf_setting = UrssafSetting::find($user_setting->urssaf_setting_id);
-    
-                    if($urssaf_setting !== null){
-                        $this->urssaf_percent = $urssaf_setting->percentage;
-                    } else {
-                        $this->urssaf_percent = 'old';
-                    }
+                    $this->urssaf_percent = 'old';
                 }
+            }
+
+            if(session()->exists('selected_tags')){
+                $this->selected_tags = session('selected_tags');
             }
 
             //Affiche si il existe des sessions de l'utilisateur
@@ -48,7 +46,6 @@ class TradeStore extends Component
             $this->cost = session('cost');
             $this->date = session('date');
             $this->interval = session('interval');
-            $this->selected_tags = session('selected_tags');
             $this->type_trade = session('type');
 
             $this->trade_id = $trade_id;
@@ -79,30 +76,22 @@ class TradeStore extends Component
         return view('livewire.trade-store', compact('urssaf_settings'))->layout('layouts.app');
     }
 
-    private function resetImputFields()
+    public function resetInputFields()
     {
         $this->name = '';
         $this->cost = '';
         $this->date = '';
         $this->interval = '';
         $this->selected_tags = [];
+
+        session()->forget(['name', 'cost', 'interval', 'date', 'type', 'selected_tags']);
+        // session(['selected_tags' => []]);
     }
 
     public function switchType($type)
     {
         $this->type_trade = $type;
         session(['type' => $this->type_trade]);
-    }
-
-    public function switchSummaryType($type)
-    {
-        $this->type_trade = null;
-
-        if($type === 'all'){
-            $this->trades = Trade::where('user_id', auth()->user()->id)->get();
-        }else{
-            $this->trades = Trade::where('user_id', auth()->user()->id)->where('type', $type)->get();
-        }
     }
 
     public function store()
@@ -133,11 +122,9 @@ class TradeStore extends Component
         //Créer un new trade
         $create_trade = Trade::updateOrCreate(['id' => $this->trade_id],$merged);
         //Créer le lien entre trades et tags (table pivot)
-        $create_trade->tags()->attach($this->selected_tags);
+        $create_trade->tags()->sync($this->selected_tags);
 
-        $this->resetImputFields();
-        session()->forget(['name', 'cost', 'interval', 'date', 'type']);
-        session(['selected_tags' => []]);
+        $this->resetInputFields();
 
         if($this->trade_id === 'new'){
             toast()
@@ -147,18 +134,10 @@ class TradeStore extends Component
             toast()
             ->success("Transaction modifiée avec succès.")
             ->pushOnNextPage();
-
-            //On a fini l'edit, on retourne à la vue de résumé
-            return redirect()->route('trades-list');
         }
-    }
 
-    public function resetAllInput()
-    {
-        $this->resetImputFields();
-        //Pas de reset de l'input %Urssaf car sinon bug possible lors d'un edit avec anciens %urssaf plus existant dans la DB !
-        session()->forget(['name', 'cost', 'interval', 'date']);
-        session(['selected_tags' => []]);
+        //On a fini l'edit, on retourne à la vue de résumé
+        return redirect()->route('trades-list');
     }
 
     public function updated($name, $value)
@@ -170,48 +149,25 @@ class TradeStore extends Component
 
     public function edit($trade)
     {
-        $this->edit = true;
-
-        $tags = $trade->tags;
-
-        // //trouve l'id du urssaf_percent du trade
-        // $urssaf_percent = UrssafSetting::where('percentage', $trade->urssaf_percent)->first();
-
-        //si il y a au moins un tag alors array des id de ces tags, sinon vide
-        if($tags->isNotEmpty()){
-            foreach ($trade->tags as $tag) {
-                $selected_tags[] = $tag->id;
-            }
-        }else{
-            $selected_tags = [];
-        }
-
         //Ajout des valeurs des inputs pour edit
         $this->type_trade = $trade->type;
         $this->name = $trade->name;
         $this->cost = $trade->cost;
         $this->date = $trade->date;
         $this->interval = $trade->interval;
-        $this->selected_tags = $selected_tags;
+        $this->selected_tags = $trade->tags->pluck('id')->toArray();
     }
 
     public function delete()
     {
         Trade::find($this->trade_id)->delete();
 
-        $this->edit = false;
         $this->type_trade = null;
 
-        $this->resetImputFields();
-        session()->forget(['name', 'cost', 'interval', 'date', 'type']);
-        session(['selected_tags' => []]);
+        $this->resetInputFields();
 
         toast()
         ->success("Transaction supprimée avec succès.")
         ->push();
-    }
-
-    public function session(){
-        dd(session('selected_tags'));
     }
 }

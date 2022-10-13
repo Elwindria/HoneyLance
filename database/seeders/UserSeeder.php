@@ -33,7 +33,6 @@ class UserSeeder extends Seeder
 
         User::factory()
             ->count(9)
-            ->hasTags(3)
             ->create();
     }
 }

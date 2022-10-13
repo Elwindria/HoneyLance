@@ -15,7 +15,7 @@ class UserSettingSeeder extends Seeder
      */
     public function run()
     {
-        UserSetting::newFactory()
+        UserSetting::factory()
         ->count(10)
         ->create();
     }

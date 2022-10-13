@@ -20,6 +20,7 @@
             <input type="date" id="date_start" wire:model.debounce.500ms='date_start' value="{{ ('date_start') }}">
             @error('date_start') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
         </div>
+        <livewire:tags>
     @else
         <p>{{ $this->message_user_setting }}</p>
     @endif
