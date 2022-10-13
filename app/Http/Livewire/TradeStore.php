@@ -15,6 +15,7 @@ class TradeStore extends Component
     public $type, $type_trade, $name, $cost, $interval, $date, $urssaf_percent, $fav_percent, $urssaf_setting, $user_setting, $user_id, $trades, $summaryType, $trade_id;
     public $selected_tags = [];
     public $edit = false;
+    public $old_urssaf_percent = false;
 
     public function mount($trade_id)
     {
@@ -60,8 +61,8 @@ class TradeStore extends Component
 
             //si le %urssaf n'existe plus dans la db (car trop vieux), alors on crée <option> avec l'ancienne valeur
             if($urssaf_setting_percentage->isEmpty()){
-                $this->urssaf_percent = 'old_edit';
-                $this->old_urssaf_percent = $trade->urssaf_percent;
+                $this->urssaf_percent = $trade->urssaf_percent;
+                $this->old_urssaf_percent = true;
             } else {
                 $this->urssaf_percent = $trade->urssaf_percent;
             }
@@ -143,20 +144,19 @@ class TradeStore extends Component
             ->success("Nouvelle transaction ajoutée avec succès.")
             ->push();
         } else {
-
-            //On n'est plus en mode edit, on retourne donc au résumé de tous les trades
-            $this->edit = false;
-            $this->type_trade = null;
-
             toast()
             ->success("Transaction modifiée avec succès.")
-            ->push();
+            ->pushOnNextPage();
+
+            //On a fini l'edit, on retourne à la vue de résumé
+            return redirect()->route('trades-list');
         }
     }
 
     public function resetAllInput()
     {
         $this->resetImputFields();
+        //Pas de reset de l'input %Urssaf car sinon bug possible lors d'un edit avec anciens %urssaf plus existant dans la DB !
         session()->forget(['name', 'cost', 'interval', 'date']);
         session(['selected_tags' => []]);
     }

@@ -31,8 +31,8 @@
                         <option>Votre taux Urssaf par défaut n'existe pas. Vous pouvez en choisir un dans vos paramètres d'utilisateur.</option>
                     @elseif($this->urssaf_percent === 'old')
                         <option>Votre taux Urssaf par défaut n'existe plus et doit être mis à jour.</option>
-                    @elseif($this->urssaf_percent === 'old_edit')
-                        <option value="{{ $this->old_urssaf_percent }}">{{ $this->old_urssaf_percent }}% - /!\ Attention /!\ Ancien taux Urssaf</option>
+                    @elseif($this->old_urssaf_percent)
+                        <option value="{{ $this->urssaf_percent }}">{{ $this->urssaf_percent }}% - /!\ Attention /!\ Ancien taux Urssaf</option>
                     @else
                         <option>-- Choissisez une option SVP --</option>
                     @endif
