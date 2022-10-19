@@ -25,8 +25,9 @@
                 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-50 flex justify-between py-8">
                     @auth
                         <div class="relative z-10 flex items-center gap-16">
-                            <a href=" {{ route('trades-list')}} ">
+                            <a href="{{ route('trades-list')}}" class="flex items-center gap-1">
                                 <img class="h-14 w-auto" src="{{ url('images/logo.png')}}">
+                                <p class='text-darkHoney font-bold text-2xl'>Honey<span class="text-honey">lance</span></p>
                             </a>
                         </div>
                         <div class="lg:flex hidden items-center gap-6">
