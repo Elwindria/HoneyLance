@@ -11,4 +11,9 @@ class UrssafSetting extends Model
     protected $fillable = [
         'percentage', 'description'
     ];
+
+    public function setting()
+    {
+        return $this->belongsTo(UserSetting::class);
+    }
 }

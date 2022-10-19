@@ -14,6 +14,11 @@ class UserSetting extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function urssaf()
+    {
+        return $this->hasOne(UrssafSetting::class, 'id', 'urssaf_setting_id');
     }
 }
