@@ -22,13 +22,12 @@ class RedirectController extends Controller
                 return $this->redirectUser();
                 break;
             default:
-                return redirect()->route('welcome');
+                return abort(401);
         }
     }
 
     private function redirectUser()
     {
-
         //On regarde si c'est un new user ou juste un log in
         if (auth()->user()->user_setting_id == null) {
             $this->createUserSettings();
@@ -40,10 +39,12 @@ class RedirectController extends Controller
     private function createUserSettings()
     {
         $user_setting = new UserSetting;
-        $user_setting->save();
+        $save_user_setting = $user_setting->save();
 
-        $user = User::find(auth()->user()->id);
-        $user->user_setting_id = $user_setting->id;
-        $user->save();
+        if ($save_user_setting) {
+            $user = User::find(auth()->user()->id);
+            $user->user_setting_id = $user_setting->id;
+            $user->save();
+        }
     }
 }
