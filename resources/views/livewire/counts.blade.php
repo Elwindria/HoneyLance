@@ -4,7 +4,7 @@
             <h2 class="text-honey text-lg font-bold">Recette</h2>
             <div class="flex flex-col items-center">
                 <p class="text-red-600 font-medium"> -500€</p>
-                <p class="text-gray-300 font-thin text-xs -mt-2">mois en cours</p>
+                <p class="text-gray-400 font-thin text-xs -mt-2">mois en cours</p>
             </div>
         </div>
         <div class="flex flex-col items-center">
@@ -15,7 +15,7 @@
             <h2 class="text-honey text-lg font-bold">Epargne</h2>
             <div class="flex flex-col items-center">
                 <p class="text-emerald-600 font-medium">2500€</p>
-                <p class="text-gray-300 font-thin text-xs -mt-2">mois en cours</p>
+                <p class="text-gray-400 font-thin text-xs -mt-2">mois en cours</p>
             </div>
         </div>
     </div>
