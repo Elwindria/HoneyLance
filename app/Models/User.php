@@ -61,9 +61,9 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function userSetting()
+    public function setting()
     {
-        return $this->hasOne(UserSetting::class);
+        return $this->hasOne(UserSetting::class, 'id', 'user_setting_id');
     }
 
     public function tags()

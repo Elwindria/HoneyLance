@@ -12,26 +12,25 @@ use Illuminate\Http\Request;
 class TradeStore extends Component
 {
     use WireToast;
-    public $type, $type_trade, $name, $cost, $interval, $date, $urssaf_percent, $fav_percent, $urssaf_setting, $user_setting, $user_id, $trades, $summaryType, $trade_id;
+    public $url, $type, $type_trade, $name, $cost, $interval, $date, $urssaf_percent, $fav_percent, $urssaf_setting, $user_setting, $user_id, $trades, $summaryType, $trade_id;
     public $selected_tags = [];
     public $old_urssaf_percent = false;
 
-    public function mount($trade_id)
+    public function mount()
     {
-        //Si l'utilisateur veut créer un nouveau trade, on affiche la vue avec le formulaire + sessions, sinon on affiche formulaire en mode Edit
-        if($trade_id === 'new'){
+        $this->url = url()->current();
+        $this->trade_id = request()->trade_id;
 
-            $user_setting = UserSetting::find(auth()->user()->user_setting_id);
-        
+        //Si l'utilisateur veut créer un nouveau trade, on affiche la vue avec le formulaire + sessions, sinon on affiche formulaire en mode Edit
+        if($this->trade_id === null){
+            $user_setting = auth()->user()->setting;
             //Si l'utilisateur n'a pas renseigner un percentUrssaf, alors message spéciale
-            if($user_setting->urssaf_setting_id === null){
+            if($user_setting->urssaf_setting_id == null){
                 $this->urssaf_percent = null;
             } else {
                 //Sinon cherche si sont percentUrssaf existe encore, sinon msg spéciale
-                $urssaf_setting = UrssafSetting::find($user_setting->urssaf_setting_id);
-
-                if($urssaf_setting !== null){
-                    $this->urssaf_percent = $urssaf_setting->percentage;
+                if($user_setting->urssaf != null){
+                    $this->urssaf_percent = $user_setting->urssaf->percentage;
                 } else {
                     $this->urssaf_percent = 'old';
                 }
@@ -48,12 +47,9 @@ class TradeStore extends Component
             $this->interval = session('interval');
             $this->type_trade = session('type');
 
-            $this->trade_id = $trade_id;
+        } else {
 
-        } elseif($trade_id !== 'new'){
-            $this->trade_id = $trade_id;
-
-            $trade = Trade::find($trade_id);
+            $trade = Trade::find($this->trade_id);
             $urssaf_setting_percentage = UrssafSetting::where('percentage', $trade->urssaf_percent)->get();
 
             //si le %urssaf n'existe plus dans la db (car trop vieux), alors on crée <option> avec l'ancienne valeur
@@ -69,7 +65,7 @@ class TradeStore extends Component
     }
 
     public function render()
-    {        
+    {
         $urssaf_settings = UrssafSetting::orderBy('percentage')->get();
 
         //compact permet de faire passer des variable (ici : urssaf_settings) dans la vue. Vaut mieux faire ça car dans mount(), refresh à chaque changement... Pas ouf niveau opti
