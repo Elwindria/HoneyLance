@@ -12,7 +12,15 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
+            },
+            colors:{
+                'king':{
+                    '200': '#738393',
+                    '500': 'rgba(21, 24, 80, 0.5)',
+                    '600': '#151850',
+                    '900': '#14163F',
+                },
             },
         },
     },

@@ -34,7 +34,7 @@ class RedirectController extends Controller
             $this->createUserSettings();
         }
 
-        return redirect()->route('index');
+        return redirect()->route('trades-list');
     }
 
     private function createUserSettings()
