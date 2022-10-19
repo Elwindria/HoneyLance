@@ -30,7 +30,7 @@ class RedirectController extends Controller
     {
 
         //On regarde si c'est un new user ou juste un log in
-        if (auth()->user()->user_setting_id === null) {
+        if (auth()->user()->user_setting_id == null) {
             $this->createUserSettings();
         }
 

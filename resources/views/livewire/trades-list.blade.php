@@ -1,15 +1,15 @@
 <div class="h-full">
     @include("livewire.counts")
-    <div class="relative bg-gray-200 rounded-t-lg pb-8">
+    <div class="relative bg-darkHoney rounded-t-lg pb-8">
         <div class="flex flex-col gap-6 mt-2 py-6 mx-auto max-w-7xl px-4 sm:px-8">
             <div class="flex justify-center">
                 <input type="text" class="rounded-3xl border-king-600 border-2 h-8 bg-white text-king-600">
             </div>
             <div class="flex justify-center gap-10">
-                <button wire:click="switchSummaryType('all')" class="text-king-600 hover:text-king-900  px-3 py-2 font-medium text-sm rounded-md">Tout</button>
-                <button wire:click="switchSummaryType('in')" class="text-king-600 hover:text-king-900  px-3 py-2 font-medium text-sm rounded-md">Entrée</button>
-                <button wire:click="switchSummaryType('out')" class="text-king-600 hover:text-king-900  px-3 py-2 font-medium text-sm rounded-md">Sortie</button>
-                <button wire:click="switchSummaryType('fixed')" class="text-king-600 hover:text-king-900  px-3 py-2 font-medium text-sm rounded-md">Frais Fixe</button>
+                <button wire:click="switchSummaryType('all')" class="text-white hover:text-king-900  px-3 py-2 font-medium text-sm rounded-md">Tout</button>
+                <button wire:click="switchSummaryType('in')" class="text-white hover:text-king-900  px-3 py-2 font-medium text-sm rounded-md">Entrée</button>
+                <button wire:click="switchSummaryType('out')" class="text-white hover:text-king-900  px-3 py-2 font-medium text-sm rounded-md">Sortie</button>
+                <button wire:click="switchSummaryType('fixed')" class="text-white hover:text-king-900  px-3 py-2 font-medium text-sm rounded-md">Frais Fixe</button>
             </div>
         </div>
         <div class="mx-auto max-w-7xl px-4 sm:px-8">
