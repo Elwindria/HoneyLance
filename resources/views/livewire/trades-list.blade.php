@@ -1,6 +1,6 @@
 <div class="h-full">
     @include("livewire.counts")
-    <div class="relative bg-honey-300 lg:rounded-t-lg pb-8">
+    <div class="relative bg-honey-300 rounded-t-3xl pb-8">
         <div class="flex flex-col gap-6 mt-2 py-6 mx-auto max-w-7xl px-4 sm:px-8">
             <div class="flex justify-center">
                 <input type="text" class="rounded-3xl border-darkHoney border-2 h-8 bg-white font-semibold text-darkHoney">

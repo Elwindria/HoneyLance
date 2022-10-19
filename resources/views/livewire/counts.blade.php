@@ -1,21 +1,21 @@
-<div class="flex flex-col mx-auto max-w-5xl pt-2 px-4 sm:px-8 gap-14">
-    <div class="flex justify-around">
-        <div class="flex flex-col items-center gap-4">
+<div class="flex flex-col mx-auto max-w-5xl pt-2 px-4 sm:px-8 gap-4">
+    <div class="flex justify-between">
+        <div class="flex flex-col items-center">
             <h2 class="text-honey text-lg font-bold">Recette</h2>
             <div class="flex flex-col items-center">
                 <p class="text-emerald-600 font-medium">2500€</p>
-                <p class="text-honey font-medium text-xs">pour ce mois</p>
+                <p class="text-honey/50 font-thin text-xs">pour ce mois</p>
             </div>
         </div>
-        <div class="flex flex-col items-center gap-4">
+        <div class="flex flex-col items-center">
             <h2 class="text-honey text-lg font-bold">Salaire</h2>
             <p class="text-emerald-600 font-medium">1500€</p>
         </div>
-        <div class="flex flex-col items-center gap-4">
+        <div class="flex flex-col items-center">
             <h2 class="text-honey text-lg font-bold">Epargne</h2>
             <div class="flex flex-col items-center">
                 <p class="text-emerald-600 font-medium">2500€</p>
-                <p class="text-honey font-medium text-xs">pour ce mois</p>
+                <p class="text-honey/50 font-thin text-xs">pour ce mois</p>
             </div>
         </div>
     </div>
