@@ -19,7 +19,7 @@
 </head>
 <body class="font-sans antialiased ">
     <livewire:toasts />
-    <div class="h-screen">
+    <div class="h-screen bg-honey/40">
         @if (Route::has('login'))
         <nav>
             <div class="mx-auto max-w-7xl px-2 sm:px-3 lg:px-4 relative z-50 flex justify-between py-2 sm:py-3 lg:py-4">

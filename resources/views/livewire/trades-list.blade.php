@@ -28,7 +28,7 @@
                         @endif
                         <div>
                             <p class="text-honey font-bold capitalize text-base">{{ $trade->name }}</p>
-                            <p class="text-darkHoney-800 font-medium text-sm">({{ $trade->date }})</p>
+                            <p class="text-darkHoney/90 font-medium text-sm">({{ $trade->date }})</p>
                         </div>
                     </div>
                     <div class='flex flex-col items-end'>
