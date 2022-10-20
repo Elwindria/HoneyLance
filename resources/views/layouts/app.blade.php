@@ -23,11 +23,11 @@
     @livewireStyles
     @toastScripts
 </head>
-<body class="font-sans antialiased bg-king">
+<body class="font-sans antialiased bg-honey-light/40">
     <livewire:toasts />
     <div class="h-screen">
         @if (Route::has('login'))
-        <nav class="sticky top rounded-b-3xl bg-white">
+        <nav class="sticky top rounded-b-3xl bg-white shadow-lg">
             <div class="mx-auto max-w-7xl px-2 sm:px-3 lg:px-4 relative z-50 flex justify-between py-2 sm:py-3 lg:py-4">
                 @auth
                 <div class="relative z-10 flex items-center">
@@ -85,7 +85,7 @@
         </nav>
         @endif
         <!-- Page Content -->
-        <main class="bg-king">
+        <main class="">
             {{ $slot }}
         </main>
     </div>
