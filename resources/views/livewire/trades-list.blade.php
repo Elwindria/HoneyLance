@@ -1,9 +1,9 @@
 <div class="h-screen">
     @include("livewire.counts")
-    <div class="relative bg-honey-300 rounded-t-3xl min-h-full bg-white">
+    <div class="relative rounded-t-3xl min-h-full bg-white">
         <div class="flex flex-col gap-6 mt-2 py-6 mx-auto max-w-7xl px-4 sm:px-8">
             <div class="flex justify-center">
-                <input type="text" class="rounded-3xl border-honey border-2 h-8 bg-white font-semibold focus:ring focus:ring-honey-light/50 focus:border-transparent text-king">
+                <input type="text" class="rounded-3xl border-king border-2 h-8 bg-white font-semibold focus:ring focus:ring-honey focus:border-transparent text-king">
             </div>
             <div class="flex justify-center gap-10">
                 <button wire:click="switchSummaryType('all')" class="text-darkHoney hover:text-honey  px-3 py-2 font-medium text-sm rounded-md">Tout</button>
@@ -28,7 +28,7 @@
                         @endif
                         <div>
                             <p class="text-honey font-bold capitalize text-base">{{ $trade->name }}</p>
-                            <p class="text-darkHoney/90 font-medium text-sm">({{ $trade->date }})</p>
+                            <p class="text-honey-light font-medium text-sm">({{ $trade->date }})</p>
                         </div>
                     </div>
                     <div class='flex flex-col items-end'>
