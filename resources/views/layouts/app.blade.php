@@ -17,7 +17,7 @@
     @livewireStyles
     @toastScripts
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans antialiased ">
     <livewire:toasts />
     <div class="h-screen">
         @if (Route::has('login'))
@@ -27,7 +27,7 @@
                 <div class="relative z-10 flex items-center">
                     <a href="{{ route('trades-list')}}" class="flex items-center gap-1">
                         <img class="h-10 w-auto" src="{{ url('images/logo.png')}}">
-                        <p class='text-darkHoney font-bold text-2xl'>Honey<span class="text-honey">lance</span></p>
+                        <p class='text-honey-dark font-bold text-2xl'>Honey<span class="text-honey">lance</span></p>
                     </a>
                 </div>
                 <div class="lg:flex hidden items-center gap-6">
@@ -79,7 +79,7 @@
         </nav>
         @endif
         <!-- Page Content -->
-        <main>
+        <main class="bg-king">
             {{ $slot }}
         </main>
     </div>
