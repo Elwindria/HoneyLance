@@ -1,9 +1,9 @@
 <div class="h-screen">
     @include("livewire.counts")
-    <div class="relative bg-honey-300 rounded-t-3xl min-h-full">
+    <div class="relative bg-white rounded-t-3xl min-h-full">
         <div class="flex flex-col gap-6 mt-2 py-6 mx-auto max-w-7xl px-4 sm:px-8">
             <div class="flex justify-center">
-                <input type="text" class="rounded-3xl border-darkHoney border-2 h-8 bg-white font-semibold text-darkHoney">
+                <input type="text" class="rounded-3xl border-darkHoney border-2 h-8 bg-white font-semibold text-darkHoney focus:ring-honey focus:border-honey">
             </div>
             <div class="flex justify-center gap-10">
                 <button wire:click="switchSummaryType('all')" class="text-darkHoney hover:text-honey  px-3 py-2 font-medium text-sm rounded-md">Tout</button>
@@ -15,7 +15,7 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-8">
             <div class="flex flex-col justify-center gap-2">
                 @foreach($this->trades as $trade)
-                <a href="{{ route('trade-store', ['trade_id' => $trade->id]) }}" class="flex justify-between bg-white p-2 border-darkHoney-600 hover:border-honey hover:bg-gray-100 rounded-3xl border-2">
+                <a href="{{ route('trade-store', ['trade_id' => $trade->id]) }}" class="flex justify-between bg-white p-2 border-darkHoney/90 hover:border-honey hover:bg-gray-100 rounded-3xl border-2">
                     <div class="flex gap-3">
                         @if($trade->type === "in")
                         <svg class="text-emerald-600" width="45" height="45" viewBox="0 0 24 24">
@@ -28,7 +28,7 @@
                         @endif
                         <div>
                             <p class="text-honey font-bold capitalize text-base">{{ $trade->name }}</p>
-                            <p class="text-darkHoney-800 font-medium text-sm">({{ $trade->date }})</p>
+                            <p class="text-darkHoney/90 font-medium text-sm">({{ $trade->date }})</p>
                         </div>
                     </div>
                     <div class='flex flex-col items-end'>

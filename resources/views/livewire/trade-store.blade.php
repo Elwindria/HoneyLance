@@ -4,7 +4,6 @@
     <div class="flex flex-col gap-6 w-4/12 m-auto mt-10">
         <div>
             <div class="flex justify-center gap-10">
-                <!-- Current: "bg-indigo-100 text-indigo-700", Default: "text-gray-500 hover:text-gray-700" -->
                 <button wire:click="switchType('in')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md @if($this->type_trade === 'in') underline @endif">Entrée</button>
                 <button wire:click="switchType('out')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md @if($this->type_trade === 'out') underline @endif">Sortie</button>
                 <button wire:click="switchType('fixed')" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md @if($this->type_trade === 'fixed') underline @endif">Frais Fixe</button>
