@@ -5,7 +5,7 @@
             <div class="flex justify-center">
                 <input type="text" class="rounded-3xl border-honey border-2 h-8 bg-white font-semibold focus:ring focus:ring-honey-light/50 focus:border-transparent text-king">
             </div>
-            <div class="flex justify-center gap-10">
+            <div class="flex justify-between">
                 <button wire:click="switchSummaryType('all')" class="text-king-light border-b border-king-light hover:text-honey  px-3 py-2 font-medium text-sm">Tout</button>
                 <button wire:click="switchSummaryType('in')" class="text-king/50 border-b border-white hover:text-honey px-3 py-2 font-medium text-sm">Entrée</button>
                 <button wire:click="switchSummaryType('out')" class="text-king/50 border-b border-white hover:text-honey px-3 py-2 font-medium text-sm">Sortie</button>
