@@ -3,19 +3,19 @@
     <div class="relative rounded-t-3xl min-h-full bg-white">
         <div class="flex flex-col gap-6 mt-2 py-6 mx-auto max-w-7xl px-4 sm:px-8">
             <div class="flex justify-center">
-                <input type="text" class="rounded-3xl border-king border-2 h-8 bg-white font-semibold focus:ring focus:ring-honey focus:border-transparent text-king">
+                <input type="text" class="rounded-3xl border-honey-dark border-2 h-8 bg-white font-semibold focus:ring focus:ring-honey-light focus:border-transparent text-honey-dark">
             </div>
             <div class="flex justify-center gap-10">
-                <button wire:click="switchSummaryType('all')" class="text-darkHoney hover:text-honey  px-3 py-2 font-medium text-sm rounded-md">Tout</button>
-                <button wire:click="switchSummaryType('in')" class="text-darkHoney hover:text-honey  px-3 py-2 font-medium text-sm rounded-md">Entrée</button>
-                <button wire:click="switchSummaryType('out')" class="text-darkHoney hover:text-honey  px-3 py-2 font-medium text-sm rounded-md">Sortie</button>
-                <button wire:click="switchSummaryType('fixed')" class="text-darkHoney hover:text-honey  px-3 py-2 font-medium text-sm rounded-md">Frais Fixe</button>
+                <button wire:click="switchSummaryType('all')" class="text-honey-dark hover:text-honey-light  px-3 py-2 font-medium text-sm rounded-md">Tout</button>
+                <button wire:click="switchSummaryType('in')" class="text-honey-dark hover:text-honey-light  px-3 py-2 font-medium text-sm rounded-md">Entrée</button>
+                <button wire:click="switchSummaryType('out')" class="text-honey-dark hover:text-honey-light  px-3 py-2 font-medium text-sm rounded-md">Sortie</button>
+                <button wire:click="switchSummaryType('fixed')" class="text-honey-dark hover:text-honey-light  px-3 py-2 font-medium text-sm rounded-md">Frais Fixe</button>
             </div>
         </div>
         <div class="mx-auto max-w-7xl px-4 sm:px-8">
             <div class="flex flex-col justify-center gap-2">
                 @foreach($this->trades as $trade)
-                <a href="{{ route('trade-store', ['trade_id' => $trade->id]) }}" class="flex justify-between bg-white p-2 border-king hover:border-honey hover:bg-gray-100 rounded-3xl border-2">
+                <a href="{{ route('trade-store', ['trade_id' => $trade->id]) }}" class="flex justify-between bg-white p-2 border-honey hover:border-honey-light hover:bg-honey/40 rounded-3xl border-2">
                     <div class="flex gap-3">
                         @if($trade->type === "in")
                         <svg class="text-emerald-600" width="45" height="45" viewBox="0 0 24 24">
