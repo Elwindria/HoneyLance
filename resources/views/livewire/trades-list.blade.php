@@ -15,7 +15,7 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-8">
             <div class="flex flex-col justify-center gap-2">
                 @foreach($this->trades as $trade)
-                <a href="{{ route('trade-store', ['trade_id' => $trade->id]) }}" class="flex justify-between bg-white p-2 border-darkHoney-600 rounded-3xl border-2">
+                <a href="{{ route('trade-store', ['trade_id' => $trade->id]) }}" class="flex justify-between bg-white p-2 border-darkHoney-600 hover:border-honey hover:bg-gray-100 rounded-3xl border-2">
                     <div class="flex gap-3">
                         @if($trade->type === "in")
                         <svg class="text-emerald-600" width="45" height="45" viewBox="0 0 24 24">

@@ -36,8 +36,16 @@ class TradeStore extends Component
                 }
             }
 
+            
             if(session()->exists('selected_tags')){
                 $this->selected_tags = session('selected_tags');
+            }
+
+            //Si la session type 'exists' alors on l'affiche sinon on affiche par défaut la page trade 'in'
+            if(session()->exists('type')){
+                $this->type_trade = session('type');
+            } else {
+                $this->type_trade = 'in';
             }
 
             //Affiche si il existe des sessions de l'utilisateur
@@ -45,7 +53,7 @@ class TradeStore extends Component
             $this->cost = session('cost');
             $this->date = session('date');
             $this->interval = session('interval');
-            $this->type_trade = session('type');
+
 
         } else {
 
@@ -158,12 +166,13 @@ class TradeStore extends Component
     {
         Trade::find($this->trade_id)->delete();
 
-        $this->type_trade = null;
-
         $this->resetInputFields();
 
         toast()
         ->success("Transaction supprimée avec succès.")
-        ->push();
+        ->pushOnNextPage();
+
+        //On revient à la page trades-list
+        return redirect()->route('trades-list');
     }
 }
