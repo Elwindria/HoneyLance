@@ -17,11 +17,11 @@
     @livewireStyles
     @toastScripts
 </head>
-<body class="font-sans antialiased ">
+<body class="font-sans antialiased bg-king">
     <livewire:toasts />
     <div class="h-screen">
         @if (Route::has('login'))
-        <nav>
+        <nav class="sticky top rounded-b-3xl bg-white">
             <div class="mx-auto max-w-7xl px-2 sm:px-3 lg:px-4 relative z-50 flex justify-between py-2 sm:py-3 lg:py-4">
                 @auth
                 <div class="relative z-10 flex items-center">
