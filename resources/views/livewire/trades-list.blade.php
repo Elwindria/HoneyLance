@@ -1,9 +1,9 @@
 <div class="h-screen">
     @include("livewire.counts")
     <div class="relative bg-honey-300 rounded-t-3xl min-h-full bg-white">
-        <div class="flex flex-col gap-6 mt-2 py-6 mx-auto max-w-7xl px-4 sm:px-8">
+        <div class="flex flex-col gap-4 mt-2 py-6 mx-auto max-w-7xl px-4 sm:px-8">
             <div class="flex justify-center">
-                <input type="text" class="rounded-3xl border-honey border-2 h-8 bg-white font-semibold focus:ring focus:ring-honey-light/50 focus:border-transparent text-king">
+                <input type="text" placeholder="rechercher..." class="rounded-3xl pt-1 pb-2 border-honey border-2 h-8 bg-white focus:ring focus:ring-honey-light/50 focus:border-transparent text-king">
             </div>
             <div class="flex justify-between">
                 <button wire:click="switchSummaryType('all')" class="text-king-light border-b border-king-light hover:text-honey  px-3 py-2 font-medium text-sm">Tout</button>
