@@ -16,22 +16,18 @@ module.exports = {
             },
             colors:{
                 'honey':{
-                    // DEFAULT: '#FA970C',
                     DEFAULT: '#FFC96B',
                 },
                 'honey-dark':{
                     DEFAULT: '#AD6703',
                 },
                 'honey-light':{
-                    // DEFAULT: '#FFA526',
                     DEFAULT: '#FFD285',
                 },
                 'king': {
-                    // DEFAULT: '#00070F',
                     DEFAULT: '#070C12',
                 },
                 'king-light': {
-                    // DEFAULT: '#0C9FFA',
                     DEFAULT: '#6BB3FF',
                 }
             },
