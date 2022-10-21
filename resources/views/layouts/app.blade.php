@@ -25,8 +25,11 @@
     @toastScripts
 </head>
 <body class="font-sans antialiased bg-honey-light/40">
+
     <livewire:toasts />
+
     <div class="h-screen">
+
         @if (Route::has('login'))
         <nav class="sticky top rounded-b-3xl bg-white shadow-lg">
             <div class="mx-auto max-w-7xl px-2 sm:px-3 lg:px-4 relative z-50 flex justify-between py-2 sm:py-3 lg:py-4">
@@ -51,6 +54,10 @@
                     </div>
                     <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <div class="py-1" role="none">
+                            <a href="{{ route('trades-list') }}" class="flex items-center px-4 py-2 text-sm text-gray-700" @click="open = false">
+                                <svg width="32" height="32" class="h-4 w-4 mr-2" viewBox="0 0 24 24"><path fill="currentColor" d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z"/></svg>
+                                Accueil
+                            </a>
                             <a href="{{ route('user-settings') }}" class="flex items-center px-4 py-2 text-sm text-gray-700" @click="open = false">
                                 <svg width="32" height="32" class="h-4 w-4 mr-2" viewBox="0 0 15 15">
                                     <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" clip-rule="evenodd">
@@ -92,10 +99,12 @@
             </div>
         </nav>
         @endif
+
         <!-- Page Content -->
-        <main class="">
+        <main class="h-full">
             {{ $slot }}
         </main>
+
     </div>
 
     @stack('modals')
