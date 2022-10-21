@@ -13,23 +13,23 @@
             @if($this->type_trade !== null)
             <div class="flex flex-col justify-center">
                 <label for="name" class="text-king text-lg font-semibold indent-4">Nom</label>
-                <input type="text" id="name" wire:model='name' class="rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
+                <input type="text" id="name" wire:model='name' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
                 @error('name') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
             </div>
             <div class="flex flex-col justify-center">
                 <label for="cost" class="text-king text-lg font-semibold indent-4">Montant <span class="text-xs text-king/50">en euro</span></label>
-                <input type="number" min="0" id="cost" wire:model='cost' class="rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
+                <input type="number" min="0" id="cost" wire:model='cost' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
                 @error('cost') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
             </div>
             <div class="flex flex-col justify-center">
                 <label for="date" class="text-king text-lg font-semibold indent-4">Date</label>
-                <input type="date" id="date" wire:model='date' class="rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
+                <input type="date" id="date" wire:model='date' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
                 @error('date') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
             </div>
             @if($this->type_trade === 'in')
             <div class="flex flex-col justify-center">
                 <label for="urssaf_percent" class="text-king text-lg font-semibold indent-4">Urssaf</label>
-                <select name="urssaf_percent" id="urssaf_percent" wire:model='urssaf_percent' class="rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
+                <select name="urssaf_percent" id="urssaf_percent" wire:model='urssaf_percent' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
                     @if($this->urssaf_percent === null)
                     <option>Votre taux Urssaf par défaut n'existe pas. Vous pouvez en choisir un dans vos paramètres d'utilisateur.</option>
                     @elseif($this->urssaf_percent === 'old')
@@ -48,7 +48,7 @@
             @elseif($this->type_trade === 'fixed')
             <div class="flex flex-col justify-center">
                 <label for="interval" class="text-king text-lg font-semibold indent-4">Période <span class="text-xs text-king/50">en jours</span></label>
-                <input type="number" step="1" min="1" id="interval" wire:model='interval' class="rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
+                <input type="number" step="1" min="1" id="interval" wire:model='interval' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
                 @error('interval') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
             </div>
             @endif
