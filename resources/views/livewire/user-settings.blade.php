@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    <div class="rounded-3xl min-h-full bg-white px-4 pt-2 pb-4">
+    <div class="rounded-t-3xl bg-white px-4 pt-2 pb-24">
         <livewire:tags>
     </div>
 
