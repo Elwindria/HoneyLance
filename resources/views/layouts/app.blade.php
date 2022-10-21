@@ -24,7 +24,7 @@
     @livewireStyles
     @toastScripts
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans antialiased bg-honey-light/40">
     <livewire:toasts />
     <div class="h-screen">
         @if (Route::has('login'))
