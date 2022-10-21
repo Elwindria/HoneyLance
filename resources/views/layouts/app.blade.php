@@ -12,6 +12,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="#FFFFFF">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -23,7 +24,7 @@
     @livewireStyles
     @toastScripts
 </head>
-<body class="font-sans antialiased bg-honey-light/50">
+<body class="font-sans antialiased">
     <livewire:toasts />
     <div class="h-screen">
         @if (Route::has('login'))
