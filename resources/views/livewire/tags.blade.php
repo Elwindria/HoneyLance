@@ -1,5 +1,5 @@
 <div class='flex flex-col'>
-    
+
     <div class="flex flex-col justify-center">
         <div class="flex gap-2 py-4">
             @foreach(auth()->user()->tags as $tag)
@@ -17,7 +17,7 @@
     @error('selected_tag') <span class="text-danger">{{ $message }}</span>@enderror
 
     @if($isOpen)
-    <div class="flex gap-4">
+    <div class="flex gap-2">
         <div class="grow">
             <div class="flex flex-col justify-center">
                 @if($this->selected_tag)
@@ -29,9 +29,12 @@
                 @error('name_tag') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
             </div>
         </div>
-        <div class="flex items-end gap-2 mb-0.5">
-            <button wire:click="cancel" class="bg-gray-100 text-king rounded-lg p-2">Annuler</button>
-            <button wire:click="store" class="bg-green-600 text-white rounded-lg p-2">Valider</button>
+        <div class="flex items-end gap-1 mb-0.5">
+            <button wire:click="cancel" class="bg-gray-100 text-king rounded-full p-2">
+                <svg width="22" height="22" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243"/></svg>
+            </button>
+            <button wire:click="store" class="bg-green-600 text-white rounded-full p-2">
+                <svg width="22" height="22" viewBox="0 0 512 512"><path d="M448 71.9c-17.3-13.4-41.5-9.3-54.1 9.1L214 344.2l-99.1-107.3c-14.6-16.6-39.1-17.4-54.7-1.8-15.6 15.5-16.4 41.6-1.7 58.1 0 0 120.4 133.6 137.7 147 17.3 13.4 41.5 9.3 54.1-9.1l206.3-301.7c12.6-18.5 8.7-44.2-8.6-57.5z" fill="currentColor"/></svg>            </button>
         </div>
     </div>
     @else
