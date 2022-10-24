@@ -7,6 +7,7 @@ use App\Models\UrssafSetting;
 use Illuminate\Http\Request;
 use Livewire\Component;
 use Usernotnull\Toast\Concerns\WireToast;
+use Carbon\Carbon;
 
 class TradeStore extends Component
 {
@@ -19,6 +20,12 @@ class TradeStore extends Component
     {
         $this->url = url()->current();
         $this->trade_id = request()->trade_id;
+
+        $this->trades = Trade::where('user_id', auth()->user()->id)->get();
+
+        $positive = Trade::where('user_id', auth()->user()->id)->where('type', 'in')->whereMonth('date', Carbon::now()->month)->sum('cost');
+        $negative = Trade::where('user_id', auth()->user()->id)->where('type', 'out')->whereMonth('date', Carbon::now()->month)->sum('cost');
+        $this->recipe = $positive - $negative;
 
         //Si l'utilisateur veut créer un nouveau trade, on affiche la vue avec le formulaire + sessions, sinon on affiche formulaire en mode Edit
         if ($this->trade_id === null) {

@@ -18,7 +18,7 @@
         <div class="flex flex-col gap-4 py-6 mx-auto max-w-3xl px-4 sm:px-8">
             <div class="flex flex-col justify-center">
                 <label for="urssaf_setting_id" class="text-king text-lg font-semibold indent-4">Pourcentage Urssaf <span class="text-xs text-king/50">par défaut</span></label>
-                <select name="urssaf_setting_id" id="urssaf_setting_id" wire:model.debounce.500ms='urssaf_setting_id' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king">
+                <select name="urssaf_setting_id" id="urssaf_setting_id" wire:model.debounce.500ms='urssaf_setting_id' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
                     <option value="">--SVP Choissisez une option--</option>
                     @foreach($this->urssaf_settings as $urssaf_setting)
                     <option value="{{ $urssaf_setting->id }}">{{ $urssaf_setting->percentage }}% - {{ $urssaf_setting->description }}</option>
@@ -28,12 +28,12 @@
             </div>
             <div class="flex flex-col justify-center">
                 <label for="salary" class="text-king text-lg font-semibold indent-4">Salaire <span class="text-xs text-king/50">en euro</span></label>
-                <input type="number" min='0' id="salary" wire:model.debounce.500ms='salary' value="{{ ('salary') }}" class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king">
+                <input type="number" min='0' id="salary" wire:model.debounce.500ms='salary' value="{{ ('salary') }}" class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
                 @error('salary') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
             </div>
             <div class="flex flex-col justify-center">
                 <label for="date_start" class="text-king text-lg font-semibold indent-4">Date de début d'activité</label>
-                <input type="date" id="date_start" wire:model.debounce.500ms='date_start' value="{{ ('date_start') }}" class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king">
+                <input type="date" id="date_start" wire:model.debounce.500ms='date_start' value="{{ ('date_start') }}" class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
                 @error('date_start') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
             </div>
         </div>
