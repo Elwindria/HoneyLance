@@ -3,18 +3,18 @@
         <div class="flex flex-col items-center">
             <h2 class="text-king text-lg font-bold">Recette</h2>
             <div class="flex flex-col items-center">
-                <p class="text-red-600 font-medium"> -500€</p>
+                <p class="text-red-600 font-medium">{{ number_format('-500', 0, ',', ' ') }} €</p>
                 <p class="text-honey-dark/80 font-thin text-xs -mt-2">mois en cours</p>
             </div>
         </div>
         <div class="flex flex-col items-center">
             <h2 class="text-king text-lg font-bold">Salaire</h2>
-            <p class="text-emerald-600 font-medium">1500€</p>
+            <p class="text-emerald-600 font-medium">{{ number_format(auth()->user()->setting->salary, 0, ',', ' ') }} €</p>
         </div>
         <div class="flex flex-col items-center">
             <h2 class="text-king text-lg font-bold">Epargne</h2>
             <div class="flex flex-col items-center">
-                <p class="text-emerald-600 font-medium">2500€</p>
+                <p class="text-emerald-600 font-medium">{{ number_format('2500', 0, ',', ' ') }} €</p>
                 <p class="text-honey-dark/80 font-thin text-xs -mt-2">mois en cours</p>
             </div>
         </div>
