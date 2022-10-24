@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\App;
 
-use Livewire\Component;
 use App\Models\Trade;
+use Livewire\Component;
 
 class TradesList extends Component
 {
@@ -18,6 +18,6 @@ class TradesList extends Component
     public function render()
     {
         $this->trades = Trade::where('user_id', auth()->user()->id)->get();
-        return view('livewire.trades-list')->layout('layouts.app');
+        return view('app.trades-list')->layout('layouts.app');
     }
 }

@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\App;
 
-use Livewire\Component;
-use App\Models\UserSetting;
-use App\Models\UrssafSetting;
 use App\Models\Trade;
-use Usernotnull\Toast\Concerns\WireToast;
+use App\Models\UrssafSetting;
 use Illuminate\Http\Request;
+use Livewire\Component;
+use Usernotnull\Toast\Concerns\WireToast;
 
 class TradeStore extends Component
 {
@@ -22,27 +21,26 @@ class TradeStore extends Component
         $this->trade_id = request()->trade_id;
 
         //Si l'utilisateur veut créer un nouveau trade, on affiche la vue avec le formulaire + sessions, sinon on affiche formulaire en mode Edit
-        if($this->trade_id === null){
+        if ($this->trade_id === null) {
             $user_setting = auth()->user()->setting;
             //Si l'utilisateur n'a pas renseigner un percentUrssaf, alors message spéciale
-            if($user_setting->urssaf_setting_id == null){
+            if ($user_setting->urssaf_setting_id == null) {
                 $this->urssaf_percent = null;
             } else {
                 //Sinon cherche si sont percentUrssaf existe encore, sinon msg spéciale
-                if($user_setting->urssaf != null){
+                if ($user_setting->urssaf != null) {
                     $this->urssaf_percent = $user_setting->urssaf->percentage;
                 } else {
                     $this->urssaf_percent = 'old';
                 }
             }
 
-            
-            if(session()->exists('selected_tags')){
+            if (session()->exists('selected_tags')) {
                 $this->selected_tags = session('selected_tags');
             }
 
             //Si la session type 'exists' alors on l'affiche sinon on affiche par défaut la page trade 'in'
-            if(session()->exists('type')){
+            if (session()->exists('type')) {
                 $this->type_trade = session('type');
             } else {
                 $this->type_trade = 'in';
@@ -54,14 +52,13 @@ class TradeStore extends Component
             $this->date = session('date');
             $this->interval = session('interval');
 
-
         } else {
 
             $trade = Trade::find($this->trade_id);
             $urssaf_setting_percentage = UrssafSetting::where('percentage', $trade->urssaf_percent)->get();
 
             //si le %urssaf n'existe plus dans la db (car trop vieux), alors on crée <option> avec l'ancienne valeur
-            if($urssaf_setting_percentage->isEmpty()){
+            if ($urssaf_setting_percentage->isEmpty()) {
                 $this->urssaf_percent = $trade->urssaf_percent;
                 $this->old_urssaf_percent = true;
             } else {
@@ -77,7 +74,7 @@ class TradeStore extends Component
         $urssaf_settings = UrssafSetting::orderBy('percentage')->get();
 
         //compact permet de faire passer des variable (ici : urssaf_settings) dans la vue. Vaut mieux faire ça car dans mount(), refresh à chaque changement... Pas ouf niveau opti
-        return view('livewire.trade-store', compact('urssaf_settings'))->layout('layouts.app');
+        return view('app.trade-store', compact('urssaf_settings'))->layout('layouts.app');
     }
 
     public function resetInputFields()
@@ -109,14 +106,14 @@ class TradeStore extends Component
 
         $merged = array_merge($dataValide, ['user_id' => auth()->user()->id], ['type' => $this->type_trade]);
 
-        if($this->type_trade == 'in'){
+        if ($this->type_trade == 'in') {
             $dataValide = $this->validate([
-                'urssaf_percent' => ['required', 'numeric']
+                'urssaf_percent' => ['required', 'numeric'],
             ]);
 
             $merged = array_merge($merged, $dataValide);
 
-        }elseif($this->type_trade == 'fixed'){
+        } elseif ($this->type_trade == 'fixed') {
             $dataValide = $this->validate([
                 'interval' => ['required', 'numeric', 'Min:0'],
             ]);
@@ -124,20 +121,20 @@ class TradeStore extends Component
         }
 
         //Créer un new trade
-        $create_trade = Trade::updateOrCreate(['id' => $this->trade_id],$merged);
+        $create_trade = Trade::updateOrCreate(['id' => $this->trade_id], $merged);
         //Créer le lien entre trades et tags (table pivot)
         $create_trade->tags()->sync($this->selected_tags);
 
         $this->resetInputFields();
 
-        if($this->trade_id === 'new'){
+        if ($this->trade_id === 'new') {
             toast()
-            ->success("Nouvelle transaction ajoutée avec succès.")
-            ->push();
+                ->success("Nouvelle transaction ajoutée avec succès.")
+                ->push();
         } else {
             toast()
-            ->success("Transaction modifiée avec succès.")
-            ->pushOnNextPage();
+                ->success("Transaction modifiée avec succès.")
+                ->pushOnNextPage();
         }
 
         //On a fini l'edit, on retourne à la vue de résumé
@@ -146,7 +143,7 @@ class TradeStore extends Component
 
     public function updated($name, $value)
     {
-        if($this->trade_id === 'new'){
+        if ($this->trade_id === 'new') {
             session([$name => $value]);
         }
     }
@@ -169,8 +166,8 @@ class TradeStore extends Component
         $this->resetInputFields();
 
         toast()
-        ->success("Transaction supprimée avec succès.")
-        ->pushOnNextPage();
+            ->success("Transaction supprimée avec succès.")
+            ->pushOnNextPage();
 
         //On revient à la page trades-list
         return redirect()->route('trades-list');

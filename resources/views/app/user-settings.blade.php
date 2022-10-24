@@ -16,7 +16,6 @@
 
     <div class="rounded-3xl bg-white">
         <div class="flex flex-col gap-4 py-6 mx-auto max-w-3xl px-4 sm:px-8">
-            @if($this->message_user_setting === null)
             <div class="flex flex-col justify-center">
                 <label for="urssaf_setting_id" class="text-king text-lg font-semibold indent-4">Pourcentage Urssaf <span class="text-xs text-king/50">par défaut</span></label>
                 <select name="urssaf_setting_id" id="urssaf_setting_id" wire:model.debounce.500ms='urssaf_setting_id' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king">
@@ -37,9 +36,6 @@
                 <input type="date" id="date_start" wire:model.debounce.500ms='date_start' value="{{ ('date_start') }}" class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king">
                 @error('date_start') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
             </div>
-            @else
-            <p>{{ $this->message_user_setting }}</p>
-            @endif
         </div>
     </div>
 
@@ -55,7 +51,7 @@
     </div>
 
     <div class="rounded-t-3xl bg-white px-4 pt-2 pb-24">
-        <livewire:tags>
+        <livewire:app.tags>
     </div>
 
 </div>

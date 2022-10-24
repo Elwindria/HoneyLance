@@ -1,11 +1,10 @@
 <?php
 
 use App\Http\Controllers\RedirectController;
-use App\Http\Livewire\Index;
-use App\Http\Livewire\UserSettings;
-use App\Http\Livewire\TradeStore;
-use App\Http\Livewire\TradesList;
-use App\Http\Livewire\Tags;
+use App\Http\Livewire\App\UserSettings;
+use App\Http\Livewire\App\TradeStore;
+use App\Http\Livewire\App\TradesList;
+use App\Http\Livewire\App\Tags;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', Index::class)->name('index');
+Route::get('/', function() {
+    return view('guest.landing-page');
+})->name('index');
 
 Route::get('/redirect', [RedirectController::class, 'index'])->name('redirect');
 

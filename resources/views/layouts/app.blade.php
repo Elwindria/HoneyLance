@@ -30,10 +30,9 @@
 
     <div class="h-screen">
 
-        @if (Route::has('login'))
         <nav class="sticky top rounded-b-3xl bg-white shadow-lg">
             <div class="mx-auto max-w-7xl px-2 sm:px-3 lg:px-4 relative z-50 flex justify-between py-2 sm:py-3 lg:py-4">
-                @auth
+
                 <div class="relative z-10 flex items-center">
                     <a href="{{ route('trades-list')}}" class="flex items-center gap-1">
                         <img class="h-10 w-auto" src="{{ url('images/logo.png')}}">
@@ -83,22 +82,8 @@
                         </div>
                     </div>
                 </div>
-                @else
-                <div class="relative z-10 flex items-center gap-16">
-                    <a href="{{ route('trades-list')}}">
-                        <img class="h-14 w-auto" src="{{ url('images/logo.png')}}">
-                    </a>
-                </div>
-                <div class="flex items-center gap-6">
-                    <a href="{{ route('login') }}" class="inline-flex justify-center rounded-lg border py-[calc(theme(spacing.2)-1px)] px-[calc(theme(spacing.3)-1px)] text-sm outline-2 outline-offset-2 transition-colors border-honey text-gray-700 hover:border-darkHoney active:bg-darkHoney active:text-darkHoney lg:block">Log in</a>
-                    @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="inline-flex justify-center rounded-lg py-2 px-3 text-sm font-semibold outline-2 outline-offset-2 transition-colors bg-darkHoney text-white hover:bg-darkHoney-900 active:bg-darkHoney active:text-white/80 lg:block">Register</a>
-                    @endif
-                </div>
-                @endauth
             </div>
         </nav>
-        @endif
 
         <!-- Page Content -->
         <main class="h-full">
