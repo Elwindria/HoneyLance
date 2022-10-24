@@ -4,13 +4,13 @@
             <x-jet-authentication-card-logo />
         </x-slot>
 
-        <div class="mb-4 text-sm text-gray-600">
+        <div class="p-4 text-sm text-gray-600">
             {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
         </div>
 
-        <x-jet-validation-errors class="mb-4" />
+        <x-jet-validation-errors class="p-4" />
 
-        <form method="POST" action="{{ route('password.confirm') }}">
+        <form method="POST" action="{{ route('password.confirm') }}"  class="px-4 pt-4 pb-12">
             @csrf
 
             <div>

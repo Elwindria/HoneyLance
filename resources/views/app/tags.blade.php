@@ -1,7 +1,7 @@
 <div class='flex flex-col'>
 
     <div class="flex flex-col justify-center">
-        <div class="flex gap-2 py-4">
+        <div class="flex flex-wrap gap-2 py-4">
             @foreach(auth()->user()->tags as $tag)
             <div class="">
                 <input type=radio name="name" wire:model='selected_tag' value="{{ $tag->id }}" id="{{ $tag->id }}" class="hidden peer">

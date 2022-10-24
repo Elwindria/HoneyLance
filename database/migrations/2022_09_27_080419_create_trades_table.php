@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('trades', function (Blueprint $table) {
             $table->id();
+            //TODO::changer en float
             $table->integer('cost');
             $table->integer('interval')->nullable();
             $table->date('date');

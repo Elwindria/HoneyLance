@@ -1,5 +1,17 @@
 <x-guest-layout>
 
+    <div class="relative z-10 flex items-center gap-16">
+        <a href="{{ route('trades-list')}}">
+            <img class="h-14 w-auto" src="{{ url('images/logo.png')}}">
+        </a>
+    </div>
+    <div class="flex items-center gap-6">
+        <a href="{{ route('login') }}" class="inline-flex justify-center rounded-lg border py-[calc(theme(spacing.2)-1px)] px-[calc(theme(spacing.3)-1px)] text-sm outline-2 outline-offset-2 transition-colors border-honey text-gray-700 hover:border-darkHoney active:bg-darkHoney active:text-darkHoney lg:block">Log in</a>
+        @if (Route::has('register'))
+        <a href="{{ route('register') }}" class="inline-flex justify-center rounded-lg py-2 px-3 text-sm font-semibold outline-2 outline-offset-2 transition-colors bg-darkHoney text-white hover:bg-darkHoney-900 active:bg-darkHoney active:text-white/80 lg:block">Register</a>
+        @endif
+    </div>
+    
     <div class="flex flex-col gap-4 mt-2 py-6 mx-auto max-w-7xl px-4 sm:px-8 justify-center bg-cover bg-[url('https://management.dev/images/background-phone.png')] sm:bg-[url('https://management.dev/images/background-desktop.png')]">
         <div class="flex items-center justify-center gap-1 sm:gap-8">
             <p class="text-2xl text-honey-dark font-bold text-center">L'application de comptabilité pour les freelances !</p>

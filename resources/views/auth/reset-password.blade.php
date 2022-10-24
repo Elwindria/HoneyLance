@@ -4,9 +4,9 @@
             <x-jet-authentication-card-logo />
         </x-slot>
 
-        <x-jet-validation-errors class="mb-4" />
+        <x-jet-validation-errors class="p-4" />
 
-        <form method="POST" action="{{ route('password.update') }}">
+        <form method="POST" action="{{ route('password.update') }}" class="px-4 pt-4 pb-12">
             @csrf
 
             <input type="hidden" name="token" value="{{ $request->route('token') }}">

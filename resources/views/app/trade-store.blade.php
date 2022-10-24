@@ -35,7 +35,7 @@
                     @elseif($this->urssaf_percent === 'old')
                     <option>Votre taux Urssaf par défaut n'existe plus et doit être mis à jour.</option>
                     @elseif($this->old_urssaf_percent)
-                    <option value="{{ $this->urssaf_percent }}">{{ $this->urssaf_percent }}% - /!\ Attention /!\ Ancien taux Urssaf</option>
+                    <option value="{{ $this->urssaf_percent }}">{{ $this->urssaf_percent }}% - 🚩 Attention 🚩 Ancien taux Urssaf</option>
                     @else
                     <option>-- Choissisez une option SVP --</option>
                     @endif
@@ -55,7 +55,7 @@
             <div class="flex flex-col justify-center">
                 <label class="text-king text-lg font-semibold indent-4 border-b-2 border-king">Tags</label>
                 <div class="flex-col gap-2">
-                    <div class="flex gap-2 py-4">
+                    <div class="flex flex-wrap gap-2 py-4">
                         @foreach(auth()->user()->tags as $tag)
                         <div class="">
                             <input type="checkbox" wire:model='selected_tags' id="{{ $tag->id }}" value="{{ $tag->id }}" class="hidden peer" required="">

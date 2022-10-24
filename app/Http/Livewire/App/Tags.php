@@ -80,6 +80,10 @@ class Tags extends Component
         ]);
 
         Tag::find($this->selected_tag)->delete();
+
+        toast()
+        ->success("Tag supprimé avec succès.")
+        ->push();
     }
 
     public function cancel()

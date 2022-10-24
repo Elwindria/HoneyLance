@@ -99,7 +99,7 @@ class TradeStore extends Component
     {
 
         $dataValide = $this->validate([
-            'cost' => ['required', 'numeric', 'Min:0'],
+            'cost' => ['required', 'numeric', 'min:0', 'max:999999999'],
             'name' => ['required', 'string'],
             'date' => ['required', 'date'],
         ]);
