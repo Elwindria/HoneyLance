@@ -20,6 +20,7 @@ class TradeStore extends Component
     {
         $this->url = url()->current();
         $this->trade_id = request()->trade_id;
+        $this->confirm_delete = false;
 
         $this->trades = Trade::where('user_id', auth()->user()->id)->get();
 
@@ -164,6 +165,10 @@ class TradeStore extends Component
         $this->date = $trade->date;
         $this->interval = $trade->interval;
         $this->selected_tags = $trade->tags->pluck('id')->toArray();
+    }
+
+    public function confirmDelete() {
+        $this->confirm_delete = true;
     }
 
     public function delete()
