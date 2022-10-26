@@ -5,6 +5,7 @@ use App\Http\Livewire\App\UserSettings;
 use App\Http\Livewire\App\TradeStore;
 use App\Http\Livewire\App\TradesList;
 use App\Http\Livewire\App\Tags;
+use App\Http\Livewire\App\Informations;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,4 +35,5 @@ Route::middleware([
     Route::get('/trade/{trade_id?}', TradeStore::class)->name('trade-store');
     Route::get('/trades', TradesList::class)->name('trades-list');
     Route::get('/tags', Tags::class)->name('tags');
+    Route::get('/informations', Informations::class)->name('informations');
 });

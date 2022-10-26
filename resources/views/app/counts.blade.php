@@ -33,7 +33,7 @@
                 </g>
             </svg>
         </a>
-        <a href="#" class="px-3 py-2 text-honey-dark">
+        <a href="{{ route('informations') }}" class="{{ request()->routeIs('informations') ? 'border-honey-dark' : 'border-transparent' }} border-b-2 px-3 py-2 text-honey-dark">
             <svg width="32" height="32" viewBox="0 0 256 256">
                 <path fill="currentColor" d="M128 20a108 108 0 1 0 108 108A108.1 108.1 0 0 0 128 20Zm0 192a84 84 0 1 1 84-84a84.1 84.1 0 0 1-84 84Zm20-36a12 12 0 0 1-12 12h-8a12 12 0 0 1-12-12v-40.7a11.9 11.9 0 0 1-8-11.3a12 12 0 0 1 12-12h8a12 12 0 0 1 12 12v40.7a11.9 11.9 0 0 1 8 11.3Zm-38-92a16 16 0 1 1 16 16a16 16 0 0 1-16-16Z"/>
             </svg>

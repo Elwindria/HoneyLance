@@ -15,6 +15,7 @@ class TradesList extends Component
     {
         $this->url = url()->current();
         
+        //Si user n'a pas de user-settings (bug) alors on les crées
         if (auth()->user()->user_setting_id == null) {
             $user_setting = new UserSetting;
             $save_user_setting = $user_setting->save();
@@ -25,6 +26,7 @@ class TradesList extends Component
                 $user->save();
             }
 
+            //On recherche ensuite la page
             return back();
         }
 
