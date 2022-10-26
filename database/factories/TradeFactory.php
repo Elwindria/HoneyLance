@@ -17,7 +17,7 @@ class TradeFactory extends Factory
     public function definition()
     {
         return [
-            'cost' => fake()->numberBetween(1, 1500),
+            'cost' => fake()->randomFloat(2, 0, 9999),
             'interval' => fake()->numberBetween(1, 90),
             'date' => fake()->dateTime(),
             'type' => fake()->randomElement(['in', 'out', 'fixed']),

@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class='flex items-center gap-4'>
-                        <p class="text-king-light text-lg font-bold">{{ number_format($trade->cost, 0, ',', ' ') }} €</p>
+                        <p class="text-king-light text-lg font-bold">{{ number_format($trade->cost, 2, ',', ' ') }} €</p>
                         <div class="text-king">
                             <svg width="9" height="15" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="1.41431" width="10" height="2" rx="1" transform="rotate(45 1.41431 0)" fill="currentColor" />
