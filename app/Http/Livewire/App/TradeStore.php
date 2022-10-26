@@ -107,13 +107,14 @@ class TradeStore extends Component
     {
 
         $dataValide = $this->validate([
-            'cost' => ['required', 'numeric', 'min:0', 'max:999999999'],
+            'cost' => ['required', 'numeric', 'min:0', 'max:999999999.99'],
             'name' => ['required', 'string'],
             'date' => ['required', 'date'],
         ]);
 
         $merged = array_merge($dataValide, ['user_id' => auth()->user()->id], ['type' => $this->type_trade]);
 
+        //ToDo quand maj d'un trade d'un in à out, enlever le urssafpercent
         if ($this->type_trade == 'in') {
             $dataValide = $this->validate([
                 'urssaf_percent' => ['required', 'numeric'],
