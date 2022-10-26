@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        // Run the task on the first day of every month at 00:00
+        $schedule->command('trade:salary')->monthly()->emailOutputTo(env('MAIL_TO_ADDRESS'));
     }
 
     /**
