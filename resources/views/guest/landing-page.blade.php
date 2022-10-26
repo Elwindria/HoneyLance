@@ -1,5 +1,5 @@
 <x-guest-layout>
-<div class="bg-cover bg-[url('https://management.dev/images/background-phone.png')] sm:bg-[url('https://management.dev/images/background-desktop.png')]"> 
+<div class="bg-cover bg-[url('/public/images/background-phone.png')] sm:bg-[url('/public/images/background-desktop.png')]">
     <nav class="sticky top rounded-b-3xl bg-white shadow-lg">
         <div class="mx-auto max-w-7xl px-2 sm:px-3 lg:px-4 relative z-50 flex justify-between py-2 sm:py-3 lg:py-4">
             <div class="relative z-10 flex items-center">
@@ -60,5 +60,5 @@
             <a href="{{ route('register') }}" class="p-1 w-4/6 bg-honey border-honey-dark border-2 text-white text-2xl rounded-3xl text-center font-bold justify-self-center m-auto hover:bg-white hover:text-honey">S'inscrire</a>
         </div>
     </div>
-</div> 
+</div>
 </x-guest-layout>
