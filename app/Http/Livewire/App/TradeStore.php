@@ -114,7 +114,7 @@ class TradeStore extends Component
 
         $merged = array_merge($dataValide, ['user_id' => auth()->user()->id], ['type' => $this->type_trade]);
 
-        //ToDo quand maj d'un trade d'un in à out, enlever le urssafpercent
+        //ToDo quand maj d'un trade d'un in à out, enlever le urssaf_percent
         if ($this->type_trade == 'in') {
             $dataValide = $this->validate([
                 'urssaf_percent' => ['required', 'numeric'],
@@ -127,6 +127,17 @@ class TradeStore extends Component
                 'interval' => ['required', 'numeric', 'Min:0'],
             ]);
             $merged = array_merge($merged, $dataValide);
+
+            //Créer la prochaine date de facturation (utilisé par command trade:fixed)
+
+            if($this->interval == 30){
+                $next_facturation = Carbon::create($this->date)->addMonth()->format('Y-m-d');
+            } else {
+                $next_facturation = Carbon::create($this->date)->addDays($this->interval)->format('Y-m-d');
+            }
+
+            $array_next_facturation = ["next_facturation" => $next_facturation];
+            $merged = array_merge($merged, $array_next_facturation);
         }
 
         //Créer un new trade

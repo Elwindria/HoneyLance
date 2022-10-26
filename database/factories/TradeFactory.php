@@ -19,6 +19,7 @@ class TradeFactory extends Factory
         return [
             'cost' => fake()->randomFloat(2, 0, 9999),
             'interval' => fake()->numberBetween(1, 90),
+            'next_facturation' => fake()->dateTime(),
             'date' => fake()->dateTime(),
             'type' => fake()->randomElement(['in', 'out', 'fixed']),
             'urssaf_percent' => fake()->randomFloat(2, 0, 100),
