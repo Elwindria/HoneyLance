@@ -105,50 +105,33 @@ class TradeStore extends Component
 
     public function store()
     {
-
-        $dataValide = $this->validate([
-            'cost' => ['required', 'numeric', 'min:0', 'max:999999999.99'],
-            'name' => ['required', 'string'],
-            'date' => ['required', 'date'],
-        ]);
+        switch($this->type_trade) {
+            case 'in':
+                $dataValide = $this->validate([
+                    'cost' => ['required', 'numeric', 'min:0', 'max:999999999.99'],
+                    'name' => ['required', 'string'],
+                    'date' => ['required', 'date'],
+                    'urssaf_percent' => ['required', 'numeric'],
+                ]);
+                break;
+            case 'out':
+                $dataValide = $this->validate([
+                    'cost' => ['required', 'numeric', 'min:0', 'max:999999999.99'],
+                    'name' => ['required', 'string'],
+                    'date' => ['required', 'date'],
+                ]);
+                break;
+            case 'fixed':
+                $dataValide = $this->validate([
+                    'cost' => ['required', 'numeric', 'min:0', 'max:999999999.99'],
+                    'name' => ['required', 'string'],
+                    'date' => ['required', 'date', 'after:'.Carbon::now()->format('Y-m-d')],
+                    'interval' => ['required', 'numeric', 'Min:0'],
+                ]);
+                break;                
+        }
 
         $merged = array_merge($dataValide, ['user_id' => auth()->user()->id], ['type' => $this->type_trade]);
-
-        //ToDo quand maj d'un trade d'un in à out, enlever le urssaf_percent
-        if ($this->type_trade == 'in') {
-            $dataValide = $this->validate([
-                'urssaf_percent' => ['required', 'numeric'],
-            ]);
-
-            $merged = array_merge($merged, $dataValide);
-
-        } elseif ($this->type_trade == 'fixed') {
-            $dataValide = $this->validate([
-                'interval' => ['required', 'numeric', 'Min:0'],
-            ]);
-            $merged = array_merge($merged, $dataValide);
-
-            //Créer la prochaine date de facturation (utilisé par command trade:fixed)
-            //Si la date renseigner est dans le futures, on l'utilise pour la prochaine date de facturation
-            if($this->date > Carbon::now()->format('Y-m-d')){
-                dd("yes");
-                $next_facturation = Carbon::create($this->date)->format('Y-m-d');
-            } else {
-                $next_facturation = Carbon::create($this->date)->format('Y-m-d');
-
-                //Sinon on augmente la date (de la valeur de la période/interval en jours) jusqu'à trouver la prochaine date de facturation
-                while($next_facturation < Carbon::now()->format('Y-m-d')){
-                    if($this->interval == 30){
-                        $next_facturation = Carbon::create($next_facturation)->addMonth()->format('Y-m-d');
-                    } else {
-                        $next_facturation = Carbon::create($next_facturation)->addDays($this->interval)->format('Y-m-d');
-                    }
-                }
-            }
-
-            $array_next_facturation = ["next_facturation" => $next_facturation];
-            $merged = array_merge($merged, $array_next_facturation);
-        }
 
         //Créer un new trade
         $create_trade = Trade::updateOrCreate(['id' => $this->trade_id], $merged);

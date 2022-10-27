@@ -22,9 +22,14 @@
                 @error('cost') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
             </div>
             <div class="flex flex-col justify-center">
-                <label for="date" class="text-king text-lg font-semibold indent-4">Date</label>
-                <input type="date" id="date" wire:model='date' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
-                @error('date') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
+                @if($this->type_trade == 'fixed')
+                    <label for="date" class="text-king text-lg font-semibold indent-4">Date <span class="text-xs text-king/50">prochaine facturation</span></label>
+                    <input type="date" id="date" min="{{ Carbon\Carbon::now()->addDay()->format('Y-m-d') }}" wire:model='date' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
+                @else
+                    <label for="date" class="text-king text-lg font-semibold indent-4">Date</label>
+                    <input type="date" id="date" wire:model='date' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
+                @endif
+                    @error('date') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
             </div>
             @if($this->type_trade === 'in')
             <div class="flex flex-col justify-center">

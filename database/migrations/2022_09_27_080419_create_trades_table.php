@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->float('cost', 11, 2);
             $table->integer('interval')->nullable();
-            $table->date('next_facturation')->nullable();
             $table->date('date');
             $table->enum('type', ['fixed', 'in', 'out']);
             $table->float('urssaf_percent', 5,2)->nullable();

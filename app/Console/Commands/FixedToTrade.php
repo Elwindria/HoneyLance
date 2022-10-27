@@ -44,12 +44,12 @@ class FixedToTrade extends Command
 
     private function fixedToTrade()
     {
-        $trades_fixed = Trade::where('type', 'fixed')->where('next_facturation', Carbon::now()->format('Y-m-d'))->get();
+        $trades_fixed = Trade::where('type', 'fixed')->where('date', Carbon::now()->format('Y-m-d'))->get();
 
         foreach ($trades_fixed as $trade_fixed) {
             {
                 $trade = $this->addTrade($trade_fixed);
-                $this->attachTag($trade);
+                $this->attachTag($trade_fixed, $trade);
                 $this->changeNextFacturation($trade_fixed);
             }
         }
@@ -59,43 +59,31 @@ class FixedToTrade extends Command
     {
         $trade = new Trade;
         $trade->cost = $trade_fixed->cost;
-        $trade->date = $trade_fixed->next_facturation;
+        $trade->date = $trade_fixed->date;
         $trade->type = 'out';
-        $trade->name = $trade_fixed->name .' '. Carbon::now()->format('Y-m-d');
+        $trade->name = $trade_fixed->name .' '. Carbon::now()->format('d/m/Y');
         $trade->user_id = $trade_fixed->user_id;
         $trade->save();
 
         return $trade;
     }
 
-    private function attachTag ($trade)
+    private function attachTag ($trade_fixed, $trade)
     {
-        $user = User::where('id', $trade->user_id)->get();
-
-        foreach ($user as $user) {
-            $tag_fixed = $user->tags()->where('name_tag', 'frais-fixe')->first();
-    
-            if($tag_fixed == null) {
-                $tag_fixed = new Tag;
-                $tag_fixed->name_tag = 'frais-fixe';
-                $tag_fixed->user_id = $user->id;
-                $tag_fixed->save();
-            }
-    
-            $trade->tags()->sync($tag_fixed->id);
-        }
+        $tags = $trade_fixed->tags()->pluck('id')->toArray();
+        $trade->tags()->attach($tags);
     }
 
     private function changeNextFacturation($trade_fixed)
     {
         if($trade_fixed->interval == 30){
-            $next_facturation = Carbon::create($trade_fixed->next_facturation)->addMonth()->format('Y-m-d');
+            $date = Carbon::create($trade_fixed->date)->addMonth()->format('Y-m-d');
         } else {
-            $next_facturation = Carbon::create($trade_fixed->next_facturation)->addDays($trade_fixed->interval)->format('Y-m-d');
+            $date = Carbon::create($trade_fixed->date)->addDays($trade_fixed->interval)->format('Y-m-d');
         }
 
         $trade_fixed_update = Trade::find($trade_fixed->id);
-        $trade_fixed_update->next_facturation = $next_facturation;
+        $trade_fixed_update->date = $date;
         $trade_fixed_update->save();
     }
 }
