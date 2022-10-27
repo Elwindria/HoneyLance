@@ -47,7 +47,7 @@ class TradeStore extends Component
                 $this->selected_tags = session('selected_tags');
             }
 
-            //Si la session type 'exists' alors on l'affiche sinon on affiche par défaut la page trade 'in'
+            //Si la session 'type' existe alors on l'affiche sinon on affiche par défaut la page trade 'in'
             if (session()->exists('type')) {
                 $this->type_trade = session('type');
             } else {
@@ -156,7 +156,7 @@ class TradeStore extends Component
 
     public function updated($name, $value)
     {
-        if ($this->trade_id === 'new') {
+        if ($this->trade_id === null) {
             session([$name => $value]);
         }
     }
