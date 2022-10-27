@@ -69,6 +69,7 @@ class SalaryToTrade extends Command
 
     private function attachTag ($user, $trade)
     {
+        dd($user);
         $tag_salary = $user->tags()->where('name_tag', 'salaire')->first();
 
         if($tag_salary == null) {

@@ -129,11 +129,21 @@ class TradeStore extends Component
             $merged = array_merge($merged, $dataValide);
 
             //Créer la prochaine date de facturation (utilisé par command trade:fixed)
-
-            if($this->interval == 30){
-                $next_facturation = Carbon::create($this->date)->addMonth()->format('Y-m-d');
+            //Si la date renseigner est dans le futures, on l'utilise pour la prochaine date de facturation
+            if($this->date > Carbon::now()->format('Y-m-d')){
+                dd("yes");
+                $next_facturation = Carbon::create($this->date)->format('Y-m-d');
             } else {
-                $next_facturation = Carbon::create($this->date)->addDays($this->interval)->format('Y-m-d');
+                $next_facturation = Carbon::create($this->date)->format('Y-m-d');
+
+                //Sinon on augmente la date (de la valeur de la période/interval en jours) jusqu'à trouver la prochaine date de facturation
+                while($next_facturation < Carbon::now()->format('Y-m-d')){
+                    if($this->interval == 30){
+                        $next_facturation = Carbon::create($next_facturation)->addMonth()->format('Y-m-d');
+                    } else {
+                        $next_facturation = Carbon::create($next_facturation)->addDays($this->interval)->format('Y-m-d');
+                    }
+                }
             }
 
             $array_next_facturation = ["next_facturation" => $next_facturation];
