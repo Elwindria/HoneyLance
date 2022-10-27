@@ -94,7 +94,6 @@ class TradeStore extends Component
         $this->selected_tags = [];
 
         session()->forget(['name', 'cost', 'interval', 'date', 'type', 'selected_tags']);
-        // session(['selected_tags' => []]);
     }
 
     public function switchType($type)
