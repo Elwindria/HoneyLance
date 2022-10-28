@@ -18,7 +18,9 @@ class DatabaseSeeder extends Seeder
             UrssafSettingSeeder::class,
             UserSettingSeeder::class,
             UserSeeder::class,
+            TagSeeder::class,
             TradeSeeder::class,
+            SavingSeeder::class, 
         ]);
     }
 }

@@ -27,14 +27,8 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
             'user_setting_id' => '1',
-            'saving_id' => '1',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
-        User::factory()
-            ->count(9)
-            ->hasSavings(12)
-            ->create();
     }
 }

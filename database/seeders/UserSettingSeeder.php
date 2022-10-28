@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\UserSetting;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UserSettingSeeder extends Seeder
 {
@@ -15,8 +16,10 @@ class UserSettingSeeder extends Seeder
      */
     public function run()
     {
-        UserSetting::factory()
-        ->count(10)
-        ->create();
+        DB::table('user_settings')->insert([
+            'salary' => 1500,
+            'date_start' => '2022-10-01',
+            'urssaf_setting_id' => 1,
+        ]);
     }
 }

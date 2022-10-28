@@ -36,7 +36,7 @@ class Informations extends Component
         $this->still_need_objective_saving = $this->objective_saving - $this->saving;
 
         //calcul du nombre de mois pour atteindre cet objective_saving
-        
+
     }   
 
     public function render()

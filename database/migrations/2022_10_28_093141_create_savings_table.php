@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('savings', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->float('saving', 11, 2);
+            $table->float('count', 11, 2);
             $table->foreignId('user_id');
             $table->timestamps();
         });

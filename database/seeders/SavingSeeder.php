@@ -4,12 +4,12 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Trade;
 use Faker\Generator;
 use Illuminate\Container\Container;
+use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
 
-class TradeSeeder extends Seeder
+class SavingSeeder extends Seeder
 {
     /* The current Faker instance.
      *
@@ -43,19 +43,14 @@ class TradeSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=0; $i < 10000 ; $i++) { 
-            
-            $trade = new Trade;
-            $trade->cost = $this->faker->randomFloat(2, 0, 4500);
-            $trade->interval = $this->faker->numberBetween(1, 90);
-            $trade->date = $this->faker->dateTimeBetween('2020-10-01');
-            $trade->type = $this->faker->randomElement(['in', 'out']);
-            $trade->urssaf_percent = 22.2;
-            $trade->name = $this->faker->word();
-            $trade->user_id = 1;
-            $trade->save();
+        $period = CarbonPeriod::since('2020-10-01')->month()->until('2022-10-01');
 
-            $trade->tags()->attach($this->faker->randomElements([1, 2, 3, 4, 5], 3));
+        foreach ($period as $date) {
+            DB::table('savings')->insert([
+                'date' => $date->format('Y-m-d'),
+                'count' => 200 * $this->faker->randomFloat(1, 0, 2),
+                'user_id' => 1,
+            ]);
         }
     }
 }
