@@ -32,6 +32,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'grade' => 'user',
             'user_setting_id' => fake()->randomDigitNotNull(),
+            'saving_id' => fake()->randomDigitNotNull(),
         ];
     }
 

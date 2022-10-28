@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('profile_photo_path', 2048)->nullable();
             $table->enum('grade', ['admin', 'user']);
             $table->foreignId('user_setting_id')->nullable();
+            $table->foreignId('saving_id')->nullable();
             $table->timestamps();
         });
     }

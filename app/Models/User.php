@@ -66,6 +66,11 @@ class User extends Authenticatable
         return $this->hasOne(UserSetting::class, 'id', 'user_setting_id');
     }
 
+    public function savings()
+    {
+        return $this->hasMany(Saving::class);
+    }
+
     public function tags()
     {
         return $this->hasMany(Tag::class);
