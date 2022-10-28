@@ -9,7 +9,7 @@ class Saving extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'saving', 'date'
+        'count', 'date', 'user_id'
     ];
 
     public function user()

@@ -5,6 +5,8 @@ namespace App\Http\Livewire\App;
 use Livewire\Component;
 use App\Models\Trade;
 use App\Models\User;
+use App\Models\Saving;
+
 use Carbon\Carbon;
 
 class Informations extends Component
@@ -20,14 +22,14 @@ class Informations extends Component
         $this->recipe = $positive - $negative;
 
         $salary = auth()->user()->setting->salary;
-        $saving = auth()->user()->setting->saving;
+        $saving = Saving::where('user_id', auth()->user()->id)->whereMonth('date', Carbon::now()->month)->first();
         $urssaf_percent_average = Trade::where('user_id', auth()->user()->id)->where('type', 'in')->whereMonth('date', Carbon::now()->month)->avg('urssaf_percent');
 
         //Total somme à donner à l'Urssaf
         $this->total_urssaf = ($positive * $urssaf_percent_average)/100;
 
         //épargne pour le mois en cours
-        $this->saving = $saving + $this->recipe - $salary - $this->total_urssaf;
+        $this->saving = $saving->count + $this->recipe - $salary - $this->total_urssaf;
 
         //Objectif épargne (soit 6 mois de salaire)
         $this->objective_saving = 6 * $salary;
