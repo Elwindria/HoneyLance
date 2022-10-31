@@ -12,22 +12,15 @@ use Carbon\Carbon;
 class TradeStore extends Component
 {
     use WireToast;
-    public $url, $type, $type_trade, $name, $cost, $interval, $date, $urssaf_percent, $fav_percent, $urssaf_setting, $user_setting, $user_id, $trades, $summaryType, $trade_id;
+    public $type, $type_trade, $name, $cost, $interval, $date, $urssaf_percent, $fav_percent, $urssaf_setting, $user_setting, $user_id, $trades, $summaryType, $trade_id;
     public $selected_tags = [];
     public $old_urssaf_percent = false;
 
     public function mount()
     {
-        $this->url = url()->current();
         $this->trade_id = request()->trade_id;
         $this->confirm_delete = false;
-
-        $this->trades = Trade::where('user_id', auth()->user()->id)->get();
-
-        $positive = Trade::where('user_id', auth()->user()->id)->where('type', 'in')->whereMonth('date', Carbon::now()->month)->sum('cost');
-        $negative = Trade::where('user_id', auth()->user()->id)->where('type', 'out')->whereMonth('date', Carbon::now()->month)->sum('cost');
-        $this->recipe = $positive - $negative;
-
+        
         //Si l'utilisateur veut créer un nouveau trade, on affiche la vue avec le formulaire + sessions, sinon on affiche formulaire en mode Edit
         if ($this->trade_id === null) {
             $user_setting = auth()->user()->setting;
@@ -127,7 +120,7 @@ class TradeStore extends Component
                     'date' => ['required', 'date', 'after:'.Carbon::now()->format('Y-m-d')],
                     'interval' => ['required', 'numeric', 'Min:0'],
                 ]);
-                break;                
+                break;
         }
 
         $merged = array_merge($dataValide, ['user_id' => auth()->user()->id], ['type' => $this->type_trade]);
