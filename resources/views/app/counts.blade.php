@@ -3,7 +3,7 @@
         <div class="flex flex-col items-center">
             <h2 class="text-king text-lg font-bold">Recette</h2>
             <div class="flex flex-col items-center">
-                <p class="{{ $this->recipe > 0 ? 'text-emerald-600' : 'text-red-600' }} font-medium">{{ number_format($this->recipe, 0, ',', ' ') }} €</p>
+                <p class="{{ $recipe > 0 ? 'text-emerald-600' : 'text-red-600' }} font-medium">{{ number_format($recipe, 0, ',', ' ') }} €</p>
                 <p class="text-honey-dark/80 font-thin text-xs -mt-2">mois en cours</p>
             </div>
         </div>
@@ -14,7 +14,7 @@
         <div class="flex flex-col items-center">
             <h2 class="text-king text-lg font-bold">Epargne</h2>
             <div class="flex flex-col items-center">
-                <p class="{{ ($this->recipe - auth()->user()->setting->salary) > 0 ? 'text-emerald-600' : 'text-red-600' }} font-medium">{{ number_format(($this->recipe - auth()->user()->setting->salary), 0, ',', ' ') }} €</p>
+                <p class="{{ ($recipe - auth()->user()->setting->salary) > 0 ? 'text-emerald-600' : 'text-red-600' }} font-medium">{{ number_format(($recipe - auth()->user()->setting->salary), 0, ',', ' ') }} €</p>
                 <p class="text-honey-dark/80 font-thin text-xs -mt-2">mois en cours</p>
             </div>
         </div>
