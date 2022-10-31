@@ -38,9 +38,8 @@ class Informations extends Component
         $this->still_need_objective_saving = $this->objective_saving - $this->saving;
 
         //calcul du nombre de mois pour atteindre cet objective_saving
-        $this->year_savings = Saving::where('user_id', auth()->user()->id)->whereYear('date', Carbon::now()->year)->sum('count');
-        $this->year_saving_average = Saving::where('user_id', auth()->user()->id)->whereYear('date', Carbon::now()->year)->avg('count');
-
+        $year_saving_average = Saving::where('user_id', auth()->user()->id)->whereYear('date', Carbon::now()->year)->avg('count');
+    
     }   
 
     public function render()
