@@ -34,7 +34,7 @@
     @endforeach
 
     @if($trades->hasMorePages())
-        @livewire('app.trades.load-more-trades', ['page' => $page, 'perPage' => $perPage, 'key' => 'trades-page-' . $page])
+        @livewire('app.trade-list', ['page' => $page, 'perPage' => $perPage, 'key' => 'trades-page-' . $page])
     @endif
 
 </div>

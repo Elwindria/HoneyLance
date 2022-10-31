@@ -1,5 +1,5 @@
 <div class="">
-    <div x-data="{
+    {{-- <div x-data="{
         checkScroll() {
                 window.onscroll = function(ev) {
                     if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
@@ -7,11 +7,29 @@
                     }
                 };
             }
-        }" x-init="checkScroll"></div>
+        }" x-init="checkScroll">
+    </div> --}}
+
+    <div x-data="{
+        observe () {
+            let observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        @this.call('loadMore')
+                    }
+                })
+            }, {
+                root: null
+            })
+
+            observer.observe(this.$el)
+        }
+    }" x-init="observe"></div>
 
     <div wire:loading class="mx-auto max-w-7xl flex w-full">
 
         <div class="flex flex-col gap-2">
+            @for ($i = 0; $i < 10; $i++)
             <div class="animate-pulse flex items-center justify-between bg-white p-2 border-king rounded-3xl border-2">
                 <div class="flex items-center gap-3 justify-between">
                     <svg class="text-slate-200" width="35" height="35" viewBox="0 0 24 24">
@@ -36,6 +54,7 @@
                     </div>
                 </div>
             </div>
+            @endfor
         </div>
 
     </div>
