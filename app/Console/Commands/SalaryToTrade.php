@@ -33,16 +33,18 @@ class SalaryToTrade extends Command
      */
     public function handle()
     {
-        $this->info('The command trade:salary starts '.Carbon::now());
-        Log::info('The command trade:salary starts '.Carbon::now());
+        $signature = 'trade:salary';
+
+        $this->info('The command ' . $signature . ' starts '.Carbon::now());
+        Log::info('The command ' . $signature . ' starts '.Carbon::now());
 
         $this->salaryToTrade();
 
-        $this->info('The command trade:salary terminates successfully');
-        Log::info('The command trade:salary terminates successfully');
+        $this->info('The command ' . $signature . ' terminates successfully');
+        Log::info('The command ' . $signature . ' terminates successfully');
     }
 
-    private function salaryToTrade ()
+    private function salaryToTrade()
     {
         $users = User::where('grade', 'user')->whereNotNull('user_setting_id')->get();
 
@@ -54,7 +56,7 @@ class SalaryToTrade extends Command
         }
     }
 
-    private function addTrade ($user)
+    private function addTrade($user)
     {
         $trade = new Trade;
         $trade->cost = $user->setting->salary;
@@ -67,7 +69,7 @@ class SalaryToTrade extends Command
         return $trade;
     }
 
-    private function attachTag ($user, $trade)
+    private function attachTag($user, $trade)
     {
         $tag_salary = $user->tags()->where('name_tag', 'salaire')->first();
 

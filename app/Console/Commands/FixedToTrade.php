@@ -33,13 +33,15 @@ class FixedToTrade extends Command
      */
     public function handle()
     {
-        $this->info('The command trade:fixed starts '.Carbon::now());
-        Log::info('The command trade:fixed starts '.Carbon::now());
+        $signature = 'trade:fixed';
+
+        $this->info('The command ' . $signature . ' starts '.Carbon::now());
+        Log::info('The command ' . $signature . ' starts '.Carbon::now());
 
         $this->fixedToTrade();
 
-        $this->info('The command trade:fixed terminates successfully');
-        Log::info('The command trade:fixed terminates successfully');
+        $this->info('The command ' . $signature . ' terminates successfully');
+        Log::info('The command ' . $signature . ' terminates successfully');
     }
 
     private function fixedToTrade()
@@ -68,7 +70,7 @@ class FixedToTrade extends Command
         return $trade;
     }
 
-    private function attachTag ($trade_fixed, $trade)
+    private function attachTag($trade_fixed, $trade)
     {
         $tags = $trade_fixed->tags()->pluck('id')->toArray();
         $trade->tags()->attach($tags);
