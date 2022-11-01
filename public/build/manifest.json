@@ -8,12 +8,12 @@
     "src": "public/images/background-desktop.png"
   },
   "resources/js/app.js": {
-    "file": "assets/app.ab93cf8a.js",
+    "file": "assets/app.b4b86c71.js",
     "src": "resources/js/app.js",
     "isEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app.7c6f8597.css",
+    "file": "assets/app.d204a38e.css",
     "src": "resources/css/app.css",
     "isEntry": true
   }

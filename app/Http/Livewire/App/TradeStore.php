@@ -17,6 +17,7 @@ class TradeStore extends Component
     public $type, $type_trade, $name, $cost, $interval, $date, $urssaf_percent, $fav_percent, $urssaf_setting, $user_setting, $user_id, $trades, $summaryType, $trade_id;
     public $selected_tags = [];
     public $old_urssaf_percent = false;
+    public $taxable = true;
 
     public function mount()
     {
@@ -101,13 +102,22 @@ class TradeStore extends Component
     {
         switch($this->type_trade) {
             case 'in':
-                $dataValide = $this->validate([
-                    'cost' => ['required', 'numeric', 'min:0', 'max:999999999.99'],
-                    'name' => ['required', 'string'],
-                    'date' => ['required', 'date'],
-                    'urssaf_percent' => ['required', 'numeric'],
-                ]);
-                break;
+                if($this->taxable){
+                    $dataValide = $this->validate([
+                        'cost' => ['required', 'numeric', 'min:0', 'max:999999999.99'],
+                        'name' => ['required', 'string'],
+                        'date' => ['required', 'date'],
+                        'urssaf_percent' => ['required', 'numeric'],
+                    ]);
+                    break;
+                } else {
+                    $dataValide = $this->validate([
+                        'cost' => ['required', 'numeric', 'min:0', 'max:999999999.99'],
+                        'name' => ['required', 'string'],
+                        'date' => ['required', 'date'],
+                    ]);
+                    break;
+                }
             case 'out':
                 $dataValide = $this->validate([
                     'cost' => ['required', 'numeric', 'min:0', 'max:999999999.99'],
@@ -182,5 +192,14 @@ class TradeStore extends Component
 
         //On revient à la page trades-list
         return redirect()->route('trades-list');
+    }
+
+    public function switchTaxable()
+    {
+        if($this->taxable){
+            $this->taxable = false;
+        } else {
+            $this->taxable = true;
+        }
     }
 }

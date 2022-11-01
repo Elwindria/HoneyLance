@@ -65,8 +65,12 @@ class LastMonthSaving extends Command
                 $cost_urssaf += ($trade_in->cost * $trade_in->urssaf_percent)/100;
             }
         
-            $new_saving = $old_saving->count + $recipe - $salary - $cost_urssaf;
-
+            if($old_saving == null){
+                $new_saving = $old_saving->count + $recipe - $salary - $cost_urssaf;
+            } else {
+                $new_saving = $recipe - $salary - $cost_urssaf;
+            }
+            
             $saving = new Saving;
             $saving->user_id = $user->id;
             $saving->count = $new_saving;

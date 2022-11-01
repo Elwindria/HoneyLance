@@ -34,24 +34,34 @@
                     @error('date') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
             </div>
             @if($this->type_trade === 'in')
-            <div class="flex flex-col justify-center">
-                <label for="urssaf_percent" class="text-king text-lg font-semibold indent-4">Urssaf</label>
-                <select name="urssaf_percent" id="urssaf_percent" wire:model='urssaf_percent' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
-                    @if($this->urssaf_percent === null)
-                        <option>Votre taux Urssaf par défaut n'existe pas. Vous pouvez en choisir un dans vos paramètres d'utilisateur.</option>
-                    @elseif($this->urssaf_percent === 'old')
-                        <option>Votre taux Urssaf par défaut n'existe plus et doit être mis à jour.</option>
-                    @elseif($this->old_urssaf_percent)
-                        <option value="{{ $this->urssaf_percent }}">{{ $this->urssaf_percent }}% - 🚩 Attention 🚩 Ancien taux Urssaf</option>
-                    @else
-                        <option>-- Choissisez une option SVP --</option>
-                    @endif
-                    @foreach( $urssaf_settings as $urssaf_setting)
-                    <option value="{{ $urssaf_setting->percentage }}">{{ $urssaf_setting->percentage }}% - {{ $urssaf_setting->description }}</option>
-                    @endforeach
-                </select>
-                @error('urssaf_percent') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
-            </div>
+                <div class="flex items-center">
+                    <button type="button" wire:click='switchTaxable' class="{{ $this->taxable === true ? 'bg-king-light' : 'bg-gray-200' }} relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" role="switch" aria-checked="false" aria-labelledby="contribution-urssaf">
+                    <span aria-hidden="true" class="{{ $this->taxable === true ? 'translate-x-5' : 'translate-x-0' }} pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+                    </button>
+                    <span class="ml-3" id="contribution-urssaf">
+                    <span class="text-sm font-medium text-gray-900">Soumis à la cotisation Urssaf ?</span>
+                    </span>
+                </div>
+                @if($this->taxable === true)
+                    <div class="flex flex-col justify-center">
+                        <label for="urssaf_percent" class="text-king text-lg font-semibold indent-4">Urssaf</label>
+                        <select name="urssaf_percent" id="urssaf_percent" wire:model='urssaf_percent' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
+                            @if($this->urssaf_percent === null)
+                                <option>Votre taux Urssaf par défaut n'existe pas. Vous pouvez en choisir un dans vos paramètres d'utilisateur.</option>
+                            @elseif($this->urssaf_percent === 'old')
+                                <option>Votre taux Urssaf par défaut n'existe plus et doit être mis à jour.</option>
+                            @elseif($this->old_urssaf_percent)
+                                <option value="{{ $this->urssaf_percent }}">{{ $this->urssaf_percent }}% - 🚩 Attention 🚩 Ancien taux Urssaf</option>
+                            @else
+                                <option>-- Choissisez une option SVP --</option>
+                            @endif
+                            @foreach( $urssaf_settings as $urssaf_setting)
+                            <option value="{{ $urssaf_setting->percentage }}">{{ $urssaf_setting->percentage }}% - {{ $urssaf_setting->description }}</option>
+                            @endforeach
+                        </select>
+                        @error('urssaf_percent') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
+                    </div>
+                @endif
             @elseif($this->type_trade === 'fixed')
             <div class="flex flex-col justify-center">
                 <label for="interval" class="text-king text-lg font-semibold indent-4">Période <span class="text-xs text-king/50">en jours</span></label>
