@@ -43,6 +43,10 @@ class TradeStore extends Component
                 $this->selected_tags = session('selected_tags');
             }
 
+            if (session()->exists('taxable')) {
+                $this->taxable = session('taxable');
+            }
+
             //Si la session 'type' existe alors on l'affiche sinon on affiche par défaut la page trade 'in'
             if (session()->exists('type')) {
                 $this->type_trade = session('type');
@@ -58,17 +62,8 @@ class TradeStore extends Component
 
         } else {
 
+            //C'est un edit alors, on cherche le trade à edit et on lance edit()
             $trade = Trade::find($this->trade_id);
-            $urssaf_setting_percentage = UrssafSetting::where('percentage', $trade->urssaf_percent)->get();
-
-            //si le %urssaf n'existe plus dans la db (car trop vieux), alors on crée <option> avec l'ancienne valeur
-            if ($urssaf_setting_percentage->isEmpty()) {
-                $this->urssaf_percent = $trade->urssaf_percent;
-                $this->old_urssaf_percent = true;
-            } else {
-                $this->urssaf_percent = $trade->urssaf_percent;
-            }
-
             $this->edit($trade);
         }
     }
@@ -88,8 +83,9 @@ class TradeStore extends Component
         $this->date = '';
         $this->interval = '';
         $this->selected_tags = [];
+        $this->taxable = true;
 
-        session()->forget(['name', 'cost', 'interval', 'date', 'type', 'selected_tags']);
+        session()->forget(['name', 'cost', 'interval', 'date', 'type', 'selected_tags', 'taxable']);
     }
 
     public function switchType($type)
@@ -174,6 +170,24 @@ class TradeStore extends Component
         $this->date = $trade->date;
         $this->interval = $trade->interval;
         $this->selected_tags = $trade->tags->pluck('id')->toArray();
+
+        if($trade->type === 'in'){
+            if($trade->urssaf_percent !== null){
+                $urssaf_setting_percentage = UrssafSetting::where('percentage', $trade->urssaf_percent)->get();
+    
+                //si le %urssaf n'existe plus dans la db (car trop vieux), alors on crée <option> avec l'ancienne valeur
+                if ($urssaf_setting_percentage->isEmpty()) {
+                    $this->urssaf_percent = $trade->urssaf_percent;
+                    $this->old_urssaf_percent = true;
+                } else {
+                    $this->urssaf_percent = $trade->urssaf_percent;
+                }
+            } else {
+                //c'est un don
+                $this->urssaf_percent = '';
+                $this->taxable = false;
+            }
+        }
     }
 
     public function confirmDelete() {
