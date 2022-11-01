@@ -48,17 +48,24 @@ class LastMonthSaving extends Command
         $users = User::where('grade', 'user')->whereNotNull('user_setting_id')->get();
 
         foreach ($users as $user) {
+
             $positive = Trade::where('user_id', $user->id)->where('type', 'in')->whereMonth('date', Carbon::now()->subMonth()->month)->sum('cost');
             $negative = Trade::where('user_id', $user->id)->where('type', 'out')->whereMonth('date', Carbon::now()->subMonth()->month)->sum('cost');
             $recipe = $positive - $negative;
+
+            $cost_urssaf = 0;
     
             $salary = $user->setting->salary;
-            $old_saving = Saving::where('user_id', $user->id)->whereMonth('date', Carbon::now()->subMonth()->month)->first();
-            $urssaf_percent_average = Trade::where('user_id', $user->id)->where('type', 'in')->whereMonth('date', Carbon::now()->subMonth()->month)->avg('urssaf_percent');
 
-            $total_urssaf = ($positive * $urssaf_percent_average)/100;
+            $old_saving = Saving::where('user_id', $user->id)->whereMonth('date', Carbon::now()->subMonth()->month)->first();
+
+            $trades_in = Trade::where('user_id', $user->id)->where('type', 'in')->whereMonth('date', Carbon::now()->subMonth()->month)->whereNotNull('urssaf_percent')->get();
+            
+            foreach ($trades_in as $trade_in) {
+                $cost_urssaf += ($trade_in->cost * $trade_in->urssaf_percent)/100;
+            }
         
-            $new_saving = $old_saving->count + $recipe - $salary - $total_urssaf;
+            $new_saving = $old_saving->count + $recipe - $salary - $cost_urssaf;
 
             $saving = new Saving;
             $saving->user_id = $user->id;

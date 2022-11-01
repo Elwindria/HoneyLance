@@ -22,9 +22,6 @@ class TradeStore extends Component
     {
         $this->trade_id = request()->trade_id;
         $this->confirm_delete = false;
-
-        $old_saving = Saving::where('user_id', auth()->user()->id)->whereMonth('date', Carbon::now()->subMonth()->month)->first();
-        dd($old_saving);
         
         //Si l'utilisateur veut créer un nouveau trade, on affiche la vue avec le formulaire + sessions, sinon on affiche formulaire en mode Edit
         if ($this->trade_id === null) {
@@ -137,7 +134,7 @@ class TradeStore extends Component
 
         $this->resetInputFields();
 
-        if ($this->trade_id === 'new') {
+        if ($this->trade_id === null) {
             toast()
                 ->success("Nouvelle transaction ajoutée avec succès.")
                 ->push();
