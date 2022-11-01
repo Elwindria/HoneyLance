@@ -25,7 +25,7 @@
 
             <div class="mx-auto max-w-7xl px-4 sm:px-8 pb-12">
 
-                @livewire('app.trades.load-trades', ['page' => 1, 'perPage' => 10, 'key' => 'trades-page-' . 1])
+                @livewire('app.trade-list', ['page' => 1, 'perPage' => 10, 'key' => 'trades-page-' . 1])
 
                 <button class="fixed bottom-2 right-2 shadow-lg bg-honey-light p-2 rounded-lg text-honey-dark" x-show="scrollBackTop" x-on:scroll.window="scrollBackTop = (window.pageYOffset > window.outerHeight * 0.5) ? true : false" @click.window="window.scrollTo({top: 0, behavior: 'smooth'})" x-transition.scale.origin.bottom aria-label="Back to top">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -35,6 +35,6 @@
             </div>
 
         </div>
-        
+
     </div>
 </x-app-layout>

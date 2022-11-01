@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\App\Trades;
+namespace App\Http\Livewire\App;
 
 use App\Models\Trade;
 use Livewire\Component;
 
-class LoadMoreTrades extends Component
+class TradeList extends Component
 {
 
     public $perPage;
