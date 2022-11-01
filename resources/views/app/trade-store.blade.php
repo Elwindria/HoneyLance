@@ -1,4 +1,4 @@
-<div class="">
+<div>
 
     @livewire('app.counts')
 
@@ -38,13 +38,13 @@
                 <label for="urssaf_percent" class="text-king text-lg font-semibold indent-4">Urssaf</label>
                 <select name="urssaf_percent" id="urssaf_percent" wire:model='urssaf_percent' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
                     @if($this->urssaf_percent === null)
-                    <option>Votre taux Urssaf par défaut n'existe pas. Vous pouvez en choisir un dans vos paramètres d'utilisateur.</option>
+                        <option>Votre taux Urssaf par défaut n'existe pas. Vous pouvez en choisir un dans vos paramètres d'utilisateur.</option>
                     @elseif($this->urssaf_percent === 'old')
-                    <option>Votre taux Urssaf par défaut n'existe plus et doit être mis à jour.</option>
+                        <option>Votre taux Urssaf par défaut n'existe plus et doit être mis à jour.</option>
                     @elseif($this->old_urssaf_percent)
-                    <option value="{{ $this->urssaf_percent }}">{{ $this->urssaf_percent }}% - 🚩 Attention 🚩 Ancien taux Urssaf</option>
+                        <option value="{{ $this->urssaf_percent }}">{{ $this->urssaf_percent }}% - 🚩 Attention 🚩 Ancien taux Urssaf</option>
                     @else
-                    <option>-- Choissisez une option SVP --</option>
+                        <option>-- Choissisez une option SVP --</option>
                     @endif
                     @foreach( $urssaf_settings as $urssaf_setting)
                     <option value="{{ $urssaf_setting->percentage }}">{{ $urssaf_setting->percentage }}% - {{ $urssaf_setting->description }}</option>

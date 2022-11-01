@@ -1,11 +1,11 @@
 {
-  "public/images/background-phone.png": {
-    "file": "assets/background-phone.15d0d3c8.png",
-    "src": "public/images/background-phone.png"
-  },
   "public/images/background-desktop.png": {
     "file": "assets/background-desktop.29da2b2e.png",
     "src": "public/images/background-desktop.png"
+  },
+  "public/images/background-phone.png": {
+    "file": "assets/background-phone.15d0d3c8.png",
+    "src": "public/images/background-phone.png"
   },
   "resources/js/app.js": {
     "file": "assets/app.ab93cf8a.js",
@@ -13,7 +13,7 @@
     "isEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app.a952bed1.css",
+    "file": "assets/app.499a06c0.css",
     "src": "resources/css/app.css",
     "isEntry": true
   }

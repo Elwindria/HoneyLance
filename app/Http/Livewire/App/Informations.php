@@ -11,15 +11,12 @@ use Carbon\Carbon;
 
 class Informations extends Component
 {
+    public $url;
+
     public function mount()
     {
-        $this->url = url()->current();
-
-        $this->trades = Trade::where('user_id', auth()->user()->id)->whereIn('type', ['in', 'out'])->get();
-
         $positive = Trade::where('user_id', auth()->user()->id)->where('type', 'in')->whereMonth('date', Carbon::now()->month)->sum('cost');
         $negative = Trade::where('user_id', auth()->user()->id)->where('type', 'out')->whereMonth('date', Carbon::now()->month)->sum('cost');
-        $this->recipe = $positive - $negative;
 
         $salary = auth()->user()->setting->salary;
         $saving = Saving::where('user_id', auth()->user()->id)->whereMonth('date', Carbon::now()->month)->first();
@@ -39,7 +36,7 @@ class Informations extends Component
 
         //calcul du nombre de mois pour atteindre cet objective_saving
         $year_saving_average = Saving::where('user_id', auth()->user()->id)->whereYear('date', Carbon::now()->year)->avg('count');
-    
+        $month_need_objective_saving = $this->still_need_objective_saving / $year_saving_average;
     }   
 
     public function render()
