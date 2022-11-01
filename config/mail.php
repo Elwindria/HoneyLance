@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'smtp'),
+    'default' => env('MAIL_MAILER', 'mailgun'),
 
     /*
     |--------------------------------------------------------------------------
@@ -45,16 +45,8 @@ return [
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
 
-        'ses' => [
-            'transport' => 'ses',
-        ],
-
         'mailgun' => [
             'transport' => 'mailgun',
-        ],
-
-        'postmark' => [
-            'transport' => 'postmark',
         ],
 
         'sendmail' => [

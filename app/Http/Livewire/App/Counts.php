@@ -2,10 +2,13 @@
 
 namespace App\Http\Livewire\App;
 
-use Livewire\Component;
 use App\Models\Trade;
 use App\Models\User;
 use App\Models\Saving;
+use App\Mail\HelloMail;
+
+use Livewire\Component;
+use Illuminate\Support\Facades\Mail;
 
 use Carbon\Carbon;
 
@@ -22,5 +25,10 @@ class Counts extends Component
         $recipe = $positive - $negative;
 
         return view('app.counts', compact('recipe'));
+    }
+
+    public function sendMail()
+    {
+        Mail::to('vincent@vinvui.com')->send(new HelloMail());
     }
 }
