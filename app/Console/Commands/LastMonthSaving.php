@@ -34,13 +34,15 @@ class LastMonthSaving extends Command
      */
     public function handle()
     {
-        $this->info('The command last-month:saving starts '.Carbon::now());
-        Log::info('The command last-month:saving starts '.Carbon::now());
+        $signature = 'month:saving';
+
+        $this->info('The command ' . $signature . ' starts '.Carbon::now());
+        Log::info('The command ' . $signature . ' trade:salary starts '.Carbon::now());
 
         $this->calculatedLastMonthSaving();
 
-        $this->info('The command last-month:saving terminates successfully');
-        Log::info('The command last-month:saving terminates successfully');
+        $this->info('The command ' . $signature . ' terminates successfully');
+        Log::info('The command ' . $signature . ' terminates successfully');
     }
 
     private function calculatedLastMonthSaving()
@@ -53,11 +55,10 @@ class LastMonthSaving extends Command
             $negative = Trade::where('user_id', $user->id)->where('type', 'out')->whereMonth('date', Carbon::now()->subMonth()->month)->sum('cost');
             $recipe = $positive - $negative;
 
-            $cost_urssaf = 0;
-    
             $salary = $user->setting->salary;
 
             $old_saving = Saving::where('user_id', $user->id)->whereMonth('date', Carbon::now()->subMonth()->month)->first();
+            $urssaf_percent_average = Trade::where('user_id', $user->id)->where('type', 'in')->whereMonth('date', Carbon::now()->subMonth()->month)->avg('urssaf_percent');
 
             $trades_in = Trade::where('user_id', $user->id)->where('type', 'in')->whereMonth('date', Carbon::now()->subMonth()->month)->whereNotNull('urssaf_percent')->get();
             

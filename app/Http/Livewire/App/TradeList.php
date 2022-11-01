@@ -20,13 +20,20 @@ class TradeList extends Component
 
     public function render()
     {
-        if (!$this->loadMore) {
-            return view('app.trades.list.load-more-trades');
-        } else {
-            $trades = Trade::where('user_id', auth()->user()->id)->whereIn('type', ['in', 'out'])->paginate($this->perPage, ['*'], null, $this->page);
+        $trades = Trade::where('user_id', auth()->user()->id)->whereIn('type', ['in', 'out']);
 
+        if ($trades->count() <= $this->perPage) {
+            $trades = $trades->paginate($this->perPage, ['*'], null, 1);
             return view('app.trades.list.load-trades', compact('trades'));
+        } else {
+            if (!$this->loadMore) {
+                return view('app.trades.list.load-more-trades');
+            } else {
+                $trades = $trades->paginate($this->perPage, ['*'], null, $this->page - 1);
+                return view('app.trades.list.load-trades', compact('trades'));
+            }
         }
+
     }
 
     public function loadMore()

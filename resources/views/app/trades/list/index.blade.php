@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="flex justify-between">
-                    <button wire:click="switchSummaryType('all')" class="text-king-light border-b border-king-light hover:text-honey px-3 py-2 font-medium text-sm">Tout</button>
+                    <button wire:click="switchSummaryType('all')" class="text-king-light border-b border-king-light hover:text-honey px-3 py-2 font-medium text-sm">Tout ({{ App\Models\Trade::where('user_id', auth()->user()->id)->whereIn('type', ['in', 'out'])->count() }})</button>
                     <button wire:click="switchSummaryType('in')" class="text-king/50 border-b border-white hover:text-honey px-3 py-2 font-medium text-sm">Entrée</button>
                     <button wire:click="switchSummaryType('out')" class="text-king/50 border-b border-white hover:text-honey px-3 py-2 font-medium text-sm">Sortie</button>
                     <button wire:click="switchSummaryType('fixed')" class="text-king/50 border-b border-white hover:text-honey px-3 py-2 font-medium text-sm whitespace-nowrap">Frais Fixe</button>
