@@ -11,7 +11,7 @@ use App\Models\Tag;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
-class SavingEveryMonth extends Command
+class LastMonthSaving extends Command
 {
     /**
      * The name and signature of the console command.
@@ -25,7 +25,7 @@ class SavingEveryMonth extends Command
      *
      * @var string
      */
-    protected $description = 'Create a row in DB from the current saving every month';
+    protected $description = 'Calculated saving of the last month';
 
     /**
      * Execute the console command.
@@ -39,22 +39,24 @@ class SavingEveryMonth extends Command
         $this->info('The command ' . $signature . ' starts '.Carbon::now());
         Log::info('The command ' . $signature . ' trade:salary starts '.Carbon::now());
 
-        $this->savingEveryMonth();
+        $this->calculatedLastMonthSaving();
 
         $this->info('The command ' . $signature . ' terminates successfully');
         Log::info('The command ' . $signature . ' terminates successfully');
     }
 
-    private function savingEveryMonth()
+    private function calculatedLastMonthSaving()
     {
         $users = User::where('grade', 'user')->whereNotNull('user_setting_id')->get();
 
         foreach ($users as $user) {
+
             $positive = Trade::where('user_id', $user->id)->where('type', 'in')->whereMonth('date', Carbon::now()->subMonth()->month)->sum('cost');
             $negative = Trade::where('user_id', $user->id)->where('type', 'out')->whereMonth('date', Carbon::now()->subMonth()->month)->sum('cost');
             $recipe = $positive - $negative;
 
             $salary = $user->setting->salary;
+
             $old_saving = Saving::where('user_id', $user->id)->whereMonth('date', Carbon::now()->subMonth()->month)->first();
             $urssaf_percent_average = Trade::where('user_id', $user->id)->where('type', 'in')->whereMonth('date', Carbon::now()->subMonth()->month)->avg('urssaf_percent');
 

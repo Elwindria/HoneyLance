@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
         // Run the task on the first day of every month at 00:00
         $schedule->command('trade:salary')->monthly()->emailOutputTo(env('MAIL_TO_ADDRESS'));
         $schedule->command('trade:fixed')->daily()->emailOutputTo(env('MAIL_TO_ADDRESS'));
-        $schedule->command('month:saving')->monthly()->emailOutputTo(env('MAIL_TO_ADDRESS'));
+        $schedule->command('last-month:saving')->monthly()->emailOutputTo(env('MAIL_TO_ADDRESS'));
     }
 
     /**

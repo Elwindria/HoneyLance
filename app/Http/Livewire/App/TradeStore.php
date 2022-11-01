@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\App;
 
+use App\Models\Saving;
+
 use App\Models\Trade;
 use App\Models\UrssafSetting;
 use Illuminate\Http\Request;
@@ -132,7 +134,7 @@ class TradeStore extends Component
 
         $this->resetInputFields();
 
-        if ($this->trade_id === 'new') {
+        if ($this->trade_id === null) {
             toast()
                 ->success("Nouvelle transaction ajoutée avec succès.")
                 ->push();
