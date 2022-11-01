@@ -1,5 +1,5 @@
 <div class="flex flex-col justify-center gap-2">
-
+    
     @foreach($trades as $trade)
     <a href="{{ route('trade-store', ['trade_id' => $trade->id]) }}" class="flex items-center justify-between bg-white p-2 border-king hover:border-honey hover:bg-gray-100 rounded-3xl border-2">
         <div class="flex items-center gap-3 justify-between">
