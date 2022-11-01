@@ -11,21 +11,21 @@ use App\Models\Tag;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
-class SavingEveryMonth extends Command
+class LastMonthSaving extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'month:saving';
+    protected $signature = 'last-month:saving';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a row in DB from the current saving every month';
+    protected $description = 'Calculated saving of the last month';
 
     /**
      * Execute the console command.
@@ -34,16 +34,16 @@ class SavingEveryMonth extends Command
      */
     public function handle()
     {
-        $this->info('The command trade:salary starts '.Carbon::now());
-        Log::info('The command trade:salary starts '.Carbon::now());
+        $this->info('The command last-month:saving starts '.Carbon::now());
+        Log::info('The command last-month:saving starts '.Carbon::now());
 
-        $this->savingEveryMonth();
+        $this->calculatedLastMonthSaving();
 
-        $this->info('The command trade:salary terminates successfully');
-        Log::info('The command trade:salary terminates successfully');
+        $this->info('The command last-month:saving terminates successfully');
+        Log::info('The command last-month:saving terminates successfully');
     }
 
-    private function savingEveryMonth()
+    private function calculatedLastMonthSaving()
     {
         $users = User::where('grade', 'user')->whereNotNull('user_setting_id')->get();
 
