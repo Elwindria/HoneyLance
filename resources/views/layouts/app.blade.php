@@ -34,7 +34,7 @@
 
                 <div class="relative z-10 flex items-center">
                     <a href="{{ route('trades-list')}}" class="flex items-center gap-1">
-                        <img class="h-10 w-auto" src="{{ url('images/logo.png')}}">
+                        <img class="h-10 w-auto" src="{{ url('images/logo.png')}}" alt="logo d'HoneyLance, une ruche dans un carré blanc, lui même dans un carré orange">
                         <p class='text-honey-dark font-bold text-2xl'>Honey<span class="text-honey">lance</span></p>
                     </a>
                 </div>

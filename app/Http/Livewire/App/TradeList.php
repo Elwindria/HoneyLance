@@ -20,7 +20,7 @@ class TradeList extends Component
 
     public function render()
     {
-        $trades = Trade::where('user_id', auth()->user()->id)->whereIn('type', ['in', 'out']);
+        $trades = Trade::where('user_id', auth()->user()->id)->whereIn('type', ['in', 'out'])->latest('date');
 
         if ($trades->count() <= $this->perPage) {
             $trades = $trades->paginate($this->perPage, ['*'], null, 1);
@@ -33,7 +33,6 @@ class TradeList extends Component
                 return view('app.trades.list.load-trades', compact('trades'));
             }
         }
-
     }
 
     public function loadMore()

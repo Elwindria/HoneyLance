@@ -49,7 +49,7 @@
                 <p>Consultez, modifiez, ajoutez, triez,</p>
                 <p>toutes vos opérations monétaires</p>
             </div>
-            <img class="" src="{{ url('images/description-2.png') }}">
+            <img class="" src="{{ url('images/description-2.png') }}" alt="Un pot de miel">
         </div>
         <div class="flex items-center">
             <img class="w-7/12" src="{{ url('images/description-3.png') }}">

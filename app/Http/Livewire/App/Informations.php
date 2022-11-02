@@ -20,7 +20,7 @@ class Informations extends Component
         $salary = auth()->user()->setting->salary;
         $saving = Saving::where('user_id', auth()->user()->id)->whereMonth('date', Carbon::now()->month)->first();
 
-        $trades_in_urssaf = Trade::where('user_id', auth()->user()->id)->where('type', 'in')->whereMonth('date', Carbon::now()->month)->whereNotNull('urssaf_percent')->get();
+        $trades_in_taxable = Trade::where('user_id', auth()->user()->id)->where('type', 'in')->whereMonth('date', Carbon::now()->month)->whereNotNull('urssaf_percent')->get();
 
         $positive = Trade::where('user_id', auth()->user()->id)->where('type', 'in')->whereMonth('date', Carbon::now()->month)->sum('cost');
         $negative = Trade::where('user_id', auth()->user()->id)->where('type', 'out')->whereMonth('date', Carbon::now()->month)->sum('cost');
@@ -29,8 +29,8 @@ class Informations extends Component
         $this->cost_urssaf = 0;
 
         //Total somme à donner à l'Urssaf
-        foreach ($trades_in_urssaf as $trade_in_urssaf) {
-            $this->cost_urssaf += ($trade_in_urssaf->cost * $trade_in_urssaf->urssaf_percent)/100;
+        foreach ($trades_in_taxable as $trade_in_taxable) {
+            $this->cost_urssaf += ($trade_in_taxable->cost * $trade_in_taxable->urssaf_percent)/100;
         }
 
         //épargne pour le mois en cours
