@@ -61,12 +61,13 @@ class LastMonthSaving extends Command
             $urssaf_percent_average = Trade::where('user_id', $user->id)->where('type', 'in')->whereMonth('date', Carbon::now()->subMonth()->month)->avg('urssaf_percent');
 
             $trades_in = Trade::where('user_id', $user->id)->where('type', 'in')->whereMonth('date', Carbon::now()->subMonth()->month)->whereNotNull('urssaf_percent')->get();
-            
+            $cost_urssaf = 0;
+
             foreach ($trades_in as $trade_in) {
                 $cost_urssaf += ($trade_in->cost * $trade_in->urssaf_percent)/100;
             }
         
-            if($old_saving == null){
+            if($old_saving !== null){
                 $new_saving = $old_saving->count + $recipe - $salary - $cost_urssaf;
             } else {
                 $new_saving = $recipe - $salary - $cost_urssaf;
