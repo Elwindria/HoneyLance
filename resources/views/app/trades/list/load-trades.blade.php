@@ -1,5 +1,5 @@
 <div class="flex flex-col justify-center gap-2">
-    {{ dump($this->search) }}
+
     @foreach($trades as $trade)
     <a href="{{ route('trade-store', ['trade_id' => $trade->id]) }}" class="flex items-center justify-between bg-white p-2 border-king hover:border-honey hover:bg-gray-100 rounded-3xl border-2">
         <div class="flex items-center gap-3 justify-between">
@@ -33,8 +33,8 @@
     </a>
     @endforeach
 
-    {{-- @if($trades->hasMorePages())
-        @livewire('app.trade-list', ['page' => $page, 'perPage' => $perPage, 'key' => 'trades-page-' . $page])
-    @endif --}}
+    @if($trades->hasMorePages())
+        <livewire:app.trades.catalogue :page='$page' :perPage='$perPage' :search='$this->search' :type='$this->type' :wire:key="'trades-page-'.now()"/>
+    @endif
 
 </div>
