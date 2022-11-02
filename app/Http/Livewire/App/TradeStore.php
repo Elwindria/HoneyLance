@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Livewire\Component;
 use Usernotnull\Toast\Concerns\WireToast;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Gate;
 
 class TradeStore extends Component
 {
@@ -23,7 +24,7 @@ class TradeStore extends Component
     {
         $this->trade_id = request()->trade_id;
         $this->confirm_delete = false;
-        
+
         //Si l'utilisateur veut créer un nouveau trade, on affiche la vue avec le formulaire + sessions, sinon on affiche formulaire en mode Edit
         if ($this->trade_id === null) {
             $user_setting = auth()->user()->setting;
@@ -61,10 +62,15 @@ class TradeStore extends Component
             $this->interval = session('interval');
 
         } else {
-
             //C'est un edit alors, on cherche le trade à edit et on lance edit()
-            $trade = Trade::find($this->trade_id);
-            $this->edit($trade);
+            $trade = Trade::findOrFail($this->trade_id);
+
+            if (Gate::allows('update-trade', $trade)) {
+                // The current user can update trade
+                $this->edit($trade);
+            } else {
+                return redirect()->route('trades-list');
+            }
         }
     }
 
@@ -174,7 +180,7 @@ class TradeStore extends Component
         if($trade->type === 'in'){
             if($trade->urssaf_percent !== null){
                 $urssaf_setting_percentage = UrssafSetting::where('percentage', $trade->urssaf_percent)->get();
-    
+
                 //si le %urssaf n'existe plus dans la db (car trop vieux), alors on crée <option> avec l'ancienne valeur
                 if ($urssaf_setting_percentage->isEmpty()) {
                     $this->urssaf_percent = $trade->urssaf_percent;
