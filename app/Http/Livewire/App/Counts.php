@@ -24,7 +24,13 @@ class Counts extends Component
         $negative = Trade::where('user_id', auth()->user()->id)->where('type', 'out')->whereMonth('date', Carbon::now()->month)->whereYear('date', Carbon::now()->year)->sum('cost');
         $recipe = $positive - $negative;
 
-        $saving = Saving::where('user_id', auth()->user()->id)->whereMonth('date', Carbon::now()->month)->whereYear('date', Carbon::now()->year)->first()->count;
+        $saving = Saving::where('user_id', auth()->user()->id)->whereMonth('date', Carbon::now()->month)->whereYear('date', Carbon::now()->year)->first();
+
+        if($saving == null){
+            $saving = 0;
+        } else {
+            $saving = $saving->count;
+        }
 
         return view('app.counts', compact('recipe', 'saving'));
     }
