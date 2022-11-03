@@ -14,8 +14,7 @@
         <div class="flex flex-col items-center">
             <h2 class="text-king text-lg font-bold" wire:click="sendMail">Epargne</h2>
             <div class="flex flex-col items-center">
-                <p class="{{ ($recipe - auth()->user()->setting->salary) > 0 ? 'text-emerald-600' : 'text-red-600' }} font-medium">{{ number_format(($recipe - auth()->user()->setting->salary), 0, ',', ' ') }} €</p>
-                <p class="text-honey-dark/80 font-thin text-xs -mt-2">mois en cours</p>
+                <p class="{{ $saving > 0 ? 'text-emerald-600' : 'text-red-600' }} font-medium">{{ number_format($saving, 0, ',', ' ') }} €</p>
             </div>
         </div>
     </div>

@@ -65,6 +65,7 @@ class TradeStore extends Component
             //C'est un edit alors, on cherche le trade à edit et on lance edit()
             $trade = Trade::findOrFail($this->trade_id);
 
+            //Gate sert à vérifier si le trade correspond bien à un trade du user (et pas un autre user). Protection de données ! /!\ Ultra important. Bloque la request sinon, donc rien comme info donnée, meme dans la console.
             if (Gate::allows('update-trade', $trade)) {
                 // The current user can update trade
                 $this->edit($trade);

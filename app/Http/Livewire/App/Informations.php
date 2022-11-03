@@ -18,12 +18,12 @@ class Informations extends Component
     public function mount()
     {
         $salary = auth()->user()->setting->salary;
-        $saving = Saving::where('user_id', auth()->user()->id)->whereMonth('date', Carbon::now()->month)->first();
+        $this->last_saving = Saving::where('user_id', auth()->user()->id)->whereMonth('date', Carbon::now()->month)->whereYear('date', Carbon::now()->year)->first();
 
-        $trades_in_taxable = Trade::where('user_id', auth()->user()->id)->where('type', 'in')->whereMonth('date', Carbon::now()->month)->whereNotNull('urssaf_percent')->get();
+        $trades_in_taxable = Trade::where('user_id', auth()->user()->id)->where('type', 'in')->whereMonth('date', Carbon::now()->month)->whereYear('date', Carbon::now()->year)->whereNotNull('urssaf_percent')->get();
 
-        $positive = Trade::where('user_id', auth()->user()->id)->where('type', 'in')->whereMonth('date', Carbon::now()->month)->sum('cost');
-        $negative = Trade::where('user_id', auth()->user()->id)->where('type', 'out')->whereMonth('date', Carbon::now()->month)->sum('cost');
+        $positive = Trade::where('user_id', auth()->user()->id)->where('type', 'in')->whereMonth('date', Carbon::now()->month)->whereYear('date', Carbon::now()->year)->sum('cost');
+        $negative = Trade::where('user_id', auth()->user()->id)->where('type', 'out')->whereMonth('date', Carbon::now()->month)->whereYear('date', Carbon::now()->year)->sum('cost');
         $this->recipe = $positive - $negative;
 
         $this->cost_urssaf = 0;
@@ -34,8 +34,8 @@ class Informations extends Component
         }
 
         //épargne pour le mois en cours
-        if($saving !== null){
-            $this->saving = $saving->count + $this->recipe - $salary - $this->cost_urssaf;
+        if($this->last_saving !== null){
+            $this->saving = $this->last_saving->count + $this->recipe - $salary - $this->cost_urssaf;
         } else {
             $this->saving = $this->recipe - $salary - $this->cost_urssaf;
         }
@@ -51,7 +51,7 @@ class Informations extends Component
         if(auth()->user()->setting->date_start !== null){
             $month_since_start = Carbon::create(auth()->user()->setting->date_start)->diffInMonths(Carbon::now());
 
-            $avg_saving = $saving->count / $month_since_start;
+            $avg_saving = $this->last_saving->count / $month_since_start;
 
             if($avg_saving > 0){
                 $month_need_objective_saving = $this->still_need_objective_saving / $avg_saving;
