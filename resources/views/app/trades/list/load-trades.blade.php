@@ -34,7 +34,7 @@
     @endforeach
 
     @if($trades->hasMorePages())
-        @livewire('app.trade-list', ['page' => $page, 'perPage' => $perPage, 'key' => 'trades-page-' . $page])
+        <livewire:app.trades.catalogue :page='$page' :perPage='$perPage' :search='$this->search' :type='$this->type' :wire:key="'trades-page-'.now()"/>
     @endif
 
 </div>
