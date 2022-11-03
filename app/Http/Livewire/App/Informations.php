@@ -33,6 +33,9 @@ class Informations extends Component
             $this->cost_urssaf += ($trade_in_taxable->cost * $trade_in_taxable->urssaf_percent)/100;
         }
 
+        //Total des sortie (Urssaf + out + salaire)
+        $this->total_out = $this->cost_urssaf + $negative + $salary;
+
         //épargne pour le mois en cours
         if($this->last_saving !== null){
             $this->saving = $this->last_saving->count + $this->recipe - $salary - $this->cost_urssaf;
@@ -43,23 +46,27 @@ class Informations extends Component
         //Objectif épargne (soit 6 mois de salaire)
         $this->objective_saving = 6 * $salary;
         
-        //Calcul de combien il faut encore pour atteindre cet objective_saving
+        //Calcul de la somme qu'il faut encore pour atteindre cet objective_saving
         $this->still_need_objective_saving = $this->objective_saving - $this->saving;
 
         //calcul du nombre de mois pour atteindre cet objective_saving
-
         if(auth()->user()->setting->date_start !== null){
             $month_since_start = Carbon::create(auth()->user()->setting->date_start)->diffInMonths(Carbon::now());
 
-            $avg_saving = $this->last_saving->count / $month_since_start;
+            if($month_since_start == 0){
+                $month_since_start = 1;
+            }
 
-            if($avg_saving > 0){
-                $month_need_objective_saving = $this->still_need_objective_saving / $avg_saving;
+            $this->avg_saving = $this->last_saving->count / $month_since_start;
+
+            if($this->avg_saving > 0){
+                $this->month_need_objective_saving = $this->still_need_objective_saving / $this->avg_saving;
             } else {
-                $month_need_objective_saving = 'negative';
+                $this->month_need_objective_saving = 'negative';
             }
         } else {
-            $month_need_objective_saving = 'too few data';
+            $this->month_need_objective_saving = 'too few data';
+            $this->avg_saving = 'too few data';
         }
     }
 
