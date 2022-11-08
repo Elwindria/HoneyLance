@@ -19,7 +19,7 @@
         const el = document.createElement('pwa-update');
         document.body.appendChild(el);
      </script>
-    {{-- <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall"></script> --}}
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall"></script>
     {{-- <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate"></script> --}}
 
     <title>{{ config('app.name', 'Laravel') }}</title>
