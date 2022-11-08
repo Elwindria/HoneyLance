@@ -11,12 +11,16 @@
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-status-bar-style" content="#FFFFFF">
 
-    <link rel="manifest" href="manifest.json" />
+    <link rel='manifest' href='{{ asset('manifest.json') }}'>
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    <link rel="canonical" href="https://honeylance.vinvui.com">
     <script type="module">
         import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
         const el = document.createElement('pwa-update');
         document.body.appendChild(el);
      </script>
+    {{-- <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall"></script> --}}
+    {{-- <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate"></script> --}}
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -56,7 +60,8 @@
                     <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg focus:outline-none">
                         <div class="py-1" role="none">
                             <a href="{{ route('trades-list') }}" class="flex items-center px-4 py-2 text-sm text-gray-700" @click="open = false">
-                                <svg width="32" height="32" class="h-4 w-4 mr-2" viewBox="0 0 24 24"><path fill="currentColor" d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z"/></svg>
+                                <svg width="32" height="32" class="h-4 w-4 mr-2" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" /></svg>
                                 Accueil
                             </a>
                             <a href="{{ route('user-settings') }}" class="flex items-center px-4 py-2 text-sm text-gray-700" @click="open = false">
@@ -98,5 +103,8 @@
     @stack('modals')
 
     @livewireScripts
+
+    <pwa-update></pwa-update>
+
 </body>
 </html>
