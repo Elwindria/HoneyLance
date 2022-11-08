@@ -11,6 +11,13 @@
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-status-bar-style" content="#FFFFFF">
 
+    <link rel="manifest" href="manifest.json" />
+    <script type="module">
+        import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+        const el = document.createElement('pwa-update');
+        document.body.appendChild(el);
+     </script>
+
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
