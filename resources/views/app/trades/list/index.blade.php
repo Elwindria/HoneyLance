@@ -1,8 +1,8 @@
-<div class="max-h-screen">
+<div class="max-h-screen md:max-w-7xl md:mx-auto">
 
     @livewire('app.counts')
 
-    <div class="relative rounded-t-3xl min-h-full bg-white" x-data="{scrollBackTop: false}" x-cloak>
+    <div class="relative rounded-t-3xl md:rounded-b-3xl min-h-full bg-white" x-data="{scrollBackTop: false}" x-cloak>
 
         <div class="flex flex-col gap-4 mt-2 pt-6 pb-2 mb-2 mx-auto max-w-7xl px-4 sm:px-8 sticky top-0 bg-white rounded-t-3xl z-40">
             <div class="flex justify-center">
@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div class="mx-auto max-w-7xl px-4 sm:px-8 pb-12">
+        <div class="mx-auto max-w-7xl px-4 sm:px-8 pb-12 md:shadow-xl">
 
             <div class="">
                 <livewire:app.trades.catalogue :page='1' :perPage='10' :search='$this->search' :type='$this->type' :wire:key="'trades-page-'.now()" />
