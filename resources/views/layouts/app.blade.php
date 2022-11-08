@@ -24,6 +24,13 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <link rel="icon" type="image/png" sizes="48x48" href="{{ asset('appImages/android/android-launchericon-48-48.png') }}">
+    <link rel="icon" type="image/png" sizes="72x72" href="{{ asset('appImages/android/android-launchericon-72-72.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('appImages/android/android-launchericon-96-96.png') }}">
+    <link rel="icon" type="image/png" sizes="144x144" href="{{ asset('appImages/android/android-launchericon-144-144.png') }}">
+    <link rel="icon" type="image/png" sizes="152x152" href="{{ asset('appImages/android/android-launchericon-192-192.png') }}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('appImages/android/android-launchericon-512-512.png') }}">
+
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 

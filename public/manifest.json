@@ -13,5 +13,13 @@
       "src": "/favicon.ico",
       "type": "image/x-icon"
     }
+  ],
+  "lang": "fr",
+  "display_override": [
+    "standalone"
+  ],
+  "categories": [
+    "finance",
+    "productivity"
   ]
 }
