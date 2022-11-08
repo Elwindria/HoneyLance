@@ -18,7 +18,7 @@
         import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
         const el = document.createElement('pwa-update');
         document.body.appendChild(el);
-     </script>
+    </script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall"></script>
     {{-- <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate"></script> --}}
 
@@ -36,8 +36,6 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <!-- Styles -->
     @livewireStyles
     @toastScripts
 </head>

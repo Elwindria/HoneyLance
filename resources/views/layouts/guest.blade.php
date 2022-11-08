@@ -16,9 +16,9 @@
     <link rel="canonical" href="https://honeylance.vinvui.com">
     <script type="module">
         import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
-            const el = document.createElement('pwa-update');
-            document.body.appendChild(el);
-         </script>
+        const el = document.createElement('pwa-update');
+        document.body.appendChild(el);
+    </script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall"></script>
     {{-- <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate"></script> --}}
 
