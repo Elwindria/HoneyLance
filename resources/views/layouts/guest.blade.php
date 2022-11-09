@@ -41,5 +41,7 @@
     <div class="font-sans text-king antialiased">
         {{ $slot }}
     </div>
+
+    <pwa-update></pwa-update>
 </body>
 </html>

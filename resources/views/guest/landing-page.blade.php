@@ -59,6 +59,9 @@
                 <p class="text-2xl text-honey-dark font-bold text-center">Alors n'attendez plus et rejoignez nous</p>
                 <a href="{{ route('register') }}" class="p-1 w-4/6 bg-honey border-honey-dark border-2 text-white text-2xl rounded-3xl text-center font-bold justify-self-center m-auto hover:bg-white hover:text-honey">S'inscrire</a>
             </div>
+
+            <pwa-install>Application Mobile</pwa-install>
+            
         </div>
     </div>
 </x-guest-layout>
