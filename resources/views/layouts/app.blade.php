@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="description" content="Gérer votre salaire de freelance n'aura jamais été aussi facile 💖">
+
     <!-- Chrome, Firefox OS and Opera -->
     <meta name="theme-color" content="#FFFFFF">
     <!-- Windows Phone -->
@@ -13,7 +15,9 @@
 
     <link rel='manifest' href='{{ asset('manifest.json') }}'>
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
-    <link rel="canonical" href="https://honeylance.vinvui.com">
+    <link rel="canonical" href="https://honeylance.vinvui.com/login">
+    <link rel="apple-touch-icon" href="{{ asset('appImages/maskable/maskable_icon_x192.png') }}">
+
     <script type="module">
         import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
         const el = document.createElement('pwa-update');
@@ -42,14 +46,14 @@
 
                 <div class="relative z-10 flex items-center">
                     <a href="{{ route('trades-list')}}" class="flex items-center gap-1">
-                        <img class="h-8 w-auto" src="{{ url('images/logo.png')}}" alt="logo d'HoneyLance, une ruche dans un carré blanc, lui même dans un carré orange">
+                        <img class="h-8 w-8 rounded-xl" src="{{ asset('appImages/maskable/maskable_icon_x72.png')}}" alt="logo d'HoneyLance, une ruche dans un carré blanc, lui même dans un carré orange">
                         <p class='text-honey-dark font-bold text-xl'>Honey<span class="text-honey">lance</span></p>
                     </a>
                 </div>
 
                 <div x-data="{ open: false }" @keydown.escape.stop="open = false" @click.away="open = false" class="relative z-50 inline-block text-left">
                     <div>
-                        <button @click="open = !open" type="button" class="relative group flex p-1 items-center rounded-full text-king hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-honey focus:ring-offset-2 focus:ring-offset-honey">
+                        <button @click="open = !open" type="button" aria-label="menu" class="relative group flex p-1 items-center rounded-full text-king hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-honey focus:ring-offset-2 focus:ring-offset-honey">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                             </svg>
