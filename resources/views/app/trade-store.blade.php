@@ -1,8 +1,8 @@
-<div>
+<div class="max-h-screen md:max-w-7xl md:mx-auto">
 
     @livewire('app.counts')
 
-    <div class="relative rounded-t-3xl min-h-full bg-white">
+    <div class="relative rounded-t-3xl md:rounded-b-3xl min-h-full bg-white md:shadow-xl">
         <div class="mt-2">
             <div class="flex justify-around px-8 py-6">
                 <button wire:click="switchType('in')" class="{{ $this->type_trade === 'in' ? 'text-king-light border-king-light' : 'text-king/50 border-transparent' }} w-24 border-b px-3 py-2 font-medium text-sm">Entrée</button>

@@ -12,7 +12,6 @@ use Carbon\CarbonPeriod;
 
 class Informations extends Component
 {
-    public $url;
     public $cost_urssaf = 0;
 
     public function mount()
@@ -45,12 +44,12 @@ class Informations extends Component
 
         //Objectif épargne (soit 6 mois de salaire)
         $this->objective_saving = 6 * $salary;
-        
+
         //Calcul de la somme qu'il faut encore pour atteindre cet objective_saving
         $this->still_need_objective_saving = $this->objective_saving - $this->saving;
 
         //calcul du nombre de mois pour atteindre cet objective_saving
-        if(auth()->user()->setting->date_start !== null){
+        if(auth()->user()->setting->date_start !== null && $this->last_saving !== null){
             $month_since_start = Carbon::create(auth()->user()->setting->date_start)->diffInMonths(Carbon::now());
 
             if($month_since_start == 0){
