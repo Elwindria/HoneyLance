@@ -4,13 +4,14 @@ namespace App\Http\Livewire\App;
 
 use App\Models\UrssafSetting;
 use App\Models\UserSetting;
+use App\Models\Saving;
 use Livewire\Component;
 use Usernotnull\Toast\Concerns\WireToast;
 
 class UserSettings extends Component
 {
     use WireToast;
-    public $urssaf_setting_id, $user_setting, $salary, $date_start, $urssaf_settings_percent, $urssaf_settings_description, $urssaf_settings;
+    public $urssaf_setting_id, $user_setting, $salary, $date_start, $urssaf_settings_percent, $urssaf_settings_description, $urssaf_settings, $count;
 
     public function mount()
     {
@@ -78,6 +79,21 @@ class UserSettings extends Component
 
         toast()
             ->success("Date de début d'activité changée")
+            ->push();
+    }
+
+    public function updatedCount()
+    {
+        $dataValide = $this->validate([
+            'count' => ['required', 'numeric', 'Min:0'],
+        ]);
+        
+        $saving = Saving::find(['user_id' => auth()->user()->id])->first();
+        $saving->count = $dataValide['count'];
+        $saving->save();
+
+        toast()
+            ->success("Epargne de base changée")
             ->push();
     }
 }

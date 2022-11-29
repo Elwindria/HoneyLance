@@ -36,6 +36,11 @@
                 <input type="date" id="date_start" wire:model.debounce.500ms='date_start' value="{{ ('date_start') }}" class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
                 @error('date_start') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
             </div>
+            <div class="flex flex-col justify-center">
+                <label for="saving" class="text-king text-lg font-semibold indent-4">Epargne de base</label>
+                <input type="number" id="saving" wire:model.debounce.500ms='count' value="{{ ('count') }}" class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
+                @error('count') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
+            </div>
         </div>
     </div>
 
