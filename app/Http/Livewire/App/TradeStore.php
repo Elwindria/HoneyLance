@@ -150,7 +150,7 @@ class TradeStore extends Component
         if ($this->trade_id === null) {
             toast()
                 ->success("Nouvelle transaction ajoutée avec succès.")
-                ->push();
+                ->pushOnNextPage();
         } else {
             toast()
                 ->success("Transaction modifiée avec succès.")
