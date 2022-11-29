@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\UserSetting;
+use App\Models\Saving;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class RedirectController extends Controller
 {
@@ -33,6 +35,11 @@ class RedirectController extends Controller
             $this->createUserSettings();
         }
 
+        //Si l'utilisateur n'a pas de saving alors on en créer un
+        if(!auth()->user()->savings->first()){
+            $this->createSaving();
+        }
+
         return redirect()->route('trades-list');
     }
 
@@ -46,5 +53,14 @@ class RedirectController extends Controller
             $user->user_setting_id = $user_setting->id;
             $user->save();
         }
+    }
+
+    private function createSaving()
+    {
+        $saving = new Saving;
+        $saving->date = Carbon::now();
+        $saving->count = 0;
+        $saving->user_id = auth()->user()->id;
+        $saving->save();
     }
 }

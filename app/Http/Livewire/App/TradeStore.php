@@ -119,6 +119,7 @@ class TradeStore extends Component
                         'name' => ['required', 'string'],
                         'date' => ['required', 'date'],
                     ]);
+                    $dataValide = array_merge($dataValide, ['urssaf_percent' => Null]);
                     break;
                 }
             case 'out':
