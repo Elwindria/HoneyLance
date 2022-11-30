@@ -52,6 +52,8 @@ class UserSettings extends Component
             $saving->count = 0;
             $saving->user_id = auth()->user()->id;
             $saving->save();
+
+            return back();
         }
     }
 
