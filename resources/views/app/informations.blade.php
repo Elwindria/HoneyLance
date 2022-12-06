@@ -29,7 +29,7 @@
                 </h2>
             </div>
 
-            <div class="flex flex-col rounded-3xl bg-white gap-4 py-6 max-w-3xl px-4 sm:px-8 md:shadow-xl">
+            <div class="flex flex-col rounded-3xl bg-white gap-4 py-6 max-w-3xl px-4 sm:px-8 md:border-king md:border-2">
                 <div class="flex justify-between items-center">
                     <p class="text-king text-lg font-semibold indent-4">Epargne actuelle</p>
                     @if ($this->last_saving != null)
@@ -68,7 +68,7 @@
                 </h2>
             </div>
 
-            <div class="flex flex-col rounded-3xl bg-white gap-4 py-6 max-w-3xl px-4 sm:px-8 md:shadow-xl">
+            <div class="flex flex-col rounded-3xl bg-white gap-4 py-6 max-w-3xl px-4 sm:px-8 md:border-king md:border-2">
                 <div class="flex justify-between">
                     <p class="text-king text-lg font-semibold indent-4">Objectif <span class="text-xs text-king/50">6mois de salaire</span></p>
                     {{-- abs retourne la valeur absolut (on enlève le signe -) --}}

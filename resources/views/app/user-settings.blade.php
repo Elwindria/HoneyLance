@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div class="rounded-3xl bg-white md:shadow-xl">
+    <div class="rounded-3xl bg-white md:border-king md:border-2">
         <div class="flex flex-col gap-4 py-6 mx-auto max-w-3xl px-4 sm:px-8">
             <div class="flex flex-col justify-center">
                 <label for="urssaf_setting_id" class="text-king text-lg font-semibold indent-4">Pourcentage Urssaf <span class="text-xs text-king/50">par défaut</span></label>
@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div class="rounded-t-3xl md:rounded-b-3xl bg-white px-4 pt-2 pb-24 md:shadow-xl">
+    <div class="rounded-t-3xl md:rounded-b-3xl bg-white px-4 pt-2 pb-24 md:border-king md:border-2">
         <livewire:app.tags>
     </div>
 

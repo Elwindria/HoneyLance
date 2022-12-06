@@ -1,11 +1,11 @@
 <x-guest-layout>
     <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+        <x-slot name="page">
+            Mot de passe oublié ?
         </x-slot>
 
-        <div class="text-sm text-gray-600 p-4">
-            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+        <div class="text-sm text-gray-600 py-4">
+            Pas de soucis. Veuillez nous indiquer votre adresse e-mail et nous vous enverrons un lien de réinitialisation du mot de passe.
         </div>
 
         @if (session('status'))
@@ -14,13 +14,13 @@
         </div>
         @endif
 
-        <x-jet-validation-errors class="p-4" />
+        <x-jet-validation-errors class="py-4" />
 
-        <form method="POST" action="{{ route('password.email') }}" class="px-4 pt-4 pb-12">
+        <form method="POST" action="{{ route('password.email') }}" class="">
             @csrf
 
             <div class="block">
-                <x-jet-label for="email" value="{{ __('Email') }}" />
+                <x-jet-label for="email" value="{{ __('Email') }}" plus="" />
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
             </div>
 

@@ -1,37 +1,37 @@
 <x-guest-layout>
     <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+        <x-slot name="page">
+            S'enregistrer
         </x-slot>
 
         <x-jet-validation-errors class="p-4" />
 
-        <form method="POST" action="{{ route('register') }}" class="px-4 pt-4 pb-12">
+        <form method="POST" action="{{ route('register') }}" class="">
             @csrf
 
             <div>
-                <x-jet-label for="name" value="{{ __('Name') }}" />
+                <x-jet-label for="name" value="{{ __('Name') }}" plus="" />
                 <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="email" value="{{ __('Email') }}" />
+                <x-jet-label for="email" value="{{ __('Email') }}" plus="" />
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
+                <x-jet-label for="password" value="{{ __('Password') }}" plus="" />
                 <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
+                <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" plus="" />
                 <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
             <div class="mt-4">
-                <x-jet-label for="terms">
+                <x-jet-label for="terms" plus="">
                     <div class="flex items-center">
                         <x-jet-checkbox name="terms" id="terms" />
 
@@ -50,7 +50,7 @@
                 <x-jet-button class="">
                     {{ __('Register') }}
                 </x-jet-button>
-                <a class="underline text-sm text-king-light hover:text-king-light/50" href="{{ route('login') }}">
+                <a class="mt-2 text-center inline-block font-extrabold hover:underline" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
                 </a>
             </div>

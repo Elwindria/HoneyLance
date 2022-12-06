@@ -1,11 +1,11 @@
-<div class="flex flex-col justify-center gap-2">
+<div class="flex flex-col justify-center gap-3">
 
     @foreach($trades as $trade)
-    <a href="{{ route('trade-store', ['trade_id' => $trade->id]) }}" class="flex items-center justify-between gap-3 bg-white p-2 border-king hover:border-honey hover:bg-gray-100 rounded-3xl border-2">
+    <a href="{{ route('trade-store', ['trade_id' => $trade->id]) }}" class="flex items-center justify-between gap-4 bg-white p-2 border-king/80 hover:border-honey hover:bg-honey/40 rounded-lg border-2 shadow transition duration-200">
         <div class="flex-none">
             @switch($trade->type)
             @case('in')
-            <svg class="text-emerald-600" width="35" height="35" viewBox="0 0 24 24">
+            <svg class="text-green-600" width="35" height="35" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M22.001 12c0-5.523-4.477-10-10-10s-10 4.477-10 10s4.477 10 10 10s10-4.477 10-10Zm-14.53.28a.75.75 0 0 1-.073-.976l.072-.085l4.001-4a.75.75 0 0 1 .977-.073l.084.073l4 4.001a.75.75 0 0 1-.977 1.133l-.084-.072l-2.72-2.722v6.691a.75.75 0 0 1-.649.744l-.101.006a.75.75 0 0 1-.743-.648l-.007-.102V9.56l-2.72 2.72a.75.75 0 0 1-.977.073l-.084-.073Z" />
             </svg>
             @break
@@ -23,9 +23,9 @@
             @endswitch
         </div>
         <div class="flex-1">
-            <p class="text-king font-bold capitalize text-base">{{ $trade->name }}</p>
+            <p class="text-king font-bold leading-4 mb-2 text-base">{{ $trade->name }}</p>
             @if($trade->type == 'fixed')
-            <div class="text-king/50 text-sm mb-1 -mt-2 flex items-center gap-1">
+            <div class="text-king/50 text-sm mb-1 -mt-1 flex items-center gap-1">
                 <div class="mt-1">
                     <svg class="w-3 h-3" width="32" height="32" viewBox="0 0 2048 2048">
                         <path fill="currentColor" d="M1792 993q60 41 107 93t81 114t50 131t18 141q0 119-45 224t-124 183t-183 123t-224 46q-91 0-176-27t-156-78t-126-122t-85-157H128V128h256V0h128v128h896V0h128v128h256v865zM256 256v256h1408V256h-128v128h-128V256H512v128H384V256H256zm643 1280q-3-31-3-64q0-119 45-224t124-183t183-123t224-46q100 0 192 33V640H256v896h643zm573 384q93 0 174-35t142-96t96-142t36-175q0-93-35-174t-96-142t-142-96t-175-36q-93 0-174 35t-142 96t-96 142t-36 175q0 93 35 174t96 142t142 96t175 36zm64-512h192v128h-320v-384h128v256z"/>
@@ -38,7 +38,7 @@
             @endif
             <div class="flex gap-1 flex-wrap">
                 @foreach ($trade->tags as $tag)
-                <div class="bg-honey-light/60 text-xs text-honey-dark py-0.5 px-1.5 rounded-md whitespace-nowrap">{{ $tag->name_tag }}</div>
+                <div class="inline-flex h-6 items-center justify-center text-xs font-extrabold px-2 whitespace-nowrap text-honey-dark rounded bg-honey-light/60 shadow-sm">{{ $tag->name_tag }}</div>
                 @endforeach
             </div>
         </div>

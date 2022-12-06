@@ -1,8 +1,15 @@
-<div class="h-screen flex flex-col justify-between md:max-w-3xl md:mx-auto">
-    <div class="flex h-full items-center justify-center">
-        {{ $logo }}
+<section class="min-h-screen py-26 bg-orange-200">
+    <div class="container px-4 mx-auto">
+        <div class="py-12 px-6 md:p-16 border-3 border-king shadow bg-white rounded-2xl max-w-2xl mx-auto">
+
+            <x-jet-authentication-card-logo />
+
+            <div class="text-center my-8">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-2">{{ $page }}</h2>
+            </div>
+
+            {{ $slot }}
+
+        </div>
     </div>
-    <div class="relative rounded-t-3xl bg-white p-4 md:shadow-xl">
-        {{ $slot }}
-    </div>
-</div>
+</section>
