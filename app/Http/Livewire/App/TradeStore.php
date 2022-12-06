@@ -119,6 +119,7 @@ class TradeStore extends Component
                         'name' => ['required', 'string'],
                         'date' => ['required', 'date'],
                     ]);
+                    $dataValide = array_merge($dataValide, ['urssaf_percent' => Null]);
                     break;
                 }
             case 'out':
@@ -150,7 +151,7 @@ class TradeStore extends Component
         if ($this->trade_id === null) {
             toast()
                 ->success("Nouvelle transaction ajoutée avec succès.")
-                ->push();
+                ->pushOnNextPage();
         } else {
             toast()
                 ->success("Transaction modifiée avec succès.")

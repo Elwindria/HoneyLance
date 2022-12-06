@@ -4,16 +4,22 @@ namespace App\Http\Livewire\App;
 
 use App\Models\UrssafSetting;
 use App\Models\UserSetting;
+use App\Models\Saving;
 use Livewire\Component;
 use Usernotnull\Toast\Concerns\WireToast;
+
+use Carbon\Carbon;
 
 class UserSettings extends Component
 {
     use WireToast;
-    public $urssaf_setting_id, $user_setting, $salary, $date_start, $urssaf_settings_percent, $urssaf_settings_description, $urssaf_settings;
+    public $urssaf_setting_id, $user_setting, $salary, $date_start, $urssaf_settings_percent, $urssaf_settings_description, $urssaf_settings, $count, $saving;
 
     public function mount()
     {
+        //Count le nombre de saving pour l'user actif, si $savings = 1 alors new user, sinon si >1 alors vieux)
+        $count_savings = Saving::where('user_id', auth()->user()->id)->count();
+        
         $user_setting = UserSetting::find(auth()->user()->user_setting_id);
 
         if ($user_setting !== null) {
@@ -32,6 +38,20 @@ class UserSettings extends Component
                 $user->user_setting_id = $user_setting->id;
                 $user->save();
             }
+
+            return back();
+        }
+
+        //Si user n'a pas de saving du tout (bug?), on créer un épargne de base à 0€, sinon affiche valeur
+        if($count_savings != 0){
+            $this->count_savings = $count_savings;
+            $this->count = Saving::where('user_id', auth()->user()->id)->first()->count;
+        } else {
+            $saving = new Saving;
+            $saving->date = Carbon::now();
+            $saving->count = 0;
+            $saving->user_id = auth()->user()->id;
+            $saving->save();
 
             return back();
         }
@@ -78,6 +98,22 @@ class UserSettings extends Component
 
         toast()
             ->success("Date de début d'activité changée")
+            ->push();
+    }
+
+    public function updatedCount()
+    {
+        $dataValide = $this->validate([
+            'count' => ['required', 'numeric', 'Min:0'],
+        ]);
+        
+        //Modifie le premier saving (peut le faire que si il n'a qu'un seul saving, donc new user avec saving de base à 0€)
+        $saving = Saving::where('user_id', auth()->user()->id)->first();
+        $saving->count = $dataValide['count'];
+        $saving->save();
+
+        toast()
+            ->success("Epargne de base changée")
             ->push();
     }
 }

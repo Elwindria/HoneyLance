@@ -32,8 +32,8 @@ class Informations extends Component
             $this->cost_urssaf += ($trade_in_taxable->cost * $trade_in_taxable->urssaf_percent)/100;
         }
 
-        //Total des sortie (Urssaf + out + salaire)
-        $this->total_out = $this->cost_urssaf + $negative + $salary;
+        //Total des sortie (Urssaf + out + salaire /!\ Salaire est déjà dans les trades out car calculer chaque début de mois avec la commands SalaryToTrade.php!)
+        $this->total_out = $this->cost_urssaf + $negative;
 
         //épargne pour le mois en cours
         if($this->last_saving !== null){
