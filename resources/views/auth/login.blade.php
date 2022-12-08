@@ -32,7 +32,7 @@
                 </label>
             </div>
 
-            <div class="flex flex-col items-center justify-end gap-2">
+            <div class="mt-4 flex flex-col items-center justify-end gap-2">
                 <x-jet-button>
                     {{ __('Log in') }}
                 </x-jet-button>

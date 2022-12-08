@@ -37,16 +37,15 @@
     @livewireStyles
     @toastScripts
 </head>
-<body class="font-body antialiased bg-honey">
+<body class="font-body antialiased bg-honey/10">
 {{-- <body class="antialiased bg-body text-king font-body"> --}}
-
 
     <livewire:toasts />
 
     <div class="h-screen">
 
-        <nav class="bg-white md:max-w-7xl md:mx-auto">
-            <div class="mx-auto max-w-7xl py-3 px-4 md:px-8 relative z-50 flex justify-between">
+        <nav class="md:max-w-7xl md:mx-auto">
+            <div class="mx-auto max-w-7xl py-3 px-2 md:px-8 relative z-50 flex justify-between">
 
                 <div class="relative z-10 flex items-center">
                     <a href="{{ route('trades-list')}}" class="flex items-center gap-2">

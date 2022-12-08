@@ -29,53 +29,64 @@
             </div>
             <div class="flex flex-col justify-center">
                 @if($this->type_trade == 'fixed')
-                    {{-- <label for="date" class="text-king text-lg font-semibold indent-4">Date <span class="text-xs text-king/50">prochaine facturation</span></label> --}}
-                    {{-- <input type="date" id="date" min="{{ Carbon\Carbon::now()->addDay()->format('Y-m-d') }}" wire:model='date' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring-transparent focus:border-honey transition duration-200"> --}}
-                    <x-jet-label for="date" value="Date" plus="prochaine facturation" />
-                    <x-jet-input type="date" id="date" min="{{ Carbon\Carbon::now()->addDay()->format('Y-m-d') }}" wire:model='date' />
+                {{-- <label for="date" class="text-king text-lg font-semibold indent-4">Date <span class="text-xs text-king/50">prochaine facturation</span></label> --}}
+                {{-- <input type="date" id="date" min="{{ Carbon\Carbon::now()->addDay()->format('Y-m-d') }}" wire:model='date' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring-transparent focus:border-honey transition duration-200"> --}}
+                <x-jet-label for="date" value="Date" plus="prochaine facturation" />
+                <x-jet-input type="date" id="date" min="{{ Carbon\Carbon::now()->addDay()->format('Y-m-d') }}" wire:model='date' />
                 @else
-                    {{-- <label for="date" class="text-king text-lg font-semibold indent-4">Date</label> --}}
-                    {{-- <input type="date" id="date" wire:model='date' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring-transparent focus:border-honey transition duration-200"> --}}
-                    <x-jet-label for="date" value="Date" plus="" />
-                    <x-jet-input type="date" id="date" wire:model='date' />
+                {{-- <label for="date" class="text-king text-lg font-semibold indent-4">Date</label> --}}
+                {{-- <input type="date" id="date" wire:model='date' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring-transparent focus:border-honey transition duration-200"> --}}
+                <x-jet-label for="date" value="Date" plus="" />
+                <x-jet-input type="date" id="date" wire:model='date' />
                 @endif
                 @error('date') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
             </div>
             @if($this->type_trade === 'in')
-                <div class="flex items-center pt-2">
-                    <button type="button" wire:click='switchTaxable' wire:model='taxable' class="{{ $this->taxable === true ? 'bg-king-light' : 'bg-gray-300' }} border-king shadow-sm relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-king-light focus:ring-offset-2" role="switch" aria-checked="false" aria-labelledby="contribution-urssaf">
+            <div class="flex items-center pt-2">
+                <button type="button" wire:click='switchTaxable' wire:model='taxable' class="{{ $this->taxable === true ? 'bg-king-light' : 'bg-gray-300' }} border-king shadow-sm relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-king-light focus:ring-offset-2" role="switch" aria-checked="false" aria-labelledby="contribution-urssaf">
                     <span aria-hidden="true" class="{{ $this->taxable === true ? 'translate-x-5' : 'translate-x-0' }} pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white ring-0 transition duration-200 ease-in-out"></span>
-                    </button>
-                    <span class="ml-2" id="contribution-urssaf">
+                </button>
+                <span class="ml-2" id="contribution-urssaf">
                     <span class="font-extrabold">Soumis à la cotisation Urssaf ?</span>
-                    </span>
-                </div>
-                @if($this->taxable === true)
-                <div class="flex flex-col justify-center">
-                    {{-- <label for="urssaf_percent" class="text-king text-lg font-semibold indent-4">Urssaf</label> --}}
-                    <x-jet-label for="date" value="Urssaf" plus="" />
-                    <select name="urssaf_percent" id="urssaf_percent" wire:model='urssaf_percent' class="inline-block w-full p-4 leading-6 text-lg font-extrabold placeholder-king bg-white shadow border-2 border-king rounded">
-                        @if($this->urssaf_percent === null)
-                            <option>Votre taux Urssaf par défaut n'existe pas. Vous pouvez en choisir un dans vos paramètres d'utilisateur.</option>
-                        @elseif($this->urssaf_percent === 'old')
-                            <option>Votre taux Urssaf par défaut n'existe plus et doit être mis à jour.</option>
-                        @elseif($this->old_urssaf_percent)
-                            <option value="{{ $this->urssaf_percent }}">{{ $this->urssaf_percent }}% - 🚩 Attention 🚩 Ancien taux Urssaf</option>
-                        @else
-                            <option>-- Choissisez une option SVP --</option>
-                        @endif
-                        @foreach( $urssaf_settings as $urssaf_setting)
-                        <option value="{{ $urssaf_setting->percentage }}">{{ $urssaf_setting->percentage }}% - {{ $urssaf_setting->description }}</option>
-                        @endforeach
-                    </select>
-                    @error('urssaf_percent') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
-                </div>
-                @endif
+                </span>
+            </div>
+            @if($this->taxable === true)
+            <div class="flex flex-col justify-center">
+                <x-jet-label for="date" value="Urssaf" plus="" />
+                <select name="urssaf_percent" id="urssaf_percent" wire:model='urssaf_percent' class="inline-block w-full p-4 leading-6 text-lg font-extrabold placeholder-king bg-white shadow border-2 border-king rounded">
+                    @if($this->urssaf_percent === null)
+                    <option>Votre taux Urssaf par défaut n'existe pas. Vous pouvez en choisir un dans vos paramètres d'utilisateur.</option>
+                    @elseif($this->urssaf_percent === 'old')
+                    <option>Votre taux Urssaf par défaut n'existe plus et doit être mis à jour.</option>
+                    @elseif($this->old_urssaf_percent)
+                    <option value="{{ $this->urssaf_percent }}">{{ $this->urssaf_percent }}% - 🚩 Attention 🚩 Ancien taux Urssaf</option>
+                    @else
+                    <option>-- Choissisez une option SVP --</option>
+                    @endif
+                    @foreach( $urssaf_settings as $urssaf_setting)
+                    <option value="{{ $urssaf_setting->percentage }}">{{ $urssaf_setting->percentage }}% - {{ $urssaf_setting->description }}</option>
+                    @endforeach
+                </select>
+                @error('urssaf_percent') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
+            </div>
+            @endif
             @elseif($this->type_trade === 'fixed')
             <div class="flex flex-col justify-center">
-                <label for="interval" class="text-king text-lg font-semibold indent-4">Période <span class="text-xs text-king/50">en jours</span></label>
-                <input type="number" step="1" min="1" id="interval" wire:model='interval' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring-transparent focus:border-honey">
-                <label for="interval" class="flex justify-end text-xs text-king/50 mr-4">30 = 1 mois plein</label>
+                <div class="flex">
+                    <x-jet-label for="interval" value="Période" plus="en jours" />
+                    <div class="group cursor-pointer relative inline-block text-center">
+                        <svg width="32" height="32" viewBox="0 0 20 20" class="h-4 mt-1 text-king-light">
+                            <path fill="currentColor" d="M10 .4C4.697.4.399 4.698.399 10A9.6 9.6 0 0 0 10 19.601c5.301 0 9.6-4.298 9.6-9.601c0-5.302-4.299-9.6-9.6-9.6zm.896 3.466c.936 0 1.211.543 1.211 1.164c0 .775-.62 1.492-1.679 1.492c-.886 0-1.308-.445-1.282-1.182c0-.621.519-1.474 1.75-1.474zM8.498 15.75c-.64 0-1.107-.389-.66-2.094l.733-3.025c.127-.484.148-.678 0-.678c-.191 0-1.022.334-1.512.664l-.319-.523c1.555-1.299 3.343-2.061 4.108-2.061c.64 0 .746.756.427 1.92l-.84 3.18c-.149.562-.085.756.064.756c.192 0 .82-.232 1.438-.719l.362.486c-1.513 1.512-3.162 2.094-3.801 2.094z" />
+                        </svg>
+                        <div class="opacity-0 w-36 bg-black text-white text-center text-xs rounded-lg py-2 absolute z-10 group-hover:opacity-100 bottom-full -left-1/2 -ml-10 px-3 pointer-events-none">
+                            30 = 1 mois plein
+                            <svg class="absolute text-black h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve">
+                                <polygon class="fill-current" points="0,0 127.5,127.5 255,0" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <x-jet-input type="number" step="1" min="1" id="interval" wire:model='interval' />
                 @error('interval') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
             </div>
             @endif
@@ -112,21 +123,21 @@
                     Valider
                 </button>
                 @if($this->trade_id != null)
-                    @if($this->confirm_delete == false)
-                        <button wire:click='confirmDelete' class="bg-white text-red-600 rounded-md mb-12 flex justify-center gap-2 items-center">
-                            <svg width="32" height="32" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M12 5.99L19.53 19H4.47L12 5.99M2.74 18c-.77 1.33.19 3 1.73 3h15.06c1.54 0 2.5-1.67 1.73-3L13.73 4.99c-.77-1.33-2.69-1.33-3.46 0L2.74 18zM11 11v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zm0 5h2v2h-2z"/>
-                            </svg>
-                            Supprimer
-                        </button>
-                    @else
-                        <button wire:click='delete' class="bg-white text-red-600 rounded-md mb-12 flex justify-center gap-2 items-center">
-                            <svg width="32" height="32" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M12 5.99L19.53 19H4.47L12 5.99M2.74 18c-.77 1.33.19 3 1.73 3h15.06c1.54 0 2.5-1.67 1.73-3L13.73 4.99c-.77-1.33-2.69-1.33-3.46 0L2.74 18zM11 11v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zm0 5h2v2h-2z"/>
-                            </svg>
-                            Confirmer votre choix
-                        </button>
-                    @endif
+                @if($this->confirm_delete == false)
+                <button wire:click='confirmDelete' class="bg-white text-red-600 rounded-md mb-12 flex justify-center gap-2 items-center">
+                    <svg width="32" height="32" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M12 5.99L19.53 19H4.47L12 5.99M2.74 18c-.77 1.33.19 3 1.73 3h15.06c1.54 0 2.5-1.67 1.73-3L13.73 4.99c-.77-1.33-2.69-1.33-3.46 0L2.74 18zM11 11v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zm0 5h2v2h-2z" />
+                    </svg>
+                    Supprimer
+                </button>
+                @else
+                <button wire:click='delete' class="bg-white text-red-600 rounded-md mb-12 flex justify-center gap-2 items-center">
+                    <svg width="32" height="32" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M12 5.99L19.53 19H4.47L12 5.99M2.74 18c-.77 1.33.19 3 1.73 3h15.06c1.54 0 2.5-1.67 1.73-3L13.73 4.99c-.77-1.33-2.69-1.33-3.46 0L2.74 18zM11 11v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zm0 5h2v2h-2z" />
+                    </svg>
+                    Confirmer votre choix
+                </button>
+                @endif
                 @else
                 <button wire:click='resetInputFields' class="bg-white text-red-600 rounded-md mb-12">Tout effacer</button>
                 @endif

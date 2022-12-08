@@ -1,4 +1,4 @@
-<div class="max-h-screen md:max-w-7xl md:mx-auto flex flex-col gap-4">
+<div class="md:max-w-7xl md:mx-auto flex flex-col gap-4 px-2 pb-12">
 
     <div class="flex flex-col mx-auto max-w-5xl pt-10 px-4 sm:px-8 gap-4">
         <div class="flex justify-center">
@@ -14,11 +14,12 @@
         </div>
     </div>
 
-    <div class="rounded-3xl bg-white md:border-king md:border-2">
+    <div class="rounded-3xl bg-white border-3 border-king/80 shadow">
         <div class="flex flex-col gap-4 py-6 mx-auto max-w-3xl px-4 sm:px-8">
             <div class="flex flex-col justify-center">
-                <label for="urssaf_setting_id" class="text-king text-lg font-semibold indent-4">Pourcentage Urssaf <span class="text-xs text-king/50">par défaut</span></label>
-                <select name="urssaf_setting_id" id="urssaf_setting_id" wire:model.debounce.500ms='urssaf_setting_id' class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
+                {{-- <label for="urssaf_setting_id" class="text-king text-lg font-semibold indent-4">Pourcentage Urssaf <span class="text-xs text-king/50">par défaut</span></label> --}}
+                <x-jet-label for="urssaf_setting_id" value="Pourcentage Urssaf" plus="par défaut" />
+                <select name="urssaf_setting_id" id="urssaf_setting_id" wire:model.debounce.500ms='urssaf_setting_id' class="inline-block w-full p-4 leading-6 text-lg font-extrabold placeholder-king bg-white shadow border-2 border-king rounded">
                     <option value="">--SVP Choissisez une option--</option>
                     @foreach($this->urssaf_settings as $urssaf_setting)
                     <option value="{{ $urssaf_setting->id }}">{{ $urssaf_setting->percentage }}% - {{ $urssaf_setting->description }}</option>
@@ -27,26 +28,34 @@
                 @error('urssaf_setting_id') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
             </div>
             <div class="flex flex-col justify-center">
-                <label for="salary" class="text-king text-lg font-semibold indent-4">Salaire <span class="text-xs text-king/50">en euro</span></label>
-                <input type="number" min='0' id="salary" wire:model.debounce.500ms='salary' value="{{ ('salary') }}" class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
+                {{-- <label for="salary" class="text-king text-lg font-semibold indent-4">Salaire <span class="text-xs text-king/50">en euro</span></label> --}}
+                {{-- <input type="number" min='0' id="salary" wire:model.debounce.500ms='salary' value="{{ ('salary') }}" class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent"> --}}
+                <x-jet-label for="salary" value="Salaire" plus="en euro" />
+                <x-jet-input type="number" min='0' id="salary" wire:model.debounce.500ms='salary' value="{{ ('salary') }}" />
                 @error('salary') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
             </div>
             <div class="flex flex-col justify-center">
-                <label for="date_start" class="text-king text-lg font-semibold indent-4">Date de début d'activité</label>
-                <input type="date" id="date_start" wire:model.debounce.500ms='date_start' value="{{ ('date_start') }}" class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
+                {{-- <label for="date_start" class="text-king text-lg font-semibold indent-4">Date de début d'activité</label> --}}
+                {{-- <input type="date" id="date_start" wire:model.debounce.500ms='date_start' value="{{ ('date_start') }}" class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent"> --}}
+                <x-jet-label for="date_start" value="Date de début d'activité" plus="" />
+                <x-jet-input type="date" id="date_start" wire:model.debounce.500ms='date_start' value="{{ ('date_start') }}" />
                 @error('date_start') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
             </div>
             {{-- Si new user, on affiche la possibilité de mofifier Epargne de base --}}
             @if($this->count_savings === 1)
                 <div class="flex flex-col justify-center">
-                    <label for="saving" class="text-king text-lg font-semibold indent-4">Epargne de base</label>
-                    <input type="number" id="saving" wire:model.debounce.500ms='count' value="{{ ('count') }}" class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent">
+                    {{-- <label for="saving" class="text-king text-lg font-semibold indent-4">Epargne de base</label> --}}
+                    {{-- <input type="number" id="saving" wire:model.debounce.500ms='count' value="{{ ('count') }}" class="text-center rounded-3xl border-king border-2 h-11 bg-white text-king focus:ring focus:ring-honey focus:border-transparent"> --}}
+                    <x-jet-label for="saving" value="Epargne de base" plus="" />
+                    <x-jet-input type="number" id="saving" wire:model.debounce.500ms='count' value="{{ ('count') }}" />
                     @error('count') <span class="text-sm text-red-600">{{ $message }}</span>@enderror
                 </div>
             @else
                 <div class="flex flex-col justify-center">
-                    <label for="saving" class="text-king text-lg font-semibold indent-4">Epargne de base</label>
-                    <input type="texte" disabled id="saving" wire:model.debounce.500ms='count' value="{{ ('count') }}" class="text-center rounded-3xl border-gray-600 border-2 h-11 bg-gray-200 text-king focus:ring focus:ring-honey focus:border-transparent">
+                    {{-- <label for="saving" class="text-king text-lg font-semibold indent-4">Epargne de base</label> --}}
+                    {{-- <input type="texte" disabled id="saving" wire:model.debounce.500ms='count' value="{{ ('count') }}" class="text-center rounded-3xl border-gray-600 border-2 h-11 bg-gray-200 text-king focus:ring focus:ring-honey focus:border-transparent"> --}}
+                    <x-jet-label for="saving" value="Epargne de base" plus="" />
+                    <x-jet-input type="texte" disabled id="saving" wire:model.debounce.500ms='count' value="{{ ('count') }}" />
                     <span class="text-sm text-red-600">L'épargne de base est modifiable que le premier mois</span>
                 </div>
             @endif
@@ -64,7 +73,7 @@
         </div>
     </div>
 
-    <div class="rounded-t-3xl md:rounded-b-3xl bg-white px-4 pt-2 pb-24 md:border-king md:border-2">
+    <div class="rounded-3xl bg-white px-4 py-2 border-3 border-king/80 shadow">
         <livewire:app.tags>
     </div>
 
