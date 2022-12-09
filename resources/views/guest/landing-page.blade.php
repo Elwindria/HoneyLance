@@ -308,6 +308,7 @@
                         <div class="w-full lg:w-auto mb-12 lg:mb-0">
                             <p class="text-center text-lg font-extrabold">© 2022 Nigodo. All rights reserved.</p>
                         </div>
+                        <div id="wcb" class="carbonbadge"></div>
                         <div class="w-full lg:w-auto flex items-center justify-center">
                             <a class="inline-block text-king hover:text-king/80 mr-8" href="#">
                                 <svg width="17" height="30" viewbox="0 0 17 30" fill="none" xmlns="http://www.w3.org/2000/svg">

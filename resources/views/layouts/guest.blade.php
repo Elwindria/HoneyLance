@@ -36,6 +36,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
     @toastScripts
+    <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
 </head>
 <body class="antialiased bg-body text-king font-body">
 
